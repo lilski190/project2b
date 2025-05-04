@@ -1,0 +1,38 @@
+{
+  "home": {
+    "title": "Das ist die landing Page",
+    "description": "Hier ist eine kurze Projekt Beschreibung"
+  },
+  "login": {
+    "title": "Das ist der Deutsche Login Titel",
+    "description": "Das ist die Deutsche Login Beschreibung",
+    "login": "Einloggen"
+  },
+  "dashboard": {
+    "title": "Das ist der Deutsche Dashboard Titel",
+    "description": "Das ist die Deutsche Dashboard Beschreibung",
+    "welcome": "Willkommen auf der Dashboard-Seite"
+  },
+  "trapper": {
+    "title": "Das ist das Login für die Admin seite"
+  },
+  "TrapperList": {
+    "title": "Hier ist dann die Liste der Daten"
+  },
+  "about": {
+    "title": "Hier ist die About the Project Seite",
+    "description": "Da können ganz viele Informationen zu dem Projekt stehen"
+  },
+  "pro": {
+    "title": "Pro Argumente",
+    "description": "Hier kommen die Pro Argumente hin"
+  },
+  "contra": {
+    "title": "Contra Argumente",
+    "description": "Hier kommen die Contra Argumente hin"
+  },
+  "list": {
+    "title": "Hier ist eine Liste aller Argemente",
+    "description": "Die Liste die hier reinkommt sind alle Argumente für die Wissenschaftliche Transperentz, aber nicht alle Infos zu den Datensätzen wie auf der Admin seite"
+  }
+}

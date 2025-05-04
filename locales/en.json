@@ -1,0 +1,38 @@
+{
+  "home": {
+    "title": "This is the landing page",
+    "description": "Here is a short project description"
+  },
+  "login": {
+    "title": "This is the German login title",
+    "description": "This is the German login description",
+    "login": "Login"
+  },
+  "dashboard": {
+    "title": "This is the German dashboard title",
+    "description": "This is the German dashboard description",
+    "welcome": "Welcome to the dashboard page"
+  },
+  "trapper": {
+    "title": "This is the login for the admin page"
+  },
+  "TrapperList": {
+    "title": "Here is the list of data"
+  },
+  "about": {
+    "title": "Here is the about the project page",
+    "description": "This section can contain a lot of information about the project"
+  },
+  "pro": {
+    "title": "Pro arguments",
+    "description": "This is where the pro arguments go"
+  },
+  "contra": {
+    "title": "Contra arguments",
+    "description": "This is where the contra arguments go"
+  },
+  "list": {
+    "title": "Here is a list of all arguments",
+    "description": "The list included here contains all arguments for scientific transparency, but not all data set details like on the admin page"
+  }
+}
