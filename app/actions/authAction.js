@@ -4,6 +4,15 @@ import { supabase } from "@/lib/supabaseClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+/**
+ * Login-Action für die Authentifizierung eines Benutzers.
+ * Diese Funktion wird aufgerufen, wenn ein Benutzer sich anmelden möchte.
+ * Sie verwendet Supabase, um die Anmeldedaten zu überprüfen und ein Authentifizierungstoken zu generieren.
+ * Bei erfolgreicher Anmeldung wird ein Cookie mit dem Authentifizierungstoken gesetzt und der Benutzer wird zur Dashboard-Seite weitergeleitet.
+ * Bei einem Fehler wird eine Fehlermeldung zurückgegeben.
+ * Die funktion kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
+ * @param {object} formData - Das FormData-Objekt mit den Eingabewerten, beinhaltet email und password.
+ */
 export async function loginAction(formData) {
   const email = formData.get("email");
   const password = formData.get("password");
@@ -45,7 +54,7 @@ export async function loginAction(formData) {
 
   console.log("Cookie set:", cookieStore.get(`sb-${projectRef}-auth-token`));
   console.log("Session data:", data.session);
-  redirect("/trapper/list");
+  redirect("/dashboard");
 }
 
 export async function logoutAction() {

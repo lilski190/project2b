@@ -1,6 +1,14 @@
 import { getDictionary } from "@/lib/getDictionary";
-import DefaultButton from "@/app/components/buttons/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 
+/**
+ * Collection Seite der Anwendung.
+ * Diese Seite ist eine Public Seite die nur für die Entwicklung gedacht ist.
+ * Diese Seite ist nicht für den produktiven Einsatz gedacht.
+ * Sie dieht eine Sammlung von verschiedenen UI-Elementen und deren Darstellung.
+ * Die Sprache wird über den URL-Parameter "lang" bestimmt.
+ * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ */
 export default async function CollectionPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";

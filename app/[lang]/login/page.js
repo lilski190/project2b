@@ -1,6 +1,16 @@
 import { getDictionary } from "@/lib/getDictionary";
 import LoginForm from "@/app/components/login/loginForm";
 
+/**
+ * Login Seite der Anwendung.
+ * Diese Seite ist eine Public Seite die nur für nicht angemeldete Benutzer sichtbar ist.
+ * Nach dem Login wird der Benutzer auf die Dashboard Seite weitergeleitet.
+ * Sie ist nicht durch die Middleware geschützt.
+ * Im Login Formular wird die Funktion loginAction aufgerufen.
+ * Diese Funktion ist in der Datei app/actions/userActions.js definiert.
+ * Die Sprache wird über den URL-Parameter "lang" bestimmt.
+ * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ */
 export default async function LoginPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";

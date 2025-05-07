@@ -2,6 +2,12 @@
 
 import { useEffect } from "react";
 
+/**
+ * Error-Komponente für die Fehlerbehandlung in der Anwendung.
+ * Diese Komponente wird angezeigt, wenn ein unerwarteter Fehler auftritt.
+ * Sie zeigt eine Fehlermeldung an und bietet die Möglichkeit, die Seite neu zu laden.
+ * Die Komponente kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
+ */
 export default function Error({ error, reset }) {
   useEffect(() => {
     console.error("Ein unerwarteter Fehler ist aufgetreten:", error);

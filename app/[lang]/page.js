@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { getDictionary } from "@/lib/getDictionary";
 
+/**
+ * Startseite der Anwendung.
+ * Diese Seite wird angezeigt, wenn der Benutzer die Anwendung ohne spezifische Route aufruft.
+ * Sie kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
+ */
 export default async function Home({ params }) {
   const param = await params;
   const lang = param.lang || "de";
@@ -14,12 +19,6 @@ export default async function Home({ params }) {
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">{dict.home.title}</h1>
             <p className="mb-5">{dict.home.description}</p>
-            <Link href={`/${lang}/pro`}>
-              <button className="btn btn-primary">Pro Argumente</button>
-            </Link>
-            <Link href={`/${lang}/contra`} className="ml-2">
-              <button className="btn btn-primary">Contra Argumente</button>
-            </Link>
           </div>
         </div>
       </div>

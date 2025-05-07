@@ -1,0 +1,12 @@
+{
+  "source": {
+    "include": ["./app", "./components", "./app/actions"],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(^|\\/|\\\\)_.*"
+  },
+  "opts": {
+    "destination": "./docs",
+    "recurse": true
+  },
+  "plugins": []
+}

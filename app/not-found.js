@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+/**
+ * 404-Seite für nicht gefundene Routen in einer Next.js-Anwendung.
+ * Diese Seite wird angezeigt, wenn der Benutzer eine Route aufruft, die nicht existiert.
+ * Sie enthält eine einfache Nachricht und einen Link zur Startseite.
+ * Die Komponente kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
+ */
 export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">

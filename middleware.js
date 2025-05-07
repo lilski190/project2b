@@ -3,6 +3,17 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
 const SUPPORTED_LANGUAGES = ["de", "en"];
 
+/**
+ * Middleware für die Anwendung
+ * Diese Middleware überprüft die Sprache in der URL und leitet den Benutzer entsprechend weiter.
+ * Sie schützt auch private Routen und leitet den Benutzer zu den Anmeldeseiten weiter, wenn er nicht angemeldet ist.
+ * Supabase wird verwendet, um den Authentifizierungsstatus des Benutzers zu überprüfen.
+ * Es gibt drei Arten von Routen:
+ * - Public Routes: Diese Routen sind für alle Benutzer sichtbar und erfordern keine Anmeldung.
+ * - Protected Routes: Diese Routen sind nur für angemeldete Benutzer sichtbar.
+ *  - Auth Routes: Diese Routen sind für nicht angemeldete Benutzer sichtbar und leiten sie zur Anmeldung weiter.
+ * @param {Request} req - Der eingehende Request
+ */
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
   const pathSegments = pathname.split("/").filter(Boolean); // z.B. ['de', 'login']
@@ -23,13 +34,8 @@ export async function middleware(req) {
 
   const strippedPath = `/${pathSegments.slice(1).join("/")}`;
 
-  const publicRoutes = ["/", "/about", "/impressum", "/pro", "/con", "/list"];
-  const protectedRoutes = [
-    "/dashboard",
-    "/profile",
-    "/trapper",
-    "/trapper/list",
-  ];
+  const publicRoutes = ["/", "/about", "/impressum", "/collection"];
+  const protectedRoutes = ["/dashboard", "/profile"];
   const authRoutes = ["/login", "/register"];
 
   if (publicRoutes.includes(strippedPath)) return res;
