@@ -16,8 +16,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params }) {
-  const lang = params?.lang || "de";
-  await getDictionary(lang); // Nur notwendig, wenn dict gebraucht wird
+  const param = await params;
+  const lang = param.lang || "de";
 
   return (
     <html className="main text-base-content" lang="en">

@@ -1,5 +1,5 @@
 import { getDictionary } from "@/lib/getDictionary";
-import LoginForm from "@/app/components/login/loginForm";
+import LoginForm from "@/components/login/loginForm";
 
 /**
  * Login Seite der Anwendung.
