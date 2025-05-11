@@ -56,10 +56,43 @@ export default function HeaderWithSidebar({ lang }) {
             <Link href={`/${lang}/`}>Homepage</Link>
           </li>
           <li>
-            <Link href={`/${lang}/about`}>Projektbeschreibung</Link>
+            <Link href={`/${lang}/login`}>Login</Link>
           </li>
           <li>
-            <Link href={`/${lang}/collection`}>Componenten Collection</Link>
+            <Link href={`/${lang}/dashboard`}>Dashboard</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/about`}>About</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/collection`}>Collection</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/exmaples`}>Beispiele</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/tutorial`}>Tutorial</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/join`}>Verein anmelden</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/styleguide`}>Vereinsstyle</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/templates`}>Styleing Tempaltes</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/content`}>Contentliste</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/create`}>Content erstellen</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/management`}>Vereinsmanagement</Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/impressum`}>Impressum</Link>
           </li>
         </ul>
       </div>

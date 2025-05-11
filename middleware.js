@@ -19,7 +19,7 @@ export async function middleware(req) {
   const pathSegments = pathname.split("/").filter(Boolean); // z.B. ['de', 'login']
   const langInPath = pathSegments[0];
 
-  // ⛔️ Wenn Sprache in der URL fehlt oder ungültig → redirect mit Default (de)
+  // Wenn Sprache in der URL fehlt oder ungültig → redirect mit Default (de)
   if (!SUPPORTED_LANGUAGES.includes(langInPath)) {
     const newUrl = new URL(`/de${pathname}`, req.url);
     return NextResponse.redirect(newUrl);
@@ -34,9 +34,24 @@ export async function middleware(req) {
 
   const strippedPath = `/${pathSegments.slice(1).join("/")}`;
 
-  const publicRoutes = ["/", "/about", "/impressum", "/collection"];
-  const protectedRoutes = ["/dashboard", "/profile"];
-  const authRoutes = ["/login", "/register"];
+  const publicRoutes = [
+    "/",
+    "/about",
+    "/examples",
+    "/tutorial",
+    "/join",
+    "/impressum",
+    "/collection",
+  ];
+  const protectedRoutes = [
+    "/dashboard",
+    "/styleguide",
+    "/templates",
+    "/content",
+    "/create",
+    "/management",
+  ];
+  const authRoutes = ["/login"];
 
   if (publicRoutes.includes(strippedPath)) return res;
 

@@ -13,26 +13,57 @@
     "description": "This is the German dashboard description",
     "welcome": "Welcome to the dashboard page"
   },
-  "trapper": {
-    "title": "This is the login for the admin page"
-  },
-  "TrapperList": {
-    "title": "Here is the list of data"
-  },
   "about": {
     "title": "Here is the about the project page",
     "description": "This section can contain a lot of information about the project"
   },
-  "pro": {
-    "title": "Pro arguments",
-    "description": "This is where the pro arguments go"
+  "examples": {
+    "title": "Here is the examples page",
+    "description": "Here are examples for the project"
   },
-  "contra": {
-    "title": "Contra arguments",
-    "description": "This is where the contra arguments go"
+  "tutorial": {
+    "title": "Here is the tutorial page",
+    "description": "Here are tutorials for the project"
   },
-  "list": {
-    "title": "Here is a list of all arguments",
-    "description": "The list included here contains all arguments for scientific transparency, but not all data set details like on the admin page"
+  "join": {
+    "title": "Here is the join the project page",
+    "description": "Here is information about how to join"
+  },
+  "styleguide": {
+    "title": "Here is the styleguide page",
+    "description": "Here are the design guidelines"
+  },
+  "templates": {
+    "title": "Here is the templates page",
+    "description": "Here are templates for the project"
+  },
+  "content": {
+    "title": "Here is the content page",
+    "description": "Here is the content for the project"
+  },
+  "create": {
+    "title": "Here is the create page",
+    "description": "Here you can create content"
+  },
+  "management": {
+    "title": "Here is the management page",
+    "description": "Here you can manage content"
+  },
+  "impressum": {
+    "title": "Here is the impressum page",
+    "description": "Here are legal information"
+  },
+  "notFound": {
+    "title": "404 - Page not found",
+    "description": "The requested page does not exist."
+  },
+  "error": {
+    "title": "An error occurred",
+    "description": "Please try again later."
+  },
+  "footer": {
+    "contactUs": "Contact us",
+    "privacyPolicy": "Datenschutz-Bestimmungen",
+    "termsOfService": "Nutzungsbedingungen"
   }
 }

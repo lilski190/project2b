@@ -13,26 +13,57 @@
     "description": "Das ist die Deutsche Dashboard Beschreibung",
     "welcome": "Willkommen auf der Dashboard-Seite"
   },
-  "trapper": {
-    "title": "Das ist das Login für die Admin seite"
-  },
-  "TrapperList": {
-    "title": "Hier ist dann die Liste der Daten"
-  },
   "about": {
     "title": "Hier ist die About the Project Seite",
     "description": "Da können ganz viele Informationen zu dem Projekt stehen"
   },
-  "pro": {
-    "title": "Pro Argumente",
-    "description": "Hier kommen die Pro Argumente hin"
+  "examples": {
+    "title": "Hier ist die Examples Seite",
+    "description": "Hier sind Beispiele für das Projekt"
   },
-  "contra": {
-    "title": "Contra Argumente",
-    "description": "Hier kommen die Contra Argumente hin"
+  "tutorial": {
+    "title": "Hier ist die Tutorial Seite",
+    "description": "Hier sind Tutorials für das Projekt"
   },
-  "list": {
-    "title": "Hier ist eine Liste aller Argemente",
-    "description": "Die Liste die hier reinkommt sind alle Argumente für die Wissenschaftliche Transperentz, aber nicht alle Infos zu den Datensätzen wie auf der Admin seite"
+  "join": {
+    "title": "Hier ist die Join the Project Seite",
+    "description": "Hier sind Informationen zum Mitmachen"
+  },
+  "styleguide": {
+    "title": "Hier ist die Styleguide Seite",
+    "description": "Hier sind Informationen zu den Design-Richtlinien"
+  },
+  "templates": {
+    "title": "Hier ist die Templates Seite",
+    "description": "Hier sind Vorlagen für das Projekt"
+  },
+  "content": {
+    "title": "Hier ist die Content Seite",
+    "description": "Hier sind Inhalte für das Projekt"
+  },
+  "create": {
+    "title": "Hier ist die Create Seite",
+    "description": "Hier können Sie Inhalte erstellen"
+  },
+  "management": {
+    "title": "Hier ist die Management Seite",
+    "description": "Hier können Sie Inhalte verwalten"
+  },
+  "impressum": {
+    "title": "Hier ist die Impressum Seite",
+    "description": "Hier sind rechtliche Informationen"
+  },
+  "notFound": {
+    "title": "404 - Seite nicht gefunden",
+    "description": "Die angeforderte Seite existiert nicht."
+  },
+  "error": {
+    "title": "Ein Fehler ist aufgetreten",
+    "description": "Bitte versuchen Sie es später erneut."
+  },
+  "footer": {
+    "contactUs": "Kontaktieren Sie uns",
+    "privacyPolicy": "Datenschutz-Bestimmungen",
+    "termsOfService": "Nutzungsbedingungen"
   }
 }
