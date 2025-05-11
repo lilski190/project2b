@@ -1,0 +1,34 @@
+{
+  "types": [
+    {
+      "name": "Image with Text",
+      "description": "A section with an image and text.",
+      "type": "image_text",
+      "preview": "/examples/bunker_01.jpg"
+    },
+    {
+      "name": "Graphic with Image and Text",
+      "description": "A section with an image and text.",
+      "type": "graphic_image_text",
+      "preview": "/examples/bunker_02.jpg"
+    },
+    {
+      "name": "Bilder Gallerie",
+      "description": "A section with an image and text.",
+      "type": "image_gallery",
+      "preview": "/examples/Kranich1B.jpg"
+    },
+    {
+      "name": "Headline with Text",
+      "description": "A section with an image and text.",
+      "type": "text_headline",
+      "preview": "/examples/Kranich2C.jpg"
+    },
+    {
+      "name": "Graphic with Image",
+      "description": "A section with an image and text.",
+      "type": "graphic_image",
+      "preview": "/examples/Kranich2A.jpg"
+    }
+  ]
+}
