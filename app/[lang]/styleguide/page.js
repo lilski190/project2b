@@ -1,7 +1,8 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
-
+import { getStyleguideAction } from "@/app/actions/styleguideAction";
+import StyleguideForm from "./StyleguideForm";
 /**
  * Styleguide Seite der Anwendung.
  * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
@@ -17,6 +18,7 @@ export default async function StyleguidePage({ params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const styleguideData = await getStyleguideAction();
 
   if (!user) {
     redirect("/login");
@@ -24,8 +26,7 @@ export default async function StyleguidePage({ params }) {
 
   return (
     <div>
-      <h1 className="mb-5 text-5xl font-bold">{dict.styleguide.title}</h1>
-      <p>{dict.styleguide.description}</p>
+      <StyleguideForm dict={dict} data={styleguideData} />
     </div>
   );
 }

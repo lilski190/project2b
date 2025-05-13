@@ -1,5 +1,6 @@
 import { getDictionary } from "@/lib/getDictionary";
 import DefaultButton from "@/components/buttons/defaultButton";
+import InformationTooltip from "@/components/tooltips/InformationTooltip";
 
 /**
  * Collection Seite der Anwendung.
@@ -17,7 +18,7 @@ export default async function CollectionPage({ params }) {
   let themes = ["main", "dark", "high-contrast"];
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-4">
+    <div className="grid grid-cols-3 gap-3 p-4">
       {themes.map((theme, index) => (
         <div key={theme + "_" + index} className={theme}>
           Color Theme: {theme}
@@ -37,6 +38,14 @@ export default async function CollectionPage({ params }) {
           </div>
           <div className="mx-0.5 my-2">
             <DefaultButton text="Neutral" colorClass="btn-neutral" />
+          </div>
+        </div>
+      ))}
+      {themes.map((theme, index) => (
+        <div className={`flex ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <div className="flex justify-between w-full">
+            <div className="lableText">Headline</div>
+            <InformationTooltip text="some default text for the tooltip" />
           </div>
         </div>
       ))}

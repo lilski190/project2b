@@ -1,6 +1,7 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
+import StyleguideLoader from "@/components/wrapper/StyleguideLoader";
 
 /**
  * Dashboard Seite der Anwendung.
@@ -21,8 +22,12 @@ export default async function DashboardPage({ params }) {
     redirect("/login");
   }
 
+  //TODO: LOAD Styleguide Data
+  //THEN Load in Styleguide date in Local Storage
+
   return (
     <div>
+      <StyleguideLoader />
       <h1 className="mb-5 text-5xl font-bold">{dict.dashboard.title}</h1>
       <h1>
         {dict.dashboard.welcome} : {user.email}

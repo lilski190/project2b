@@ -78,3 +78,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.headline {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-textPrimary);
+}
+.lableText {
+  font-size: 1.25rem;
+  color: var(--color-textPrimary);
+}
+.baseText {
+  font-size: 1rem;
+  color: var(--color-textSecondary);
+}

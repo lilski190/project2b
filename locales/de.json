@@ -30,8 +30,24 @@
     "description": "Hier sind Informationen zum Mitmachen"
   },
   "styleguide": {
-    "title": "Hier ist die Styleguide Seite",
-    "description": "Hier sind Informationen zu den Design-Richtlinien"
+    "title": "Styleguide",
+    "description": "Hier sind Informationen zu den Design-Richtlinien",
+    "headlines": {
+      "colors": "Farben",
+      "backgrounds": "Hintergründe",
+      "grafics": "Grafiken",
+      "logo": "Logo",
+      "fonts": "Schriftarten",
+      "slogan": "Slogan"
+    },
+    "infotext": {
+      "colors": "Hier sind die Farben, die im Projekt verwendet werden",
+      "backgrounds": "Hier sind die Hintergründe, die im Projekt verwendet werden",
+      "grafics": "Hier sind die Grafiken, die im Projekt verwendet werden",
+      "logo": "Hier ist das Logo, das im Projekt verwendet wird",
+      "fonts": "Hier sind die Schriftarten, die im Projekt verwendet werden",
+      "slogan": "Hier ist der Slogan, der im Projekt verwendet wird"
+    }
   },
   "templates": {
     "title": "Hier ist die Templates Seite",
