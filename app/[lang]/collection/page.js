@@ -1,7 +1,9 @@
 import { getDictionary } from "@/lib/getDictionary";
 import DefaultButton from "@/components/buttons/defaultButton";
 import InformationTooltip from "@/components/tooltips/InformationTooltip";
-
+import Colors from "@/components/styleguideForms/Colors";
+import FileUpload from "@/components/input/fileUpload";
+import TextureUpload from "@/components/input/TextureUpload";
 /**
  * Collection Seite der Anwendung.
  * Diese Seite ist eine Public Seite die nur für die Entwicklung gedacht ist.
@@ -22,6 +24,13 @@ export default async function CollectionPage({ params }) {
       {themes.map((theme, index) => (
         <div key={theme + "_" + index} className={theme}>
           Color Theme: {theme}
+        </div>
+      ))}
+      <h2 className="font-bold col-span-3">Upload File</h2>
+      {themes.map((theme, index) => (
+        <div className={` ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <TextureUpload />
+          <FileUpload />
         </div>
       ))}
       <h2 className="font-bold col-span-3">Buttons</h2>

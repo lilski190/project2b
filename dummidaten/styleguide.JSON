@@ -24,14 +24,10 @@
   },
   "fonts": {
     "heading": {
-      "font_family": "Arial, sans-serif",
-      "font_size": "24px",
-      "font_weight": "bold"
+      "font_family": "Pacifico"
     },
     "body": {
-      "font_family": "Verdana, sans-serif",
-      "font_size": "16px",
-      "font_weight": "normal"
+      "font_family": "Bangers"
     },
     "slogan": "this is a great slogan for the Verein",
     "grafics": {

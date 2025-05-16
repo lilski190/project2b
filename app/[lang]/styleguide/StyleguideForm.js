@@ -3,10 +3,18 @@
 import { Toaster } from "react-hot-toast";
 import { saveStyleguideAction } from "@/app/actions/styleguideAction";
 import InformationTooltip from "@/components/tooltips/InformationTooltip";
+import Colors from "@/components/styleguideForms/Colors";
+import Backgrounds from "@/components/styleguideForms/Backgrounds";
+import FontSelectors from "@/components/styleguideForms/FontSelectors";
+import Logos from "@/components/styleguideForms/Logos";
+import Slogan from "@/components/styleguideForms/Slogan";
+import Grafics from "@/components/styleguideForms/Grafics";
 /**
  * Styleguide FORM Komponent
  */
-export default function StyleguideForm({ dict }) {
+export default function StyleguideForm({ dict, data }) {
+  let parsedData = JSON.parse(data);
+  console.log("data", parsedData);
   return (
     <form action={saveStyleguideAction}>
       <Toaster position="top-center" />
@@ -19,7 +27,10 @@ export default function StyleguideForm({ dict }) {
             <div className="lableText">{dict.styleguide.headlines.colors}</div>
             <InformationTooltip text={dict.styleguide.infotext.colors} />
           </div>
-          <div>COLOR COMPONENT</div>
+          <Colors
+            colors={parsedData.colors}
+            dict={dict.styleguide.colorDescription}
+          />
 
           <div className="flex justify-between w-full">
             <div className="lableText">
@@ -27,32 +38,32 @@ export default function StyleguideForm({ dict }) {
             </div>
             <InformationTooltip text={dict.styleguide.infotext.backgrounds} />
           </div>
-          <div>Hintergründe COMPONENT</div>
+          <Backgrounds dict={dict.styleguide.colorDescription} />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.grafics}</div>
             <InformationTooltip text={dict.styleguide.infotext.grafics} />
           </div>
-          <div>GraficElemente COMPONENT</div>
+          <Grafics />
         </div>
         <div className="col-span-1 bg-base-300">
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.logo}</div>
             <InformationTooltip text={dict.styleguide.infotext.logo} />
           </div>
-          <div>logo COMPONENT</div>
+          <Logos dict={dict.styleguide.colorDescription} />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.fonts}</div>
             <InformationTooltip text={dict.styleguide.infotext.fonts} />
           </div>
-          <div>fonts COMPONENT</div>
+          <FontSelectors />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.slogan}</div>
             <InformationTooltip text={dict.styleguide.infotext.slogan} />
           </div>
-          <div>slogan COMPONENT</div>
+          <Slogan />
         </div>
       </div>
     </form>

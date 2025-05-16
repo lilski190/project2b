@@ -1,6 +1,8 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
+import BasicTable from "@/components/tables/BasicTable";
+import Content from "@/dummidaten/content.JSON";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -18,6 +20,27 @@ export default async function ContentPage({ params }) {
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
 
+  let headlines = ["id", "Titel", "Date", "Tags"];
+  let contentArray = [
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+    Content,
+  ];
   if (!user) {
     redirect("/login");
   }
@@ -26,6 +49,9 @@ export default async function ContentPage({ params }) {
     <div>
       <h1 className="mb-5 text-5xl font-bold">{dict.content.title}</h1>
       <p>{dict.content.description}</p>
+      <div className=" ">
+        <BasicTable headlines={headlines} content={contentArray} />
+      </div>
     </div>
   );
 }

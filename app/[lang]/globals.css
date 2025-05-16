@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Inter&family=Raleway&family=Orbitron&family=Lora&family=Merriweather&family=Playfair+Display&family=Alegreya&family=Pacifico&family=Caveat&family=Lobster&family=Monoton&family=Fredericka+the+Great&family=Bangers&family=Source+Code+Pro&family=Fira+Code&family=UnifrakturCook&family=Dancing+Script&family=Quicksand&family=Shadows+Into+Light&display=swap");
 
 :root {
   --color-primary: #1e40af;
@@ -88,7 +89,73 @@ body {
   font-size: 1.25rem;
   color: var(--color-textPrimary);
 }
+.lableTextSmall {
+  font-size: 0.7rem;
+  color: var(--color-textPrimary);
+}
 .baseText {
   font-size: 1rem;
   color: var(--color-textSecondary);
+}
+
+/* TYPOGRAPHIE */
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+.font-raleway {
+  font-family: "Raleway", sans-serif;
+}
+.font-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+.font-lora {
+  font-family: "Lora", serif;
+}
+.font-merriweather {
+  font-family: "Merriweather", serif;
+}
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+.font-alegreya {
+  font-family: "Alegreya", serif;
+}
+.font-pacifico {
+  font-family: "Pacifico", cursive;
+}
+.font-caveat {
+  font-family: "Caveat", cursive;
+}
+.font-lobster {
+  font-family: "Lobster", cursive;
+}
+.font-monoton {
+  font-family: "Monoton", cursive;
+}
+.font-fredericka {
+  font-family: "Fredericka the Great", cursive;
+}
+.font-bangers {
+  font-family: "Bangers", cursive;
+}
+.font-sourcecode {
+  font-family: "Source Code Pro", monospace;
+}
+.font-firacode {
+  font-family: "Fira Code", monospace;
+}
+.font-unifraktur {
+  font-family: "UnifrakturCook", cursive;
+}
+.font-dancing {
+  font-family: "Dancing Script", cursive;
+}
+.font-quicksand {
+  font-family: "Quicksand", sans-serif;
+}
+.font-shadows {
+  font-family: "Shadows Into Light", cursive;
 }

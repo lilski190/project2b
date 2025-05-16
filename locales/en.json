@@ -40,6 +40,12 @@
       "fonts": "Fonts",
       "slogan": "Slogan"
     },
+    "colorDescription": {
+      "main": "Main Colors",
+      "detail": "Detailfarben",
+      "text": "Textfraben",
+      "neutral": "Neutrale Farben"
+    },
     "infotext": {
       "colors": "Here are the colors used in the project",
       "backgrounds": "Here are the backgrounds used in the project",
