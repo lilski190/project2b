@@ -49,6 +49,7 @@ export default async function ContentPage({ params }) {
     <div>
       <h1 className="mb-5 text-5xl font-bold">{dict.content.title}</h1>
       <p>{dict.content.description}</p>
+      TODO: Filter liste nach Kategorien wie z.B Tags oder date
       <div className=" ">
         <BasicTable headlines={headlines} content={contentArray} />
       </div>

@@ -4,6 +4,7 @@ import InformationTooltip from "@/components/tooltips/InformationTooltip";
 import Colors from "@/components/styleguideForms/Colors";
 import FileUpload from "@/components/input/fileUpload";
 import TextureUpload from "@/components/input/TextureUpload";
+import BasicCard from "@/components/cards/BasicCard";
 /**
  * Collection Seite der Anwendung.
  * Diese Seite ist eine Public Seite die nur für die Entwicklung gedacht ist.
@@ -24,6 +25,12 @@ export default async function CollectionPage({ params }) {
       {themes.map((theme, index) => (
         <div key={theme + "_" + index} className={theme}>
           Color Theme: {theme}
+        </div>
+      ))}
+      <h2 className="font-bold col-span-3">Cards</h2>
+      {themes.map((theme, index) => (
+        <div className={` ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <BasicCard />
         </div>
       ))}
       <h2 className="font-bold col-span-3">Upload File</h2>

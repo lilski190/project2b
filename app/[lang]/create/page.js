@@ -1,6 +1,7 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
+import CreateForm from "./CreateForm";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -26,6 +27,9 @@ export default async function CreatePage({ params }) {
     <div>
       <h1 className="mb-5 text-5xl font-bold">{dict.create.title}</h1>
       <p>{dict.create.description}</p>
+      <div className="grid grid-cols-2">
+        <CreateForm />
+      </div>
     </div>
   );
 }

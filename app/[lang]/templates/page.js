@@ -1,6 +1,7 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
+import BasicCard from "@/components/cards/BasicCard";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -18,6 +19,69 @@ export default async function TemplatesPage({ params }) {
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
 
+  let TempaltesArray = [
+    {
+      title: "Bild mit Text 1",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+    {
+      title: "Bild mit Text 2",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+    {
+      title: "Bild mit Text 3",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+    {
+      title: "Bild mit Text 4",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+    {
+      title: "Bild mit Text 5",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+    {
+      title: "Bild mit Text 6",
+      text: "das ist der Beschreibungstext für diesen Component",
+      img: "img/vorschaubild",
+      action: {
+        text: "Neues erstellen",
+        url: "/create",
+        parameter: "?beispiel parameter & Type",
+      },
+    },
+  ];
+
   if (!user) {
     redirect("/login");
   }
@@ -26,6 +90,17 @@ export default async function TemplatesPage({ params }) {
     <div>
       <h1 className="mb-5 text-5xl font-bold">{dict.templates.title}</h1>
       <p>{dict.templates.description}</p>
+      <div className="grid grid-cols-3 gap-4">
+        {TempaltesArray.map((template, index) => (
+          <div key={"template_" + template + "_" + index}>
+            <BasicCard
+              title={template.title}
+              text={template.text}
+              action={template.action}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

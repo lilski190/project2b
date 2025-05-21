@@ -2,7 +2,7 @@ import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import StyleguideLoader from "@/components/wrapper/StyleguideLoader";
-
+import Link from "next/link";
 /**
  * Dashboard Seite der Anwendung.
  * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
@@ -32,6 +32,20 @@ export default async function DashboardPage({ params }) {
       <h1>
         {dict.dashboard.welcome} : {user.email}
       </h1>
+      Zu den Seiten:
+      <div className="grid grid-cols-3 gap-4">
+        <Link href={`/${lang}/styleguide`}>
+          <div className="w-full h-20 bg-base-200">STYLEGUIDE</div>
+        </Link>
+        <Link href={`/${lang}/templates`}>
+          <div className="w-full h-20 bg-base-200">CREATE NEW</div>
+        </Link>
+        <Link href={`/${lang}/content`}>
+          <div className="w-full h-20 bg-base-200">MY CONTENT</div>
+        </Link>
+      </div>
+      TODO: Überlegen was hier noch für inhalte reinkönnten... Was ist wichtig
+      für den Startbildschirm?
     </div>
   );
 }
