@@ -22,6 +22,7 @@ export async function middleware(req) {
   // Wenn Sprache in der URL fehlt oder ungültig → redirect mit Default (de)
   if (!SUPPORTED_LANGUAGES.includes(langInPath)) {
     const newUrl = new URL(`/de${pathname}`, req.url);
+    newUrl.search = req.nextUrl.search;
     return NextResponse.redirect(newUrl);
   }
 
@@ -57,16 +58,18 @@ export async function middleware(req) {
 
   if (protectedRoutes.some((route) => strippedPath.startsWith(route))) {
     if (!user) {
-      return NextResponse.redirect(new URL(`/${langInPath}/login`, req.url));
+      const newUrl = new URL(`/${langInPath}/login`, req.url);
+      newUrl.search = req.nextUrl.search;
+      return NextResponse.redirect(newUrl);
     }
     return res;
   }
 
   if (authRoutes.includes(strippedPath)) {
     if (user) {
-      return NextResponse.redirect(
-        new URL(`/${langInPath}/dashboard`, req.url)
-      );
+      const newUrl = new URL(`/${langInPath}/dashboard`, req.url);
+      newUrl.search = req.nextUrl.search;
+      return NextResponse.redirect(newUrl);
     }
     return res;
   }

@@ -1,4 +1,5 @@
 import { getUserAction } from "@/app/actions/userActions";
+import { getLoginData } from "@/app/actions/authAction";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import StyleguideLoader from "@/components/wrapper/StyleguideLoader";
@@ -22,6 +23,13 @@ export default async function DashboardPage({ params }) {
     redirect("/login");
   }
 
+  //TEST LOAD Login Data
+  const loginData = await getLoginData(
+    "testVerein",
+    "drabinsk@th-brandenburg.de"
+  );
+
+  console.log("TEST Login Data:", loginData);
   //TODO: LOAD Styleguide Data
   //THEN Load in Styleguide date in Local Storage
 

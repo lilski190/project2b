@@ -11,13 +11,14 @@ const TextArea = ({ fieldID, Textvalue }) => {
 
   return (
     <div className="">
-      <textarea
+      <input
+        type="text"
         value={text}
         onChange={handleChange}
         id={fieldID}
-        className="textarea w-full"
+        className="input w-full"
         placeholder="Slogan"
-      ></textarea>
+      ></input>
     </div>
   );
 };

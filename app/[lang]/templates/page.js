@@ -21,13 +21,13 @@ export default async function TemplatesPage({ params }) {
 
   let TempaltesArray = [
     {
-      title: "Bild mit Text 1",
+      title: "TEST Bild mit Text 1",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
     {
@@ -37,7 +37,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
     {
@@ -47,7 +47,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
     {
@@ -57,7 +57,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
     {
@@ -67,7 +67,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
     {
@@ -77,7 +77,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: "?beispiel parameter & Type",
+        parameter: ["template", "test"],
       },
     },
   ];
@@ -90,6 +90,7 @@ export default async function TemplatesPage({ params }) {
     <div>
       <h1 className="mb-5 text-5xl font-bold">{dict.templates.title}</h1>
       <p>{dict.templates.description}</p>
+
       <div className="grid grid-cols-3 gap-4">
         {TempaltesArray.map((template, index) => (
           <div key={"template_" + template + "_" + index}>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const TextArea = ({ fieldID, Textvalue }) => {
+const Checkbox = ({ fieldID, Textvalue }) => {
   const [text, setText] = useState(Textvalue ? Textvalue : "");
 
   const handleChange = (e) => {
@@ -11,15 +11,14 @@ const TextArea = ({ fieldID, Textvalue }) => {
 
   return (
     <div className="">
-      <textarea
-        value={text}
+      <input
         onChange={handleChange}
-        id={fieldID}
-        className="textarea w-full"
-        placeholder="Slogan"
-      ></textarea>
+        type="checkbox"
+        defaultChecked
+        className="checkbox"
+      />
     </div>
   );
 };
 
-export default TextArea;
+export default Checkbox;

@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabaseClient";
+import { createSupabaseServerClient } from "@/lib/supabaseServerClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -15,7 +16,14 @@ import { redirect } from "next/navigation";
  */
 export async function loginAction(formData) {
   const email = formData.get("email");
+
   const password = formData.get("password");
+  const verein = formData.get("verein");
+
+  //TEST
+  getLoginData(verein, email);
+  //END TEST
+  console.log("Login action triggered for Verein:", verein);
 
   console.log("Login action triggered with email:", email);
 
@@ -54,15 +62,67 @@ export async function loginAction(formData) {
 
   console.log("Cookie set:", cookieStore.get(`sb-${projectRef}-auth-token`));
   console.log("Session data:", data.session);
+
+  //nach erfolgreichem Login wird die getLoginData Funktion aufgerufen
+  //TODO: Schauen ob die Daten geladen wurden und passen!
+  getLoginData(verein, email);
   redirect("/dashboard");
 }
 
 export async function logoutAction() {
-  const { createSupabaseServerClient } = await import(
-    "@/lib/createSupabaseServerClient"
-  );
-  const supabase = await createSupabaseServerClient();
-
   await supabase.auth.signOut();
   redirect("/");
+}
+
+export async function getLoginData(vereinName, email) {
+  const supabase = await createSupabaseServerClient();
+  //Test -> get all members!
+  const { data: members } = await supabase.from("member").select("*");
+
+  console.log("Gefundene Member:", members);
+
+  const { data: member, error: memberError } = await supabase
+    .from("Member")
+    .select("id, verein_id")
+    .ilike("email", email)
+    .maybeSingle();
+
+  const { data, error } = await supabase
+    .from("Member")
+    .select("*")
+    .maybeSingle();
+
+  console.log("Supabase response for member:", data, error);
+
+  console.log("Gefundener Member:", member);
+  if (memberError || !member) {
+    console.error("Fehler beim Abrufen des Members:", memberError);
+    return { error: "Mitglied nicht gefunden." };
+  }
+
+  // 2. Verein holen anhand der ID
+  const { data: verein, error: vereinError } = await supabase
+    .from("Verein")
+    .select("id, name")
+    .eq("id", member.verein_id)
+    .single();
+
+  if (vereinError || !verein) {
+    console.error("Fehler beim Abrufen des Vereins:", vereinError);
+    return { error: "Verein nicht gefunden." };
+  }
+
+  // 3. Überprüfen, ob der eingegebene Vereinsname passt
+  if (verein.name !== vereinName) {
+    return { error: "Falscher Vereinsname." };
+  }
+
+  console.log("Verein und Member erfolgreich abgerufen:", verein, member);
+
+  //TODO: daten in der Session speichern oder zurückgeben
+  //  Erfolg – gib Verein-ID z. B. zurück
+  return {
+    verein_id: verein.id,
+    member_id: member.id,
+  };
 }

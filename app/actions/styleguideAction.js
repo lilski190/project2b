@@ -6,7 +6,7 @@ import styleguideDummidata from "@/dummidaten/styleguide.JSON";
 
  */
 export async function getStyleguideAction() {
-  console.log("Dummy Daten für den Styleguide geladen", styleguideDummidata);
+  //console.log("Dummy Daten für den Styleguide geladen", styleguideDummidata);
   //TODO: IDS aus Styleguide entfernen!!!
   return JSON.stringify(styleguideDummidata);
 
@@ -22,9 +22,8 @@ export async function getStyleguideAction() {
 }
 
 export async function saveStyleguideAction(formData) {
-  console.log("Dummy Daten für den Styleguide speichern", formData);
+  //  console.log("Dummy Daten für den Styleguide speichern", formData);
   //TODO: Speicher action implementieren
-
   // const supabase = await createSupabaseServerClient();
   // const {
   //   data: { user },
