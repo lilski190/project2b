@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const fonts = [
   { name: "Roboto", className: "font-roboto" },
@@ -24,8 +24,10 @@ const fonts = [
   { name: "Shadows Into Light", className: "font-shadows" },
 ];
 
-export default function FontSelector({ onChange, fieldID }) {
-  const [selected, setSelected] = useState(fonts[0]);
+export default function FontSelector({ onChange, fieldID, defaultFont }) {
+  const [selected, setSelected] = useState(
+    fonts.find((font) => font.className === defaultFont) || fonts[0]
+  );
 
   const handleSelect = (font) => {
     setSelected(font);
@@ -34,6 +36,13 @@ export default function FontSelector({ onChange, fieldID }) {
 
   return (
     <div className="dropdown">
+      <input
+        type="text"
+        id={`fontSelector-${fieldID}`}
+        name={fieldID}
+        value={selected.className}
+        readOnly
+      />
       TODO: Textgröße auswahl mit + - und fontstyle -bold -light ...
       <div tabIndex={0} role="button" className="btn m-1">
         Schriftart:{" "}

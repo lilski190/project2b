@@ -19,14 +19,14 @@ export default async function StyleguidePage({ params }) {
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
   const styleguideData = await getStyleguideAction();
-
+  console.log("StyleguideData:", styleguideData.stringify);
   if (!user) {
     redirect("/login");
   }
 
   return (
     <div>
-      <StyleguideForm dict={dict} data={styleguideData} />
+      <StyleguideForm dict={dict} data={styleguideData.stringify} />
     </div>
   );
 }

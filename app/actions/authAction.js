@@ -1,7 +1,6 @@
 "use server";
 
 import { supabase } from "@/lib/supabaseClient";
-import { createSupabaseServerClient } from "@/lib/supabaseServerClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -20,9 +19,6 @@ export async function loginAction(formData) {
   const password = formData.get("password");
   const verein = formData.get("verein");
 
-  //TEST
-  getLoginData(verein, email);
-  //END TEST
   console.log("Login action triggered for Verein:", verein);
 
   console.log("Login action triggered with email:", email);
@@ -60,13 +56,35 @@ export async function loginAction(formData) {
     sameSite: "lax",
   });
 
-  console.log("Cookie set:", cookieStore.get(`sb-${projectRef}-auth-token`));
-  console.log("Session data:", data.session);
+  let LoginData = await getLoginData(verein, email);
+  console.log("LOGIN GELADEN :: LoginData:", LoginData);
+  if (LoginData.error) {
+    console.error("Fehler beim Abrufen der Login-Daten:", LoginData.error);
+    return { error: LoginData.error };
+  } else if (LoginData.verein_id && LoginData.member_id) {
+    cookieStore.set("verein_id", LoginData.verein_id, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
 
-  //nach erfolgreichem Login wird die getLoginData Funktion aufgerufen
-  //TODO: Schauen ob die Daten geladen wurden und passen!
-  getLoginData(verein, email);
-  redirect("/dashboard");
+    cookieStore.set("member_id", LoginData.member_id, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
+
+    console.log("Verein- und Member-ID-Cookies gesetzt:", {
+      verein_id: LoginData.verein_id,
+      member_id: LoginData.member_id,
+    });
+
+    console.log("Login-Daten erfolgreich abgerufen, jetzt redirect:)");
+
+    redirect("/dashboard");
+  }
 }
 
 export async function logoutAction() {
@@ -74,33 +92,30 @@ export async function logoutAction() {
   redirect("/");
 }
 
-export async function getLoginData(vereinName, email) {
-  const supabase = await createSupabaseServerClient();
-  //Test -> get all members!
-  const { data: members } = await supabase.from("member").select("*");
+export async function getLoginData(vereinName) {
+  const cookieStore = await cookies();
+  console.log("GET LOGIN DATA!!!");
 
-  console.log("Gefundene Member:", members);
-
+  // 1. Member des eingeloggten Users abrufen
   const { data: member, error: memberError } = await supabase
-    .from("Member")
-    .select("id, verein_id")
-    .ilike("email", email)
-    .maybeSingle();
-
-  const { data, error } = await supabase
     .from("Member")
     .select("*")
     .maybeSingle();
 
-  console.log("Supabase response for member:", data, error);
-
-  console.log("Gefundener Member:", member);
   if (memberError || !member) {
     console.error("Fehler beim Abrufen des Members:", memberError);
     return { error: "Mitglied nicht gefunden." };
   }
 
-  // 2. Verein holen anhand der ID
+  console.log("Gefundener Member:", member);
+
+  // 2. Prüfen, ob eine Verein-ID vorhanden ist
+  if (!member.verein_id) {
+    console.error("Verein-ID fehlt im Member-Datensatz.");
+    return { error: "Verein nicht zugeordnet." };
+  }
+
+  // 3. Verein abrufen (nur wenn Member erfolgreich geladen wurde)
   const { data: verein, error: vereinError } = await supabase
     .from("Verein")
     .select("id, name")
@@ -112,15 +127,15 @@ export async function getLoginData(vereinName, email) {
     return { error: "Verein nicht gefunden." };
   }
 
-  // 3. Überprüfen, ob der eingegebene Vereinsname passt
+  // 4. Vereinsnamen prüfen
   if (verein.name !== vereinName) {
+    console.warn("Eingegebener Vereinsname stimmt nicht überein.");
     return { error: "Falscher Vereinsname." };
   }
 
   console.log("Verein und Member erfolgreich abgerufen:", verein, member);
 
-  //TODO: daten in der Session speichern oder zurückgeben
-  //  Erfolg – gib Verein-ID z. B. zurück
+  // 5. Erfolgreich → Rückgabe
   return {
     verein_id: verein.id,
     member_id: member.id,

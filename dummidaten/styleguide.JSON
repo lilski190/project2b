@@ -28,12 +28,13 @@
     },
     "body": {
       "font_family": "Bangers"
-    },
-    "slogan": "this is a great slogan for the Verein",
-    "grafics": {
-      "grafik_01": "https://example.com/grafik_01.svg",
-      "grafik_02": "https://example.com/grafik_02.svg",
-      "grafik_03": "https://example.com/grafik_03.svg"
     }
+  },
+
+  "slogan": "this is a great slogan for the Verein",
+  "grafics": {
+    "grafik_01": "https://example.com/grafik_01.svg",
+    "grafik_02": "https://example.com/grafik_02.svg",
+    "grafik_03": "https://example.com/grafik_03.svg"
   }
 }

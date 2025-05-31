@@ -9,7 +9,8 @@ export default function StyleguideLoader({}) {
     console.log("StyleguideLoader useEffect");
     const fetchData = async () => {
       const data = await getStyleguideAction();
-      if (data) localStorage.setItem("Styleguide", data);
+      console.log("StyleguideLoader fetched data:", data.stringify);
+      if (data) localStorage.setItem("Styleguide", data.stringify);
     };
 
     fetchData();

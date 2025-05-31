@@ -13,10 +13,15 @@ import Grafics from "@/components/styleguideForms/Grafics";
  * Styleguide FORM Komponent
  */
 export default function StyleguideForm({ dict, data }) {
-  let parsedData = JSON.parse(data);
-  console.log("data", parsedData);
+  let parsedDataObj = JSON.parse(data);
+  console.log("data", parsedDataObj[0]);
+  let parsedData = parsedDataObj[0];
+
   return (
     <form action={saveStyleguideAction}>
+      <button type="submit" className="btn btn-primary">
+        Save Data
+      </button>
       <Toaster position="top-center" />
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
         <div className="col-span-1 bg-base-200">
@@ -57,7 +62,7 @@ export default function StyleguideForm({ dict, data }) {
             <div className="lableText">{dict.styleguide.headlines.fonts}</div>
             <InformationTooltip text={dict.styleguide.infotext.fonts} />
           </div>
-          <FontSelectors />
+          <FontSelectors fonts={parsedData.fonts} />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.slogan}</div>

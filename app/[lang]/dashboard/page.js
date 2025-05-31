@@ -23,16 +23,6 @@ export default async function DashboardPage({ params }) {
     redirect("/login");
   }
 
-  //TEST LOAD Login Data
-  const loginData = await getLoginData(
-    "testVerein",
-    "drabinsk@th-brandenburg.de"
-  );
-
-  console.log("TEST Login Data:", loginData);
-  //TODO: LOAD Styleguide Data
-  //THEN Load in Styleguide date in Local Storage
-
   return (
     <div>
       <StyleguideLoader />

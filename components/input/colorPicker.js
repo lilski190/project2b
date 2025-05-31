@@ -24,6 +24,7 @@ const ColorPicker = ({ fieldID, ColorValue }) => {
         value={color}
         id={fieldID}
         placeholder={color}
+        name={fieldID}
         onChange={handleChange}
         className={`mt-2 focus:border hover:bg-base-200  input-neutral input  input-ghost input-sm text-center w-20 `}
       />
