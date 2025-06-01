@@ -4,11 +4,25 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient"; // Stelle sicher, dass du den Supabase-Client importierst
 
-export default function TextureUpload({ onFileUploaded, dict, data, FieldID }) {
+export default function TextureUpload({
+  onFileUploaded,
+  dict,
+  fieldID,
+  url,
+  BASEURL,
+  folderID,
+}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [urlPath, setUrlPath] = useState(
+    url ? url : "test/1748777334899_Bunker_01.jpg"
+  ); // Setze einen Standardwert für den URL-Pfad
+
+  let baseURL = BASEURL;
+
+  let fileID = "file-upload-" + fieldID || "file-upload";
 
   const handleFile = (fileList) => {
     if (fileList && fileList[0]) {
@@ -39,12 +53,17 @@ export default function TextureUpload({ onFileUploaded, dict, data, FieldID }) {
     if (!selectedFile) return;
     setUploading(true);
 
-    const filePath = `${FieldID}/${Date.now()}_${selectedFile.name}`;
+    const filePath = `${folderID}/${Date.now()}_${selectedFile.name}`;
+    console.log("Uploading file to:", filePath);
 
     const { data, error } = await supabase.storage
       .from("styles") // <-- passe den Bucket-Namen an
       .upload(filePath, selectedFile);
 
+    console.log("Upload result:", data, error);
+    if (data.path) {
+      setUrlPath(data.path); // Setze den URL-Pfad für die Vorschau
+    }
     setUploading(false);
 
     if (error) {
@@ -68,7 +87,7 @@ export default function TextureUpload({ onFileUploaded, dict, data, FieldID }) {
     <div>
       <div className="flex">
         <label
-          htmlFor="file-upload"
+          htmlFor={fileID}
           className={`relative border-2 border-dashed rounded-md p-6 text-center cursor-pointer transition-colors w-20 h-20 ${
             dragActive ? "border-primary bg-primary/10" : "border-base-300"
           }`}
@@ -77,35 +96,39 @@ export default function TextureUpload({ onFileUploaded, dict, data, FieldID }) {
           onDrop={handleDrop}
         >
           <input
-            id="file-upload"
+            id={fileID}
             type="file"
             accept="*"
             onChange={handleChange}
             className="hidden"
           />
+          <input
+            id={fileID}
+            name={fieldID}
+            value={urlPath}
+            className="hidden"
+            readOnly
+          />
 
           <Image
             src={
-              data?.image ??
-              "https://i0.wp.com/texturefabrik.com/wp-content/uploads/2020/09/texture_fabrik_cyan_textures_01.jpg?ssl=1"
+              baseURL + urlPath // Verwende den Basis-URL und den Pfad
             }
             fill
             alt={dict?.imgAlt || "Texture"}
             className="rounded-md"
           />
-
           <div className="relative w-full h-full flex justify-center items-center">
             <button
               type="button"
               className="btn bg-primary/70 border-none hover:bg-primary/100 w-12 h-6"
-              onClick={() => document.getElementById("file-upload")?.click()}
+              onClick={() => document.getElementById(fileID)?.click()}
             >
               {dict?.buttonText || "Select"}
             </button>
           </div>
         </label>
       </div>
-
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

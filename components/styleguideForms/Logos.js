@@ -11,16 +11,18 @@ const Logos = ({ colors, dict }) => {
       <div className="flex flex-col items-center  mt-2 justify-self-end">
         <div className="flex items-center">
           <div className="">
-            <FileUpload fieldID="main_01" />
-            <div className="lableTextSmall text-center">{dict.main}</div>
+            <FileUpload fieldID="big" bucket="styles" />
+            <div className="lableTextSmall text-center">{dict.main}BIG</div>
           </div>
           <div>
-            <FileUpload fieldID="main_02" />
-            <div className="lableTextSmall text-center">{dict.main}</div>
+            <FileUpload fieldID="small" bucket="styles" />
+            <div className="lableTextSmall text-center">{dict.main}SMALL</div>
           </div>
           <div className="">
-            <FileUpload fieldID="main_03" />
-            <div className="lableTextSmall text-center">{dict.main}</div>
+            <FileUpload fieldID="one_color" bucket="styles" />
+            <div className="lableTextSmall text-center">
+              {dict.main}ONE_COLOR
+            </div>
           </div>
         </div>
       </div>

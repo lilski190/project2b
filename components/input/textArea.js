@@ -15,6 +15,7 @@ const TextArea = ({ fieldID, Textvalue }) => {
         value={text}
         onChange={handleChange}
         id={fieldID}
+        name={fieldID}
         className="textarea w-full"
         placeholder="Slogan"
       ></textarea>

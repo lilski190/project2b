@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import { getStyleguideAction } from "@/app/actions/styleguideAction";
 import StyleguideForm from "./StyleguideForm";
+import { cookies } from "next/headers";
 /**
  * Styleguide Seite der Anwendung.
  * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
@@ -20,13 +21,20 @@ export default async function StyleguidePage({ params }) {
   const dict = await getDictionary(lang);
   const styleguideData = await getStyleguideAction();
   console.log("StyleguideData:", styleguideData.stringify);
+  const cookieStore = await cookies();
+  const vereinId = cookieStore.get("verein_id")?.value;
+
   if (!user) {
     redirect("/login");
   }
 
   return (
     <div>
-      <StyleguideForm dict={dict} data={styleguideData.stringify} />
+      <StyleguideForm
+        dict={dict}
+        data={styleguideData.stringify}
+        folderID={vereinId}
+      />
     </div>
   );
 }

@@ -35,15 +35,66 @@ export async function getStyleguideAction() {
 
 export async function saveStyleguideAction(formData) {
   console.log("Daten für den Styleguide speichern!", formData);
-  // console.log("Dummy Daten für den Styleguide speichern", formData);
-  //TODO: Speicher action implementieren
-  // const supabase = await createSupabaseServerClient();
-  // const {
-  //   data: { user },
-  //   error,
-  // } = await supabase.auth.getUser();
-  // if (error) {
-  //   console.error("Fehler beim Laden des Users:", error.message);
-  // }
-  // return user;
+  const cookieStore = await cookies();
+  const vereinId = cookieStore.get("verein_id")?.value;
+  console.log("Verein ID aus Cookie:", vereinId);
+
+  if (!vereinId) {
+    console.error("Keine Verein-ID im Cookie gefunden.");
+    return { error: "Nicht autorisiert" };
+  }
+
+  let data = {
+    colors: {
+      main_01: formData.get("main_01"),
+      main_02: formData.get("main_02"),
+      detail_01: formData.get("detail_01"),
+      detail_02: formData.get("detail_02"),
+      text_01: formData.get("text_01"),
+      text_02: formData.get("text_02"),
+      neutral_01: formData.get("neutral_01"),
+      neutral_02: formData.get("neutral_02"),
+    },
+    backgrounds: {
+      light_01: formData.get("light_01"),
+      light_02: formData.get("light_02"),
+      dark_01: formData.get("dark_01"),
+      dark_02: formData.get("dark_02"),
+    },
+    logo: {
+      big: formData.get("logo_big"),
+      small: formData.get("logo_small"),
+      one_color: formData.get("logo_one_color"),
+    },
+    fonts: {
+      heading: {
+        font_family: formData.get("headline_family"),
+      },
+      body: {
+        font_family: formData.get("text_family"),
+      },
+    },
+    slogan: formData.get("slogan"),
+  };
+
+  console.log("Parsed data:", data);
+
+  const { error } = await supabase
+    .from("Styleguide")
+    .update({
+      colors: data.colors,
+      backgrounds: data.backgrounds,
+      logo: data.logo,
+      fonts: data.fonts,
+      slogan: data.slogan,
+    })
+    .eq("verein_id", vereinId);
+
+  if (error) {
+    console.error("Fehler beim Speichern des Styleguides:", error);
+    return { error: "Fehler beim Speichern" };
+  }
+
+  console.log("Styleguide erfolgreich gespeichert!");
+  return { data };
 }

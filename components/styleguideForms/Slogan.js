@@ -8,7 +8,7 @@ import TextArea from "../input/textArea";
 const Slogan = ({ colors, dict }) => {
   return (
     <div className="">
-      <TextArea />
+      <TextArea fieldID="slogan" />
     </div>
   );
 };

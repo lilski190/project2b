@@ -1,6 +1,7 @@
 "use client";
 
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
 import { saveStyleguideAction } from "@/app/actions/styleguideAction";
 import InformationTooltip from "@/components/tooltips/InformationTooltip";
 import Colors from "@/components/styleguideForms/Colors";
@@ -9,16 +10,42 @@ import FontSelectors from "@/components/styleguideForms/FontSelectors";
 import Logos from "@/components/styleguideForms/Logos";
 import Slogan from "@/components/styleguideForms/Slogan";
 import Grafics from "@/components/styleguideForms/Grafics";
+
 /**
  * Styleguide FORM Komponent
  */
-export default function StyleguideForm({ dict, data }) {
+export default function StyleguideForm({ dict, data, folderID }) {
+  const [loading, setLoading] = useState(false);
   let parsedDataObj = JSON.parse(data);
   console.log("data", parsedDataObj[0]);
   let parsedData = parsedDataObj[0];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    setLoading(true);
+
+    try {
+      const result = await saveStyleguideAction(formData);
+      console.log("Submit result:", result);
+      localStorage.setItem("Styleguide", JSON.stringify(result));
+
+      if (result.data) {
+        toast.success("Styleguide erfolgreich gespeichert!");
+      } else {
+        toast.error("Fehler beim Speichern");
+      }
+    } catch (error) {
+      console.error("Fehler beim Submit:", error);
+      toast.error("Unerwarteter Fehler");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //action={saveStyleguideAction}>
   return (
-    <form action={saveStyleguideAction}>
+    <form onSubmit={handleSubmit}>
       <button type="submit" className="btn btn-primary">
         Save Data
       </button>
@@ -43,7 +70,11 @@ export default function StyleguideForm({ dict, data }) {
             </div>
             <InformationTooltip text={dict.styleguide.infotext.backgrounds} />
           </div>
-          <Backgrounds dict={dict.styleguide.colorDescription} />
+          <Backgrounds
+            dict={dict.styleguide.colorDescription}
+            backgrounds={parsedData.backgrounds}
+            folderID={folderID} // Pass the folderID prop
+          />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.grafics}</div>
