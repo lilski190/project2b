@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import BasicTable from "@/components/tables/BasicTable";
 import Content from "@/dummidaten/content.JSON";
+import { loadAllContent } from "@/app/actions/contentAction";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -21,26 +22,10 @@ export default async function ContentPage({ params }) {
   const dict = await getDictionary(lang);
 
   let headlines = ["id", "Titel", "Date", "Tags"];
-  let contentArray = [
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-    Content,
-  ];
+  const data = await loadAllContent();
+  const contentArray = data?.data;
+
+  console.log("loades Array", contentArray);
   if (!user) {
     redirect("/login");
   }

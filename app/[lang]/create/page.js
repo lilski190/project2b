@@ -3,9 +3,15 @@ import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import CreateForm from "./CreateForm";
 import CreatePreview from "./CreatePreview";
+import { getSpecificContentAction } from "@/app/actions/contentAction";
 
 //Alle Descriptoren der Templates Importieren
 import test from "./descriptors/test.json";
+import text_with_image from "./descriptors/text_img.json";
+import text_with_image_and_graphic from "./descriptors/text_img_graf.json";
+import text_with_graphic from "./descriptors/text_graf.json";
+import image_with_graphic from "./descriptors/img_graf.json";
+import image_gallery from "./descriptors/img_gall.json";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -20,6 +26,11 @@ import test from "./descriptors/test.json";
 
 const dataMap = {
   test,
+  text_with_image,
+  text_with_image_and_graphic,
+  text_with_graphic,
+  image_with_graphic,
+  image_gallery,
 };
 
 export default async function CreatePage({ params, searchParams }) {
@@ -27,10 +38,19 @@ export default async function CreatePage({ params, searchParams }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const sourceKeyAwait = await searchParams;
 
-  const sourceKey = searchParams.template || "dataA"; // default fallback
+  const sourceKey = sourceKeyAwait.template; // default fallback
+  const contentID = sourceKeyAwait.content || 0;
 
   const selectedData = dataMap[sourceKey];
+
+  let contentData = selectedData.form;
+  if (contentID !== 0) {
+    let loadedData = await getSpecificContentAction(contentID);
+    contentData = loadedData.data[0].content;
+    console.log("loaded Content: ", contentData);
+  }
 
   if (!user) {
     redirect("/login");
@@ -42,7 +62,12 @@ export default async function CreatePage({ params, searchParams }) {
       <p>{dict.create.description}</p>
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
         <CreatePreview dict={dict} data={selectedData.preview} />
-        <CreateForm dict={dict} data={selectedData.form} />
+        <CreateForm
+          dict={dict}
+          data={contentData}
+          template={sourceKey}
+          contentID={contentID}
+        />
       </div>
     </div>
   );

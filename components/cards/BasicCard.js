@@ -27,6 +27,7 @@ const BasicCard = ({ title, text, action }) => {
               pathname: action ? action.url : "/create",
               query: {
                 [action?.parameter?.[0]]: action?.parameter?.[1],
+                content: "0",
               },
             }}
           >

@@ -12,6 +12,7 @@ export default function FileUpload({
   BASEURL,
   folderID,
   bucket,
+  onChange,
 }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -63,7 +64,7 @@ export default function FileUpload({
 
     console.log("Upload result:", data, error);
     if (data.path) {
-      setUrlPath(data.path); // Setze den URL-Pfad für die Vorschau
+      setUrlPath(data.path);
     }
     setUploading(false);
 
@@ -79,6 +80,9 @@ export default function FileUpload({
         onFileUploaded(urlData.publicUrl);
       }
 
+      if (onChange) {
+        onChange(urlData.publicUrl);
+      }
       setModalOpen(false); // Modal schließen
       setSelectedFile(null); // Datei zurücksetzen
     }

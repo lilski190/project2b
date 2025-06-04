@@ -21,57 +21,57 @@ export default async function TemplatesPage({ params }) {
 
   let TempaltesArray = [
     {
-      title: "TEST Bild mit Text 1",
+      title: "Bild mit Text",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: ["template", "test"],
+        parameter: ["template", "text_with_image"],
       },
     },
     {
-      title: "Bild mit Text 2",
+      title: "Bild mit Grafik",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: ["template", "test"],
+        parameter: ["template", "image_with_graphic"],
       },
     },
     {
-      title: "Bild mit Text 3",
+      title: "Bilder Galerie",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: ["template", "test"],
+        parameter: ["template", "image_gallery"],
       },
     },
     {
-      title: "Bild mit Text 4",
+      title: "Text mit Graifik",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: ["template", "test"],
+        parameter: ["template", "text_with_graphic"],
       },
     },
     {
-      title: "Bild mit Text 5",
+      title: "Text mit Bild und Grafik",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {
         text: "Neues erstellen",
         url: "/create",
-        parameter: ["template", "test"],
+        parameter: ["template", "text_with_image_and_graphic"],
       },
     },
     {
-      title: "Bild mit Text 6",
+      title: "Test Component",
       text: "das ist der Beschreibungstext für diesen Component",
       img: "img/vorschaubild",
       action: {

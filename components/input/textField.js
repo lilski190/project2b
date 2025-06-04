@@ -2,13 +2,15 @@
 
 import React, { useState } from "react";
 
-const TextArea = ({ fieldID, Textvalue }) => {
+const TextArea = ({ fieldID, Textvalue, onChange }) => {
   const [text, setText] = useState(Textvalue ? Textvalue : "");
 
   const handleChange = (e) => {
     setText(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
   };
-
   return (
     <div className="">
       <input

@@ -2,11 +2,14 @@
 
 import React, { useState } from "react";
 
-const Checkbox = ({ fieldID, Textvalue }) => {
+const Checkbox = ({ fieldID, Textvalue, onChange }) => {
   const [text, setText] = useState(Textvalue ? Textvalue : "");
 
   const handleChange = (e) => {
     setText(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   return (
@@ -15,7 +18,8 @@ const Checkbox = ({ fieldID, Textvalue }) => {
         onChange={handleChange}
         type="checkbox"
         defaultChecked
-        className="checkbox"
+        className={fieldID}
+        name={fieldID}
       />
     </div>
   );

@@ -20,14 +20,10 @@ export default async function RootLayout({ children, params }) {
   const lang = param.lang || "de";
 
   return (
-    <html className="main text-base-content" lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <HeaderWithSidebar lang={lang}>{children}</HeaderWithSidebar>
-        <div className="min-h-screen">{children}</div>
-        <Footer />
-      </body>
-    </html>
+    <div className="main text-base-content">
+      <HeaderWithSidebar lang={lang}>{children}</HeaderWithSidebar>
+      <div className="min-h-screen">{children}</div>
+      <Footer />
+    </div>
   );
 }
