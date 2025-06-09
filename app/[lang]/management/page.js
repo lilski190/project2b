@@ -24,6 +24,7 @@ export default async function ManagementPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.management.title}</h1>
       <p>Das ist das extra wenn ich noch zeit habe</p>
       <p>{dict.management.description}</p>

@@ -25,6 +25,7 @@ export default async function DashboardPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <StyleguideLoader />
       <h1 className="mb-5 text-5xl font-bold">{dict.dashboard.title}</h1>
       <h1>

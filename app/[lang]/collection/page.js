@@ -22,6 +22,7 @@ export default async function CollectionPage({ params }) {
 
   return (
     <div className="grid grid-cols-3 gap-3 p-4">
+      {JSON.stringify(dict)}
       {themes.map((theme, index) => (
         <div key={theme + "_" + index} className={theme}>
           Color Theme: {theme}

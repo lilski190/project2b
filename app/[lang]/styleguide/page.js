@@ -30,6 +30,7 @@ export default async function StyleguidePage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <StyleguideForm
         dict={dict}
         data={styleguideData.stringify}

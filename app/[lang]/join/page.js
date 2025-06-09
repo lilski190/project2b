@@ -14,6 +14,7 @@ export default async function JoinPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.join.title}</h1>
       <p>{dict.join.description}</p>
     </div>

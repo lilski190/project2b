@@ -14,6 +14,7 @@ export default async function ImpressumPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.impressum.title}</h1>
       <p>Angaben gemäß § 5 TMG</p>
       <p>Lilian Drabinski </p>

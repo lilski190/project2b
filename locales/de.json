@@ -1,37 +1,83 @@
 {
   "home": {
-    "title": "Das ist die landing Page für Project 2b",
+    "title": "TODO: Hallo, schön das du",
     "description": "Hier ist eine kurze Projekt Beschreibung"
   },
   "login": {
-    "title": "Das ist der Deutsche Login Titel",
-    "description": "Das ist die Deutsche Login Beschreibung",
-    "login": "Einloggen"
+    "title": "Login",
+    "description": "Hier ist der Login zu der Vereinsseite wo der Content erstellt und verwaltet werden kann",
+    "explenation": "Um dich anmelden zu können muss dein Verein angemeldet sein. Anschleißend braucht du als Mitglied einen Account.",
+    "error_case_notRegistered": "Dein Verein ist Angemedet aber du bist noch nicht registriert? Dann melde dich bei dem Admin von deinem Verein und bitte ihn einen Accout für dich zu erstellen //TODO URL  ",
+    "error_case_verein": "Dein Verein ist nicht in der Liste? Dann ist dein Verein noch nicht angemendet. Um zu erfahren wie du deinen Verein anmebden kannst gehe zu: //TODO URL",
+    "login": "Login"
   },
   "dashboard": {
-    "title": "Das ist der Deutsche Dashboard Titel",
-    "description": "Das ist die Deutsche Dashboard Beschreibung",
-    "welcome": "Willkommen auf der Dashboard-Seite"
+    "title": "Dashboard von //TODO: Verein Name",
+    "description": "Von hier aus können die Mitglider Content erstellen und verwalten. ",
+    "description_styleguide": "Hier geht es zum Styleguide",
+    "description_templates": "Um neuen Content zu erstellen hier entlang",
+    "description_list": "Und hier gehts zur Content verwaltung",
+    "welcome": "Hallo //TODO NAME"
   },
   "about": {
-    "title": "Hier ist die About the Project Seite",
-    "description": "Da können ganz viele Informationen zu dem Projekt stehen"
+    "title": "Was ist //TODO Projekt name?",
+    "description": "Projekt name ist eine Website für kleine und ehrenamtliche Vereine",
+    "background": "Das Projekt wurde im Rahmen einens Moduls an der TH-Brandenburg entwickelt.",
+    "idea": "Viele keinen Vereine haben das Problem, dass sie sich größtenteils ehrenamtlcih organisieren. Geld ist immer knapp und muss gut calculiert werden. Dabei bleiben oft nicht genug ressourcen übrig für Design und Contetnmanager. Das Resultat ist, dass Vereine sich nach außen hin und im Netz nicht so präsentierne können wie sie sollten. Denn Vereine leisten einen wichitgen Beitrag zur Gesellschaft. UNd das sollte auch jeder sehen, seih es mit Ankündigungen für events oder der Darstellung der Vereinsarbeit. Daher wurde <Projekt name> erstellt. Um einfach und schnell Content für verschiedene Formate zu erstellen, auch ohne Vorkenntnisse.",
+    "disclaimer": "Das Projekt ist ein Wissenschaftlicher Prototyp und befindet sich zur Zeit noch in der Entwicklungsphase."
   },
   "examples": {
-    "title": "Hier ist die Examples Seite",
-    "description": "Hier sind Beispiele für das Projekt"
+    "title": "Contnet Beispiele ",
+    "description": "Die Beispeiel auf dieser Seite wurden in zusammenarbeit mit den Kleinkunstverein erstellt."
   },
   "tutorial": {
-    "title": "Hier ist die Tutorial Seite",
-    "description": "Hier sind Tutorials für das Projekt"
+    "title": "Tutorial",
+    "description": "Anleitung zur Benutzung dieser Website",
+    "body": [
+      {
+        "headline": "Styleguide einrichten",
+        "text": "Jeder Verein hat einen Styleguide. Diesen kann man auf der Vereinsseite Personalisieren, sodass er dem Style des Vereins entspricht. Dazu kann man verschiedene Felder wie Farbe, Hintergründe und Textarten aber auch Grafik elemente hinzufügen und anpassen. Der Styleguide wird automatisch auf jeden Content angewendet. So bleibt der Vereinsstyle consinstent."
+      },
+      {
+        "headline": "Content erstellen",
+        "text": "Um Content zu erstellen gibt es eine Auswahl an Templates die ausgewählt werden kann. Danach können in einem Editor die Inhalte eingefüllt werden und der Style kann ausch angepasst werden."
+      },
+      {
+        "headline": "Content verwalten",
+        "text": "Der Content kann in einer Liste verwaltet werden. Hier kann man den Content nochmal in einem Anderen Format erstellen, oder eine Vorlage dublizieren."
+      },
+      {
+        "headline": "Verein anmelden",
+        "text": "Um deinen Verein anzumelden gehe bitte auf die seite /join und erfahre dort mehr"
+      }
+    ]
   },
   "join": {
-    "title": "Hier ist die Join the Project Seite",
-    "description": "Hier sind Informationen zum Mitmachen"
+    "title": "Willste mitmachen?",
+    "description": "Dann kannst du hier deinen Verein anmelden",
+    "explenation": "Da es sich bei diesem Projekt um einen Wissenschafltichen Prototypen handelt ist der Zugang beschränkt. Wir freuen uns sehr über dein Intresse und wenn du mit deinem Verein dieses Tool testen und mithelfen willst es Weiterzuentwickeln, dann folge diesen Schritten: ",
+    "steps": [
+      {
+        "num": "Schritt 1",
+        "description": "Fülle das Formular aus. Stelle dabei bitte deinen Verein vor und erzähle warum ihr das Tool nutzen wollt. Gebt außerdem eine oder mehr E-Mail adressen an. Die Besitzer dieser E-Mails werden dann die Admins des Vereins "
+      },
+      {
+        "nom": "Schritt 2",
+        "description": "Formular absenden und abwarten. Wir schauen und euren Verein an und melden uns dann bei euch:)"
+      },
+      {
+        "num": "Schritt 3",
+        "description": "Admin anmelden. Jeder Admin bekommt von uns eine E-Mail mit Anweisungen zum Login."
+      },
+      {
+        "num": "Schritt 4",
+        "description": "Jetzt könnt ihr loslegen. Empfehlung: Bearbeitet zuerst euren Styleguide, dann könnt ihr euren Content direkt in eurem Vereinsstyle bewundern"
+      }
+    ]
   },
   "styleguide": {
     "title": "Styleguide",
-    "description": "Hier sind Informationen zu den Design-Richtlinien",
+    "description": "Das ist der Coperate Styles des Vereins: ",
     "headlines": {
       "colors": "Farben",
       "backgrounds": "Hintergründe",
@@ -47,44 +93,44 @@
       "neutral": "Neutrale Farben"
     },
     "infotext": {
-      "colors": "Hier sind die Farben, die im Projekt verwendet werden",
+      "colors": "Das hier sind eure Farben.",
       "backgrounds": "Hier sind die Hintergründe, die im Projekt verwendet werden",
-      "grafics": "Hier sind die Grafiken, die im Projekt verwendet werden",
+      "grafics": "Hier sind die Grafischn Elemente, die im Projekt verwendet werden",
       "logo": "Hier ist das Logo, das im Projekt verwendet wird",
       "fonts": "Hier sind die Schriftarten, die im Projekt verwendet werden",
       "slogan": "Hier ist der Slogan, der im Projekt verwendet wird"
     }
   },
   "templates": {
-    "title": "Hier ist die Templates Seite",
-    "description": "Hier sind Vorlagen für das Projekt"
+    "title": "Templates",
+    "description": "Wähle eine Tempalte-Vorlage und leg los"
   },
   "content": {
-    "title": "Hier ist die Content Seite",
-    "description": "Hier sind Inhalte für das Projekt"
+    "title": "Content",
+    "description": "Verwaltung des Vereinscontents"
   },
   "create": {
-    "title": "Hier ist die Create Seite",
-    "description": "Hier können Sie Inhalte erstellen"
+    "title": "Content Erstellen",
+    "description": "Speichern nciht vergessen ;)"
   },
   "management": {
-    "title": "Hier ist die Management Seite",
-    "description": "Hier können Sie Inhalte verwalten"
+    "title": "Mitglieder Management",
+    "description": "Als Admin kannst du hier Mitglieder hinzufügen, bearebiten oder entfernen"
   },
   "impressum": {
-    "title": "Hier ist die Impressum Seite",
-    "description": "Hier sind rechtliche Informationen"
+    "title": "Impressum",
+    "description": "TODO: Hier sind rechtliche Informationen"
   },
   "notFound": {
     "title": "404 - Seite nicht gefunden",
-    "description": "Die angeforderte Seite existiert nicht."
+    "description": "Die angeforderte Seite existiert nicht. Gehe zurück zu:"
   },
   "error": {
     "title": "Ein Fehler ist aufgetreten",
     "description": "Bitte versuchen Sie es später erneut."
   },
   "footer": {
-    "contactUs": "Kontaktieren Sie uns",
+    "contactUs": "TODO: Was soll in den Footer? Kontaktieren Sie uns",
     "privacyPolicy": "Datenschutz-Bestimmungen",
     "termsOfService": "Nutzungsbedingungen"
   }

@@ -88,6 +88,7 @@ export default async function TemplatesPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.templates.title}</h1>
       <p>{dict.templates.description}</p>
 

@@ -58,6 +58,7 @@ export default async function CreatePage({ params, searchParams }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.create.title}</h1>
       <p>{dict.create.description}</p>
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">

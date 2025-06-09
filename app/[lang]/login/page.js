@@ -18,6 +18,7 @@ export default async function LoginPage({ params }) {
 
   return (
     <div style={{ padding: 24 }}>
+      {JSON.stringify(dict)}
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">

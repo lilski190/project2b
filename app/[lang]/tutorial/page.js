@@ -14,6 +14,7 @@ export default async function TutorialPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.tutorial.title}</h1>
       <p>{dict.tutorial.description}</p>
     </div>
