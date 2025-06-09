@@ -8,6 +8,8 @@ import TextField from "@/components/input/textField";
 import TextArea from "@/components/input/textArea";
 import RadioButton from "@/components/input/radioButton";
 import Checkbox from "@/components/input/checkbox";
+import LayerComponent from "@/components/createForms/LayerComponent";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 /**
@@ -137,11 +139,12 @@ export default function CreateForm({ dict, data, template, contentID }) {
             } else if (typ.type === "background") {
               return (
                 <div key={index}>
-                  This is a type background!
+                  This is a type background! {typ.options} {JSON.stringify(typ)}
                   <RadioButton
                     fieldID="background_checkbox"
                     Textvalue={typ.value || ""}
                     onChange={(e) => handleChange(index, e.target.value)}
+                    options={typ.options}
                   />
                 </div>
               );
@@ -164,6 +167,7 @@ export default function CreateForm({ dict, data, template, contentID }) {
                     fieldID="logo_rafio"
                     Textvalue={typ.value || ""}
                     onChange={(e) => handleChange(index, e.target.value)}
+                    options={typ.options}
                   />
                 </div>
               );
@@ -194,6 +198,17 @@ export default function CreateForm({ dict, data, template, contentID }) {
                       onChange={(newValue) => handleChange(index, newValue)}
                     />
                   </div>
+                </div>
+              );
+            } else if (typ.type === "layer") {
+              return (
+                <div key={typ.type + "_" + index}>
+                  <LayerComponent
+                    fieldID="text_layer"
+                    Textvalue={typ.value || ""}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    options={typ.options}
+                  />
                 </div>
               );
             } else {

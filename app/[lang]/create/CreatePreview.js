@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { saveStyleguideAction } from "@/app/actions/styleguideAction";
 import InformationTooltip from "@/components/tooltips/InformationTooltip";
 import { useEffect, useState } from "react";
+import ImageWithText from "@/components/templates/ImageWithText";
 
 /**
  * Styleguide FORM Komponent
@@ -31,10 +32,7 @@ export default function CreateForm({ dict, data }) {
 
   return (
     <div className="bg-primary/30">
-      PREVIEW OF THE CONTENT:
-      <div>{JSON.stringify(data)}</div>
-      DATA FROM LOCAL STORAGE:
-      <div>{JSON.stringify(previewData)}</div>
+      <ImageWithText previewData={previewData} options={data} />
     </div>
   );
 }

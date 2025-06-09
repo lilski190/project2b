@@ -1,0 +1,44 @@
+{
+  "id": "text_with_image",
+  "form": {
+    "types": [
+      {
+        "type": "image",
+        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg"
+      },
+      {
+        "type": "headline",
+        "value": "Hier is der Text auf dem Bild bla"
+      },
+      {
+        "type": "text",
+        "value": "This is a sample text. Hier ist eine Längere Beschreibung für unter dem Bild oder so"
+      },
+      {
+        "type": "layer",
+        "value": ["black", "30", "full", "end", "start"],
+        "options": ["bg", "opacity", "size", "posY", "posX"]
+      },
+      { "type": "logo", "value": ["https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg", "end right", "20" ],
+      "options": ["sort", "position", "size"]}
+    ]
+  },
+  "preview": {
+    "web": {
+      "width": 800,
+      "height": 600
+    },
+    "instagram": {
+      "width": 1080,
+      "height": 1080
+    },
+    "Presentation": {
+      "width": 1920,
+      "height": 1080
+    },
+    "DINA6": {
+      "width": 105,
+      "height": 148
+    }
+  }
+}

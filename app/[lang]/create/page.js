@@ -6,12 +6,13 @@ import CreatePreview from "./CreatePreview";
 import { getSpecificContentAction } from "@/app/actions/contentAction";
 
 //Alle Descriptoren der Templates Importieren
+
+import text_with_image from "./descriptors/text_with_image.json";
+import text_with_image_and_graphic from "./descriptors/text_with_image_and_graphic.json";
+import text_with_graphic from "./descriptors/text_with_graphic.json";
+import image_with_graphic from "./descriptors/image_with_graphic.json";
+import image_gallery from "./descriptors/image_gallery.json";
 import test from "./descriptors/test.json";
-import text_with_image from "./descriptors/text_img.json";
-import text_with_image_and_graphic from "./descriptors/text_img_graf.json";
-import text_with_graphic from "./descriptors/text_graf.json";
-import image_with_graphic from "./descriptors/img_graf.json";
-import image_gallery from "./descriptors/img_gall.json";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -25,12 +26,12 @@ import image_gallery from "./descriptors/img_gall.json";
  */
 
 const dataMap = {
-  test,
   text_with_image,
   text_with_image_and_graphic,
   text_with_graphic,
   image_with_graphic,
   image_gallery,
+  test,
 };
 
 export default async function CreatePage({ params, searchParams }) {
@@ -40,16 +41,20 @@ export default async function CreatePage({ params, searchParams }) {
   const dict = await getDictionary(lang);
   const sourceKeyAwait = await searchParams;
 
-  const sourceKey = sourceKeyAwait.template; // default fallback
+  const sourceKey = (sourceKeyAwait.template || "test").trim();
   const contentID = sourceKeyAwait.content || 0;
 
   const selectedData = dataMap[sourceKey];
+  console.log("seelcted data", selectedData, sourceKey);
 
-  let contentData = selectedData.form;
-  if (contentID !== 0) {
+  let contentData;
+  if (contentID != 0) {
     let loadedData = await getSpecificContentAction(contentID);
     contentData = loadedData.data[0].content;
     console.log("loaded Content: ", contentData);
+  } else {
+    contentData = selectedData.form;
+    console.log("loaded new ", contentData);
   }
 
   if (!user) {
@@ -58,7 +63,8 @@ export default async function CreatePage({ params, searchParams }) {
 
   return (
     <div>
-      {JSON.stringify(dict)}
+      {sourceKey}
+      {JSON.stringify(selectedData.form)}
       <h1 className="mb-5 text-5xl font-bold">{dict.create.title}</h1>
       <p>{dict.create.description}</p>
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
