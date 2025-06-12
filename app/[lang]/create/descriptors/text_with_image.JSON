@@ -16,11 +16,36 @@
       },
       {
         "type": "layer",
-        "value": ["black", "30", "full", "end", "start"],
-        "options": ["bg", "opacity", "size", "posY", "posX"]
+        "value": [
+          "black",
+          "30",
+          "100%",
+          "center",
+          "center",
+          "center",
+          "center",
+          "5"
+        ],
+        "options": [
+          "bg",
+          "opacity",
+          "size",
+          "posY",
+          "posX",
+          "posYText",
+          "posXText",
+          "textP"
+        ]
       },
-      { "type": "logo", "value": ["https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg", "end right", "20" ],
-      "options": ["sort", "position", "size"]}
+      {
+        "type": "logo",
+        "value": [
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
+          "end right",
+          "20"
+        ],
+        "options": ["sort", "position", "size"]
+      }
     ]
   },
   "preview": {

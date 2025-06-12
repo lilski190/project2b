@@ -78,7 +78,7 @@ export default function CreateForm({ dict, data, template, contentID }) {
       <button type="submit" className="btn btn-primary">
         Save Data
       </button>
-      DATA: {JSON.stringify(data)}
+
       {contentID}
       <Toaster position="top-center" />
       <div className="">
