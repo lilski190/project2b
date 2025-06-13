@@ -4,11 +4,17 @@
     "types": [
       {
         "type": "image",
-        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg"
+        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg"
       },
       {
         "type": "headline",
-        "value": "Hier is der Text auf dem Bild bla"
+        "value": "Hier is der Text auf dem Bild"
+      },
+      {
+        "type": "layer",
+        "id": "textLayer",
+        "value": ["#FFFFFF", ["center", "center"], "20%", "center"],
+        "options": ["bg", "posLayer", "sizeW", "textAlign"]
       },
       {
         "type": "text",
@@ -16,35 +22,19 @@
       },
       {
         "type": "layer",
-        "value": [
-          "black",
-          "30",
-          "100%",
-          "center",
-          "center",
-          "center",
-          "center",
-          "5"
-        ],
-        "options": [
-          "bg",
-          "opacity",
-          "size",
-          "posY",
-          "posX",
-          "posYText",
-          "posXText",
-          "textP"
-        ]
+        "id": "bgLayer",
+        "value": ["#000000", 40, "40%", "60%", ["center", "center"]],
+        "options": ["bg", "opacity", "size", "sizeW", "posLayer"]
       },
       {
         "type": "logo",
-        "value": [
-          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
-          "end right",
-          "20"
-        ],
-        "options": ["sort", "position", "size"]
+        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg"
+      },
+      {
+        "type": "layer",
+        "id": "LogoLayer",
+        "value": [40, "60%", ["center", "center"]],
+        "options": ["opacity", "size", "posLayer"]
       }
     ]
   },

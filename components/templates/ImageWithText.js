@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -10,6 +11,7 @@ export default function ImageWithText({ previewData, options }) {
   let logo;
   let layer;
   let layerData;
+  let textLayer;
   let logoStyle;
   let layerPosition;
   let textPosition;
@@ -22,7 +24,10 @@ export default function ImageWithText({ previewData, options }) {
     )?.value;
     logo = previewData?.types?.find((item) => item.type === "logo")?.value[0];
     layerData = previewData?.types?.find(
-      (item) => item.type === "layer"
+      (item) => item.type === "layer" && item.id === "bgLayer"
+    )?.value;
+    textLayer = previewData?.types?.find(
+      (item) => item.type === "layer" && item.id === "textLayer"
     )?.value;
   }
 
@@ -34,30 +39,36 @@ export default function ImageWithText({ previewData, options }) {
   //layerData = ["black", "30", "full", "end", "left"];
 
   if (layerData != undefined) {
+    console.log("Layers", layerData[4]);
+    // const [justify, align] = layerData[4].split(",");
+    console.log("align", layerData[4][1], "justify", layerData[4][0]);
     // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
     // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
     layer = {
       backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
       // opacity: Number(layerData[1]) / 100,
       height: layerData[2], // h-30 ≈ 30 * 0.25rem
-      width: layerData[2], // w-30
+      width: layerData[3], // w-30
       color: "white",
       fontSize: "1.5rem", // text-2xl
       fontWeight: "bold",
       position: "absolute",
       display: "flex",
-      alignItems: layerData[5],
-      justifyContent: layerData[6],
+      //   Child alligment:
+      alignItems: textLayer[1][1],
+      justifyContent: textLayer[1][0],
     };
     layerPosition = {
       position: "absolute",
       inset: 0, // shorthand for top/right/bottom/left = 0
       display: "flex",
-      alignItems: layerData[3],
-      justifyContent: layerData[4],
+      alignItems: layerData[4][1],
+      justifyContent: layerData[4][0],
     };
     textPosition = {
-      padding: `0px ${layerData[7]}`, // z. B. "0px 10px"
+      color: textLayer[0],
+      width: textLayer[2],
+      textAlign: textLayer[3],
     };
   }
   //layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]} bg-primary`;
@@ -87,16 +98,18 @@ export default function ImageWithText({ previewData, options }) {
               src={imgURL}
               width={500}
               height={500}
-              alt="Picture of the author"
+              alt="Content uploaded"
             />
           )}
           <div style={layerPosition}>
             <div style={layer}>
-              <div style={textPosition}>{text && <div> {text}</div>}</div>
+              <div style={textPosition} className="p-3">
+                {text && <div> {text}</div>}
+              </div>
             </div>
           </div>
 
-          <div className="absolute inset-0 flex items-end justify-end p-5 ">
+          <div className="absolute inset-0 flex items-end justify-end p-3 ">
             {logo && (
               <div>
                 <Image
@@ -113,6 +126,7 @@ export default function ImageWithText({ previewData, options }) {
         {description && <div> {description}</div>}
       </div>
       {JSON.stringify(layerData)}
+      {JSON.stringify(textLayer)}
     </div>
   );
 }

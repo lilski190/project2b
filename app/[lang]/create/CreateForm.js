@@ -9,13 +9,20 @@ import TextArea from "@/components/input/textArea";
 import RadioButton from "@/components/input/radioButton";
 import Checkbox from "@/components/input/checkbox";
 import LayerComponent from "@/components/createForms/LayerComponent";
+import TextLayerComponent from "@/components/createForms/TextLayerComponent";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 /**
  * Styleguide FORM Komponent
  */
-export default function CreateForm({ dict, data, template, contentID }) {
+export default function CreateForm({
+  dict,
+  data,
+  template,
+  contentID,
+  vereinID,
+}) {
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState("");
 
@@ -54,6 +61,9 @@ export default function CreateForm({ dict, data, template, contentID }) {
     }
   };
 
+  let baseUrl =
+    "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/content/";
+
   const handleChange = async (index, e) => {
     console.log("handleChange called with index:", index, "and value:", e);
     let storage = JSON.parse(localStorage.getItem("CreateForm"));
@@ -78,8 +88,7 @@ export default function CreateForm({ dict, data, template, contentID }) {
       <button type="submit" className="btn btn-primary">
         Save Data
       </button>
-
-      {contentID}
+      ID: {vereinID}
       <Toaster position="top-center" />
       <div className="">
         <div className="col-span-1 bg-base-200">
@@ -90,8 +99,8 @@ export default function CreateForm({ dict, data, template, contentID }) {
           {data.types.map((typ, index) => {
             if (typ.type === "text") {
               return (
-                <div key={index}>
-                  This is a type text!
+                <div key={index} className="p-3">
+                  TEXT
                   <div className="w-full">
                     <TextArea
                       fieldID="text_test"
@@ -104,12 +113,14 @@ export default function CreateForm({ dict, data, template, contentID }) {
             } else if (typ.type === "image") {
               return (
                 <div key={index}>
-                  This is a type image!
                   <FileUpload
-                    BASEURL="https://example.com/upload"
-                    folderID="TODO"
-                    bucket="styles"
-                    url={typ.value || ""}
+                    BASEURL={baseUrl}
+                    folderID={vereinID}
+                    bucket="content"
+                    url={
+                      typ.value ||
+                      "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                    }
                     onChange={(newValue) => handleChange(index, newValue)}
                   />
                 </div>
@@ -127,11 +138,22 @@ export default function CreateForm({ dict, data, template, contentID }) {
               );
             } else if (typ.type === "headline") {
               return (
-                <div key={index}>
-                  This is a type headline!
+                <div key={index} className="p-3">
+                  HEADLINE
                   <TextField
                     fieldID="headline_test"
                     Textvalue={typ.value || ""}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                  />
+                </div>
+              );
+            } else if (typ.type === "textLayer") {
+              return (
+                <div key={index}>
+                  This is a type textLayer!
+                  <TextField
+                    fieldID="textLayerField"
+                    Textvalue={typ.textValue || ""}
                     onChange={(e) => handleChange(index, e.target.value)}
                   />
                 </div>
@@ -204,7 +226,7 @@ export default function CreateForm({ dict, data, template, contentID }) {
               return (
                 <div key={typ.type + "_" + index}>
                   <LayerComponent
-                    fieldID="text_layer"
+                    fieldID={"layer_" + index}
                     Textvalue={typ.value || ""}
                     onChange={(e) => handleChange(index, e.target.value)}
                     options={typ.options}

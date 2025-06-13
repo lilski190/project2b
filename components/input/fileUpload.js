@@ -21,6 +21,7 @@ export default function FileUpload({
   const [urlPath, setUrlPath] = useState(
     url ? url : "test/1748777334899_Bunker_01.jpg"
   );
+  const [uploaded, setUploaded] = useState(false);
 
   let baseURL = BASEURL;
 
@@ -35,6 +36,7 @@ export default function FileUpload({
   };
 
   const handleDrag = (e) => {
+    console.log("DRAG CTIVE");
     e.preventDefault();
     e.stopPropagation();
     setDragActive(e.type === "dragover");
@@ -67,6 +69,7 @@ export default function FileUpload({
       setUrlPath(data.path);
     }
     setUploading(false);
+    setUploaded(true);
 
     if (error) {
       console.error("Upload error:", error.message);
@@ -89,12 +92,12 @@ export default function FileUpload({
   };
 
   return (
-    <div>
-      <div className="flex">
+    <div className=" p-3  ">
+      <div className="flex justify-center">
         <label
           htmlFor="file-upload"
-          className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors w-full ${
-            dragActive ? "border-primary bg-primary/10" : "border-base-300"
+          className={` bg-white h-48 relative border-2 border-dashed rounded-md text-center cursor-pointer transition-colors w-1/2 ${
+            dragActive ? "" : "border-base-300"
           }`}
           onDragOver={handleDrag}
           onDragLeave={handleDrag}
@@ -114,37 +117,45 @@ export default function FileUpload({
             className="hidden"
             readOnly
           />
-          <p className="mb-2">
-            <Image
-              src="/freepik/illustrations/FileUpload.jpg"
-              alt={dict ? dict.imgAlt : "Illustration für Drag und Drop"}
-              width={100}
-              height={50}
-            />
-          </p>
-          <button
-            type="button"
-            className="btn btn-primary mt-2"
-            onClick={() => document.getElementById(fileID)?.click()}
-          >
-            {dict ? dict.buttonText : "Datei auswählen"}
-          </button>
+
+          <div className=" flex justify-center w-full h-full z-0 opacity-80 rounded-md">
+            {uploaded ? (
+              <Image
+                src={
+                  baseURL + urlPath // Verwende den Basis-URL und den Pfad
+                }
+                fill
+                alt={dict?.imgAlt || "Texture"}
+                className="rounded-md"
+              />
+            ) : (
+              <Image
+                src="https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                fill
+                alt={dict?.imgAlt || "Texture"}
+                className="rounded-md"
+              />
+            )}
+          </div>
+          {dragActive && (
+            <div className="absolute inset-0 z-10 bg-primary/10 border-2 border-primary border-dashed rounded-md pointer-events-none"></div>
+          )}
+
+          <div className="-mt-12 w-full  flex justify-center items-end">
+            <button
+              type="button"
+              className=" btn btn-primary z-20 mb-5"
+              onClick={() => document.getElementById(fileID)?.click()}
+            >
+              {dict ? dict.buttonText : "Datei auswählen"}
+            </button>
+          </div>
         </label>
       </div>
 
-      {selectedFile && (
-        <div className="mt-4 text-sm">
-          <h2 className="font-semibold">
-            {dict ? dict.ChoosenFile : " Ausgewählte Datei:"}
-          </h2>
-          <p>
-            {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
-          </p>
-        </div>
-      )}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+          <div className="bg-white rounded-lg p-6 w-96 shadow-lg ">
             <h2 className="text-lg font-semibold mb-4">
               {dict?.modalTitle || "Datei hochladen"}
             </h2>

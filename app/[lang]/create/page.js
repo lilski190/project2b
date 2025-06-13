@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/getDictionary";
 import CreateForm from "./CreateForm";
 import CreatePreview from "./CreatePreview";
 import { getSpecificContentAction } from "@/app/actions/contentAction";
+import { cookies } from "next/headers";
 
 //Alle Descriptoren der Templates Importieren
 
@@ -40,6 +41,10 @@ export default async function CreatePage({ params, searchParams }) {
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
   const sourceKeyAwait = await searchParams;
+  const cookieStore = await cookies();
+  const rawId = cookieStore.get("verein_id")?.value;
+  const vereinId = rawId?.split("-")[0];
+  const vereinName = cookieStore.get("verein_name")?.value;
 
   const sourceKey = (sourceKeyAwait.template || "test").trim();
   const contentID = sourceKeyAwait.content || 0;
@@ -63,8 +68,6 @@ export default async function CreatePage({ params, searchParams }) {
 
   return (
     <div>
-      {sourceKey}
-      {JSON.stringify(selectedData.form)}
       <h1 className="mb-5 text-5xl font-bold">{dict.create.title}</h1>
       <p>{dict.create.description}</p>
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
@@ -74,6 +77,7 @@ export default async function CreatePage({ params, searchParams }) {
           data={contentData}
           template={sourceKey}
           contentID={contentID}
+          vereinID={vereinName + "_" + vereinId}
         />
       </div>
     </div>

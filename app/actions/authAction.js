@@ -68,6 +68,12 @@ export async function loginAction(formData) {
       sameSite: "lax",
       secure: true,
     });
+    cookieStore.set("verein_name", LoginData.verein_name, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
 
     cookieStore.set("member_id", LoginData.member_id, {
       path: "/",
@@ -139,5 +145,6 @@ export async function getLoginData(vereinName) {
   return {
     verein_id: verein.id,
     member_id: member.id,
+    verein_name: verein.name,
   };
 }
