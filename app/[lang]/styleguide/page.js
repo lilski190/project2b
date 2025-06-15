@@ -21,8 +21,11 @@ export default async function StyleguidePage({ params }) {
   const dict = await getDictionary(lang);
   const styleguideData = await getStyleguideAction();
   console.log("StyleguideData:", styleguideData.stringify);
+
   const cookieStore = await cookies();
-  const vereinId = cookieStore.get("verein_id")?.value;
+  const rawId = cookieStore.get("verein_id")?.value;
+  const vereinId = rawId?.split("-")[0];
+  const vereinName = cookieStore.get("verein_name")?.value;
 
   if (!user) {
     redirect("/login");
@@ -34,7 +37,7 @@ export default async function StyleguidePage({ params }) {
       <StyleguideForm
         dict={dict}
         data={styleguideData.stringify}
-        folderID={vereinId}
+        folderID={vereinName + "_" + vereinId}
       />
     </div>
   );

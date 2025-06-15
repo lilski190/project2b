@@ -87,14 +87,17 @@ export default function StyleguideForm({ dict, data, folderID }) {
             <div className="lableText">{dict.styleguide.headlines.logo}</div>
             <InformationTooltip text={dict.styleguide.infotext.logo} />
           </div>
-          <Logos dict={dict.styleguide.colorDescription} />
+          <Logos
+            dict={dict.styleguide.colorDescription}
+            folderID={folderID}
+            logo={parsedData.logo}
+          />
 
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.fonts}</div>
             <InformationTooltip text={dict.styleguide.infotext.fonts} />
           </div>
           <FontSelectors fonts={parsedData.fonts} />
-
           <div className="flex justify-between w-full">
             <div className="lableText">{dict.styleguide.headlines.slogan}</div>
             <InformationTooltip text={dict.styleguide.infotext.slogan} />

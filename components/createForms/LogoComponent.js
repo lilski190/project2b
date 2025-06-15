@@ -1,20 +1,14 @@
 "use client";
 
-import collapse from "daisyui/components/collapse";
 import React, { useState } from "react";
+import Image from "next/image";
+import { BASEURL } from "@/lib/globals";
 
-const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
+const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
   let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
 
-  console.log("Styleguide XY", styleguide.data.colors);
-
-  const extendedColors = {
-    ...styleguide.data.colors,
-    black: "#000000",
-    white: "#FFFFFF",
-  };
-  console.log("extended colors", extendedColors);
+  let logos = styleguide.data.logo;
 
   const opacities = [100, 80, 60, 40, 20, 0];
   const sizes = [
@@ -40,8 +34,6 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     ["center", "flex-end"],
     ["flex-end", "flex-end"],
   ];
-
-  const textAligns = ["start", "end", "center", "justify"];
 
   const handleChange = (e, index, id) => {
     console.log("handle Cange", id);
@@ -75,6 +67,8 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
 
   return (
     <div className="p-3">
+      {JSON.stringify(Textvalue)}
+      LOGOS: {JSON.stringify(logos)}
       {options.map((option, index) => {
         switch (option) {
           case "bg":
@@ -124,7 +118,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
                           className="border h-7 w-7 rounded-full transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info"
                           style={{
                             backgroundColor:
-                              layer[0] + percentToHexAlpha(parseInt(opacity)),
+                              "#FFFFFF" + percentToHexAlpha(parseInt(opacity)),
                             border:
                               parseInt(opacity) === 0
                                 ? "2px solid #808080"
@@ -142,7 +136,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
             return (
               <div key={option}>
                 <div>
-                  <div>Höhe</div>
+                  <div>Größe</div>
                   <div className="flex">
                     {sizes.map((size) => (
                       <div key={size} className="m-2 h-18 w-3">
@@ -156,48 +150,15 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
                             defaultChecked={size === layer[index]}
                           />
                           <div
-                            className="transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info"
+                            className="w-3 bg-white/30 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info"
                             style={{
-                              backgroundColor: layer[0],
                               height: size,
-                              width: "100%",
                             }}
                           ></div>
                         </label>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
-            );
-
-          case "sizeW":
-            return (
-              <div key={option} className="flex py-1.5">
-                <div>
-                  <div>Breite</div>
-                  {sizes.map((size) => (
-                    <div key={size} className="m-2 h-3 w-18">
-                      <label className="cursor-pointer">
-                        <input
-                          type="radio"
-                          name={"sizeW_" + fieldID}
-                          value={size}
-                          onChange={(e) => handleChange(e, index, "sizeW")}
-                          className="hidden peer"
-                          defaultChecked={size === layer[index]}
-                        />
-                        <div
-                          className="transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info"
-                          style={{
-                            backgroundColor: layer[0],
-                            height: "100%",
-                            width: size,
-                          }}
-                        />
-                      </label>
-                    </div>
-                  ))}
                 </div>
               </div>
             );
@@ -222,10 +183,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
                               pos[1] === layer[index][1]
                             }
                           />
-                          <div
-                            style={{ backgroundColor: layer[0] }}
-                            className="h-7 w-16 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info"
-                          />
+                          <div className="bg-white/30 h-7 w-16 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info" />
                         </label>
                       </div>
                     ))}
@@ -233,40 +191,52 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
                 </div>
               </div>
             );
-          case "textAlign":
+          case "logo":
             return (
               <div key={option}>
-                <div className="w-2/3">
-                  <div>Text Align</div>
+                <div className="">
+                  <div>Logos</div>
+                  {JSON.stringify(logos)}
                   <div className="flex">
-                    {textAligns.map((pos) => (
-                      <div key={pos} className="m-2">
+                    {Object.entries(logos).map(([key, logo]) => (
+                      <div key={logo} className="m-2">
                         <label className="cursor-pointer">
                           <input
                             type="radio"
-                            name={"textAlign" + fieldID}
-                            value={pos}
-                            onChange={(e) =>
-                              handleChange(e, index, "textAlign")
-                            }
+                            name={"logo" + fieldID}
+                            value={logo}
+                            onChange={(e) => handleChange(e, index, "logo")}
                             className="hidden peer"
-                            defaultChecked={pos === layer[index]}
                           />
-
-                          <div className="bg-white/20 p-1 w-16 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info">
-                            <div
-                              style={{
-                                color: layer[0],
-                                textAlign: pos,
-                              }}
-                              className="w-full"
-                            >
-                              TEXT
+                          <div className="bg-white/20 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info">
+                            <div className="w-full">
+                              <Image
+                                src={BASEURL + "styles/" + logo}
+                                width={30}
+                                height={20}
+                                alt="logo"
+                                className=" h-16 w-16"
+                              />
                             </div>
                           </div>
                         </label>
                       </div>
                     ))}
+                    <div className="m-2">
+                      <label className="cursor-pointer">
+                        <input
+                          type="radio"
+                          name={"logo" + fieldID}
+                          value="none"
+                          onChange={(e) => handleChange(e, index, "logo")}
+                          className="hidden peer"
+                          defaultChecked
+                        />
+                        <div className="bg-white/20 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info">
+                          <div className="w-full h-16 w-20">NONE</div>
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -280,4 +250,4 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   );
 };
 
-export default LayerComponent;
+export default LogoComponent;

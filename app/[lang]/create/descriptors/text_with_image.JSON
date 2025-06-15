@@ -13,7 +13,7 @@
       {
         "type": "layer",
         "id": "textLayer",
-        "value": ["#FFFFFF", ["center", "center"], "20%", "center"],
+        "value": ["#FFFFFF", ["center", "center"], "80%", "center"],
         "options": ["bg", "posLayer", "sizeW", "textAlign"]
       },
       {
@@ -28,32 +28,40 @@
       },
       {
         "type": "logo",
-        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg"
-      },
-      {
-        "type": "layer",
-        "id": "LogoLayer",
-        "value": [40, "60%", ["center", "center"]],
-        "options": ["opacity", "size", "posLayer"]
+        "value": [
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
+          40,
+          "60%",
+          ["center", "center"]
+        ],
+        "options": ["logo", "opacity", "size", "posLayer"]
       }
     ]
   },
   "preview": {
     "web": {
-      "width": 800,
-      "height": 600
+      "width": 1920,
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
     },
     "instagram": {
       "width": 1080,
-      "height": 1080
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 100
     },
     "Presentation": {
       "width": 1920,
-      "height": 1080
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
     },
     "DINA6": {
       "width": 105,
-      "height": 148
+      "height": 148,
+      "widthPercent": 70.95,
+      "heightPercent": 100
     }
   }
 }

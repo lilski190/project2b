@@ -10,6 +10,7 @@ import RadioButton from "@/components/input/radioButton";
 import Checkbox from "@/components/input/checkbox";
 import LayerComponent from "@/components/createForms/LayerComponent";
 import TextLayerComponent from "@/components/createForms/TextLayerComponent";
+import LogoComponent from "@/components/createForms/LogoComponent";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -184,13 +185,14 @@ export default function CreateForm({
             } else if (typ.type === "logo") {
               return (
                 <div key={index}>
-                  This is a type logo!
-                  <RadioButton
+                  LOGO
+                  <LogoComponent
                     fieldID="logo_rafio"
                     Textvalue={typ.value || ""}
                     onChange={(e) => handleChange(index, e.target.value)}
                     options={typ.options}
                   />
+                  LOGO END:
                 </div>
               );
             } else if (typ.type === "gallery") {
