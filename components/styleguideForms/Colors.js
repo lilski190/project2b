@@ -1,15 +1,15 @@
 import React from "react";
 import ColorPicker from "../input/colorPicker";
+import InformationTooltipMini from "../tooltips/InformationTooltipMini";
 
 /**
  * Colors Komponent
  * Hier kommen versteckte inputfields für die Farben rein
  */
 const Colors = ({ colors, dict }) => {
-  console.log("COLORS", colors);
   return (
-    <div className="grid grid-cols-2  gap-4">
-      <div className="flex flex-col items-center  mt-2 justify-self-end">
+    <div className="grid grid-cols-2  gap-4 py-2 bg-neutral/30 rounded-md mt-1 px-2">
+      <div className="flex flex-col items-center mt-2 justify-self-end">
         <div className="flex items-center">
           <div className="flex justify-between w-full py-2">
             <ColorPicker fieldID="main_01" ColorValue={colors.main_01} />

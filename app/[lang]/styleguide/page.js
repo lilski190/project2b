@@ -32,7 +32,7 @@ export default async function StyleguidePage({ params }) {
   }
 
   return (
-    <div className="m-6">
+    <div className="">
       <StyleguideForm
         dict={dict}
         data={styleguideData.stringify}

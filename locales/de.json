@@ -94,12 +94,52 @@
       "text": "Schriftfarben",
       "neutral": "Neutrale Farben "
     },
+    "backgroundDescription": {
+      "light": "Helle Hintergründe",
+      "dark": "Dunkle Hintergründe",
+      "textureUpload": {
+        "modalTitle": "Datein hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lade hoch...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Heller Hintergrund Nr. 1",
+        "Heller Hintergrund Nr. 2",
+        "Dunkler Hintergrund Nr. 1",
+        "Dunkler Hintergrund Nr. 2"
+      ]
+    },
+    "logoDescription": {
+      "big": "Logo",
+      "small": "Kleines Logo",
+      "oneColor": "Einfarbiges Logo",
+      "logoUpload": {
+        "modalTitle": "Datein hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lade hoch...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Vereins Logo",
+        "Vereins Logo kleine Version",
+        "Veinslogo einfarbig"
+      ]
+    },
+    "fontsDescription": {
+      "preview": "Dies ist ein Vorschautext in der ausgewählten Schriftart.",
+      "headline": "Überschriften",
+      "body": "Textkörper"
+    },
+
     "infotext": {
-      "colors": "Wählt die Farben, die euren Verein am besten repräsentieren. Diese Farben werden in Texten, Grafiken und Hintergründen verwendet.",
-      "backgrounds": "Hier könnt ihr passende Hintergrundbilder für eure Inhalte einfügen.",
+      "colors": "Wählt die Farben, die euren Verein am besten repräsentieren. Diese Farben werden in Texten, Grafiken und Hintergründen verwendet. Kurze Erklärung zu den einzelen Farben: ",
+      "backgrounds": "Hier könnt ihr passende Hintergrundbilder für eure Inhalte hochladen. Es ist gut eine Auswahl an Hellen und Dunklen Hintergründen zu haben. Die TExturen kannst du entweder über den Button auswählen oder mit Drag und Drop in das Feld ziehen",
       "grafics": "Hier werden später eure eigenen grafischen Elemente wie Icons oder Illustrationen erscheinen.",
       "logo": "Ladet euer Vereinslogo hoch. Es wird auf euren Seiten verwendet.",
-      "fonts": "Wählt die Schriftarten aus, die euch gefallen. Ihr seht direkt eine Vorschau mit Beispieltext.",
+      "fonts": "Wählt die Schriftarten aus, die euch gefallen. Ihr seht direkt eine Vorschau mit Beispieltext. Erklärung was der unterschied zwischen der Headline und dem Textkörper ist",
       "slogan": "Gebt euren Vereinsslogan oder ein Motto ein, das auf der Seite angezeigt wird."
     },
     "save": "Speichern",

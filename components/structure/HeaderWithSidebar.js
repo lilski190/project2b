@@ -92,7 +92,7 @@ export default function HeaderWithSidebar({ lang, dict }) {
             <Link href={`/${lang}/collection`}>{dict.sidebar.collection}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/exmaples`}>{dict.sidebar.examples}</Link>
+            <Link href={`/${lang}/examples`}>{dict.sidebar.examples}</Link>
           </li>
           <li>
             <Link href={`/${lang}/tutorial`}>{dict.sidebar.tutorial}</Link>

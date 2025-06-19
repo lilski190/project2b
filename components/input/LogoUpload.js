@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient"; // Stelle sicher, dass du den Supabase-Client importierst
 
-export default function TextureUpload({
+export default function LogoUpload({
   onFileUploaded,
   dict,
   fieldID,
@@ -18,7 +18,7 @@ export default function TextureUpload({
   const [dragActive, setDragActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [urlPath, setUrlPath] = useState(url ? url : false); // Setze einen Standardwert für den URL-Pfad
+  const [urlPath, setUrlPath] = useState(url ? url : ""); // Setze einen Standardwert für den URL-Pfad
 
   let baseURL = BASEURL + bucket + "/";
 
@@ -88,7 +88,7 @@ export default function TextureUpload({
       <div className="flex flex-col items-center">
         <label
           htmlFor={fileID}
-          className={`relative  rounded-md p-6 text-center cursor-pointer transition-colors w-20 h-20
+          className={`relative  rounded-md p-6 text-center cursor-pointer transition-colors w-full h-24
              cursor-pointer transition-all duration-200 ease-in-out hover:scale-115 
              hover:shadow-md hover:border-info hover:bg-info/10 hover:border-3 ${
                dragActive ? "border-dashed border-info bg-info/10 border-4" : ""
@@ -115,10 +115,10 @@ export default function TextureUpload({
           {!urlPath ? (
             <Image
               src={
-                baseURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
+                BASEURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
               }
               fill
-              alt={imgAlt || "File Upload"}
+              alt={"imgAlt" || "File Upload"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
             />
           ) : (
@@ -127,7 +127,7 @@ export default function TextureUpload({
                 baseURL + urlPath // Verwende den Basis-URL und den Pfad
               }
               fill
-              alt={imgAlt || "Texture"}
+              alt={imgAlt || "Logo"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
             />
           )}

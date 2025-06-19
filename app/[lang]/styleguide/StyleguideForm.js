@@ -46,7 +46,7 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
 
   //action={saveStyleguideAction}>
   return (
-    <form onSubmit={handleSubmit} className="">
+    <form onSubmit={handleSubmit} className="pb-6">
       <div className="fixed p-3 pr-4 top-0 right-0 z-30">
         <button
           type="submit"
@@ -57,11 +57,11 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
       </div>
       <Toaster position="top-center" />
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
-        <div className="col-span-1 bg-base-200">
-          <p className="headline">{dict.styleguide.title}</p>
-          <p className="baseText">{dict.styleguide.description}</p>
+        <div className="col-span-1  pl-6  pr-3 py-6 max-md:pl-3 max-md:pb-0 max-md:pt-3">
+          <p className="headline ">{dict.styleguide.title}</p>
+          <p className="baseText mt-3">{dict.styleguide.description}</p>
 
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full mt-3 ">
             <div className="lableText">{dict.styleguide.headlines.colors}</div>
             <InformationTooltip text={dict.styleguide.infotext.colors} />
           </div>
@@ -70,48 +70,52 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
             dict={dict.styleguide.colorDescription}
           />
 
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full mt-3">
             <div className="lableText">
               {dict.styleguide.headlines.backgrounds}
             </div>
             <InformationTooltip text={dict.styleguide.infotext.backgrounds} />
           </div>
           <Backgrounds
-            dict={dict.styleguide.colorDescription}
+            dict={dict.styleguide.backgroundDescription}
             backgrounds={parsedData.backgrounds}
             folderID={folderID} // Pass the folderID prop
           />
+        </div>
+        <div className="col-span-1  pr-6  pl-3 py-6 max-md:pr-3 max-md:pt-0">
+          <div className="flex justify-between w-full mt-3">
+            <div className="lableText">{dict.styleguide.headlines.logo}</div>
+            <InformationTooltip text={dict.styleguide.infotext.logo} />
+          </div>
+          <Logos
+            dict={dict.styleguide.logoDescription}
+            folderID={folderID}
+            logo={parsedData.logo}
+          />
 
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full mt-3">
+            <div className="lableText">{dict.styleguide.headlines.fonts}</div>
+            <InformationTooltip text={dict.styleguide.infotext.fonts} />
+          </div>
+          <FontSelectors
+            fonts={parsedData.fonts}
+            dict={dict.styleguide.fontsDescription}
+          />
+
+          <div className="flex justify-between w-full mt-3 mb-1.5">
+            <div className="lableText">{dict.styleguide.headlines.slogan}</div>
+            <InformationTooltip text={dict.styleguide.infotext.slogan} />
+          </div>
+          <Slogan text={parsedData.slogan} />
+
+          <div className="flex justify-between w-full mt-3">
             <div className="lableText">{dict.styleguide.headlines.grafics}</div>
             <InformationTooltip text={dict.styleguide.infotext.grafics} />
           </div>
           <Grafics />
         </div>
-        <div className="col-span-1 bg-base-300">
-          <div className="flex justify-between w-full">
-            <div className="lableText">{dict.styleguide.headlines.logo}</div>
-            <InformationTooltip text={dict.styleguide.infotext.logo} />
-          </div>
-          <Logos
-            dict={dict.styleguide.colorDescription}
-            folderID={folderID}
-            logo={parsedData.logo}
-          />
-
-          <div className="flex justify-between w-full">
-            <div className="lableText">{dict.styleguide.headlines.fonts}</div>
-            <InformationTooltip text={dict.styleguide.infotext.fonts} />
-          </div>
-          <FontSelectors fonts={parsedData.fonts} />
-          <div className="flex justify-between w-full">
-            <div className="lableText">{dict.styleguide.headlines.slogan}</div>
-            <InformationTooltip text={dict.styleguide.infotext.slogan} />
-          </div>
-          <Slogan />
-        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 mt-3">
+      <div className="grid grid-cols-2 gap-6 mt-1 px-6">
         <Link href={`/${lang}/dashboard`} className="w-full">
           <button className="w-full btn btn-soft btn-warning hover:bg-warning/70 transition-transform duration-300 font-semibold py-2 px-4 rounded-lg shadow-md">
             {dict.styleguide.cancel}
@@ -119,7 +123,7 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
         </Link>
         <button
           type="submit"
-          className="w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 font-semibold py-2 px-4 rounded-lg shadow-md"
+          className="w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
         >
           {dict.styleguide.save}
         </button>

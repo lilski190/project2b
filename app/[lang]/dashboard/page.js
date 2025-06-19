@@ -43,7 +43,7 @@ export default async function DashboardPage({ params }) {
           bgColor={"var(--color-base-200)"}
         />
       </div>
-      <div className="-mt-5 px-6 max-sm:px-3 ">
+      <div className="-mt-5 px-6 max-sm:px-3 pb-6">
         <StyleguideLoader />
         <div className="grid grid-cols-3 gap-4  z-30 ">
           <Link href={`/${lang}/styleguide`} className="w-full">

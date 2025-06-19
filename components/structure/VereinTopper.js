@@ -26,7 +26,7 @@ export default function VereinTopper({
   if (!style) {
     return (
       // Optional: Zeige ein Fallback-UI oder nichts, bis style geladen ist
-      <div className="relative text-primary-content px-6 py-13  w-full overflow-hidden h-96">
+      <div className="relative bg-primary text-primary-content px-6 py-13  w-full overflow-hidden h-96">
         {/* Content */}
         <div className="flex justify-between">
           <div className="w-full ">
@@ -70,19 +70,25 @@ export default function VereinTopper({
       <div className="flex justify-between h-96">
         <div className="w-full ">
           <div
-            className={`${style[0].fonts.heading.font_family} headline w-3/4`}
+            className={`${style[0]?.fonts.heading.font_family} headline w-3/4`}
             style={{ color: style[0]?.colors?.text_01 || "white" }}
           >
             {vereinText} {vereinName}
           </div>
           <div
-            className={`${style[0].fonts.body.font_family} title mt-3`}
+            className={`${style[0]?.fonts.body.font_family} title mt-3`}
             style={{ color: style[0]?.colors?.text_01 || "white" }}
           >
             {memberText} {memberName}
           </div>
         </div>
-        <div className="bg-primary w-36 h-36  rounded-full">TODO: LOGO</div>
+        <div className="h-36 w-auto relative max-md:h-24">
+          <img
+            src={BASEURL + "styles/" + style[0]?.logo.big}
+            alt="Verein Logo"
+            className="h-36 w-auto max-md:h-24"
+          />
+        </div>
       </div>
 
       {/* SVG als Welle am unteren Rand */}

@@ -10,7 +10,7 @@ const InformationTooltip = ({ text }) => {
       <div className="tooltip-content">
         <div className="">{text}</div>
       </div>
-      <button className="btn btn-soft btn-info btn-circle h-7 w-7">?</button>
+      <div className="btn btn-soft btn-info btn-circle h-7 w-7">?</div>
     </div>
   );
 };
