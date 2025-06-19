@@ -4,7 +4,6 @@
     "description": "Hier ist eine kurze Projekt Beschreibung"
   },
   "login": {
-    "title": "Login",
     "description": "Hier ist der Login zu der Vereinsseite wo der Content erstellt und verwaltet werden kann",
     "explenation": "Um dich anmelden zu können muss dein Verein angemeldet sein. Anschleißend braucht du als Mitglied einen Account.",
     "error_case_notRegistered": "Dein Verein ist Angemedet aber du bist noch nicht registriert? Dann melde dich bei dem Admin von deinem Verein und bitte ihn einen Accout für dich zu erstellen //TODO URL  ",
@@ -12,12 +11,15 @@
     "login": "Login"
   },
   "dashboard": {
-    "title": "Dashboard von //TODO: Verein Name",
-    "description": "Von hier aus können die Mitglider Content erstellen und verwalten. ",
-    "description_styleguide": "Hier geht es zum Styleguide",
-    "description_templates": "Um neuen Content zu erstellen hier entlang",
-    "description_list": "Und hier gehts zur Content verwaltung",
-    "welcome": "Hallo //TODO NAME"
+    "title": "Willkommen im Dashboard von",
+    "description": "Hier kannst du Inhalte erstellen, gestalten und verwalten.",
+    "title_styleguide": "Design-Richtlinien",
+    "description_styleguide": "Farbwelten, Schriften und Logos – alles an einem Ort.",
+    "title_templates": "Vorlagen",
+    "description_templates": "Erstelle Inhalte schneller mit vordefinierten Templates.",
+    "title_list": "Content Liste",
+    "description_list": "Verwalte, bearbeite oder lösche bestehenden Content.",
+    "welcome": "Schön, dass du da bist"
   },
   "about": {
     "title": "Was ist //TODO Projekt name?",
@@ -77,7 +79,7 @@
   },
   "styleguide": {
     "title": "Styleguide",
-    "description": "Das ist der Coperate Styles des Vereins: ",
+    "description": "Hier gestaltet ihr das Aussehen eures Vereinsauftritts. Wählt Farben, Schriften, Logos und mehr aus, damit alles zu euch passt.",
     "headlines": {
       "colors": "Farben",
       "backgrounds": "Hintergründe",
@@ -87,19 +89,21 @@
       "slogan": "Slogan"
     },
     "colorDescription": {
-      "main": "Hauptfarben",
-      "detail": "Detailfarben",
-      "text": "Textfraben",
-      "neutral": "Neutrale Farben"
+      "main": "Hauptfarben ",
+      "detail": "Ergänzende Farben",
+      "text": "Schriftfarben",
+      "neutral": "Neutrale Farben "
     },
     "infotext": {
-      "colors": "Das hier sind eure Farben.",
-      "backgrounds": "Hier sind die Hintergründe, die im Projekt verwendet werden",
-      "grafics": "Hier sind die Grafischn Elemente, die im Projekt verwendet werden",
-      "logo": "Hier ist das Logo, das im Projekt verwendet wird",
-      "fonts": "Hier sind die Schriftarten, die im Projekt verwendet werden",
-      "slogan": "Hier ist der Slogan, der im Projekt verwendet wird"
-    }
+      "colors": "Wählt die Farben, die euren Verein am besten repräsentieren. Diese Farben werden in Texten, Grafiken und Hintergründen verwendet.",
+      "backgrounds": "Hier könnt ihr passende Hintergrundbilder für eure Inhalte einfügen.",
+      "grafics": "Hier werden später eure eigenen grafischen Elemente wie Icons oder Illustrationen erscheinen.",
+      "logo": "Ladet euer Vereinslogo hoch. Es wird auf euren Seiten verwendet.",
+      "fonts": "Wählt die Schriftarten aus, die euch gefallen. Ihr seht direkt eine Vorschau mit Beispieltext.",
+      "slogan": "Gebt euren Vereinsslogan oder ein Motto ein, das auf der Seite angezeigt wird."
+    },
+    "save": "Speichern",
+    "cancel": "Abbrechen"
   },
   "templates": {
     "title": "Templates",
@@ -133,5 +137,22 @@
     "contactUs": "TODO: Was soll in den Footer? Kontaktieren Sie uns",
     "privacyPolicy": "Datenschutz-Bestimmungen",
     "termsOfService": "Nutzungsbedingungen"
+  },
+  "sidebar": {
+    "home": "Homepage",
+    "login": "Einloggen",
+    "dashboard": "Dashboard",
+    "about": "Über dieses Projekt",
+    "collection": "Sammlung",
+    "examples": "Beispiele",
+    "tutorial": "Tutorial",
+    "join": "Verein anmelden",
+    "styleguide": "Vereinsstyle",
+    "templates": "Styling Tempaltes",
+    "list": "Content Liste",
+    "create": "Content erstellen",
+    "management": "Vereins Management",
+    "impressum": "Impressum",
+    "projectName": "Name des Projektes"
   }
 }

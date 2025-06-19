@@ -32,12 +32,12 @@ export default async function StyleguidePage({ params }) {
   }
 
   return (
-    <div>
-      {JSON.stringify(dict)}
+    <div className="m-6">
       <StyleguideForm
         dict={dict}
         data={styleguideData.stringify}
         folderID={vereinName + "_" + vereinId}
+        lang={lang}
       />
     </div>
   );

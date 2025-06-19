@@ -10,8 +10,6 @@ const Logos = ({ colors, dict, folderID, logo }) => {
     "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/";
   return (
     <div className="">
-      LOGO: {JSON.stringify(logo)}
-      {folderID}
       <div className="flex flex-col items-center  mt-2 justify-self-end">
         <div className="flex items-center">
           <div className="">

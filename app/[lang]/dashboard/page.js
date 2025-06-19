@@ -4,6 +4,10 @@ import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
 import StyleguideLoader from "@/components/wrapper/StyleguideLoader";
 import Link from "next/link";
+import IconTextCard from "@/components/cards/IconTextCard";
+import { cookies } from "next/headers";
+import VereinTopper from "@/components/structure/VereinTopper";
+
 /**
  * Dashboard Seite der Anwendung.
  * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
@@ -18,33 +22,54 @@ export default async function DashboardPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const cookieStore = await cookies();
+
+  const vereinName = cookieStore.get("verein_name")?.value;
+
+  const memberName = cookieStore.get("member_name")?.value;
 
   if (!user) {
     redirect("/login");
   }
 
   return (
-    <div>
-      {JSON.stringify(dict)}
-      <StyleguideLoader />
-      <h1 className="mb-5 text-5xl font-bold">{dict.dashboard.title}</h1>
-      <h1>
-        {dict.dashboard.welcome} : {user.email}
-      </h1>
-      Zu den Seiten:
-      <div className="grid grid-cols-3 gap-4">
-        <Link href={`/${lang}/styleguide`}>
-          <div className="w-full h-20 bg-base-200">STYLEGUIDE</div>
-        </Link>
-        <Link href={`/${lang}/templates`}>
-          <div className="w-full h-20 bg-base-200">CREATE NEW</div>
-        </Link>
-        <Link href={`/${lang}/content`}>
-          <div className="w-full h-20 bg-base-200">MY CONTENT</div>
-        </Link>
+    <div className="">
+      <div className="-mb-5 z-0">
+        <VereinTopper
+          memberName={memberName}
+          vereinName={vereinName}
+          vereinText={dict.dashboard.title}
+          memberText={dict.dashboard.welcome}
+          bgColor={"var(--color-base-200)"}
+        />
       </div>
-      TODO: Überlegen was hier noch für inhalte reinkönnten... Was ist wichtig
-      für den Startbildschirm?
+      <div className="-mt-5 px-6 max-sm:px-3 ">
+        <StyleguideLoader />
+        <div className="grid grid-cols-3 gap-4  z-30 ">
+          <Link href={`/${lang}/styleguide`} className="w-full">
+            <IconTextCard
+              title={dict.dashboard.title_styleguide}
+              text={dict.dashboard.description_styleguide}
+              icon="color"
+            />
+          </Link>
+
+          <Link href={`/${lang}/templates`}>
+            <IconTextCard
+              title={dict.dashboard.title_templates}
+              text={dict.dashboard.description_templates}
+              icon="puzzle"
+            />
+          </Link>
+          <Link href={`/${lang}/content`}>
+            <IconTextCard
+              title={dict.dashboard.title_list}
+              text={dict.dashboard.description_list}
+              icon="stack"
+            />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

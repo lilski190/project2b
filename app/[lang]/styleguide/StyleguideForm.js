@@ -10,11 +10,12 @@ import FontSelectors from "@/components/styleguideForms/FontSelectors";
 import Logos from "@/components/styleguideForms/Logos";
 import Slogan from "@/components/styleguideForms/Slogan";
 import Grafics from "@/components/styleguideForms/Grafics";
+import Link from "next/link";
 
 /**
  * Styleguide FORM Komponent
  */
-export default function StyleguideForm({ dict, data, folderID }) {
+export default function StyleguideForm({ dict, data, folderID, lang }) {
   const [loading, setLoading] = useState(false);
   let parsedDataObj = JSON.parse(data);
   console.log("data", parsedDataObj[0]);
@@ -45,10 +46,15 @@ export default function StyleguideForm({ dict, data, folderID }) {
 
   //action={saveStyleguideAction}>
   return (
-    <form onSubmit={handleSubmit}>
-      <button type="submit" className="btn btn-primary">
-        Save Data
-      </button>
+    <form onSubmit={handleSubmit} className="">
+      <div className="fixed p-3 pr-4 top-0 right-0 z-30">
+        <button
+          type="submit"
+          className="btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
+        >
+          {dict.styleguide.save}
+        </button>
+      </div>
       <Toaster position="top-center" />
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
         <div className="col-span-1 bg-base-200">
@@ -104,6 +110,19 @@ export default function StyleguideForm({ dict, data, folderID }) {
           </div>
           <Slogan />
         </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3 mt-3">
+        <Link href={`/${lang}/dashboard`} className="w-full">
+          <button className="w-full btn btn-soft btn-warning hover:bg-warning/70 transition-transform duration-300 font-semibold py-2 px-4 rounded-lg shadow-md">
+            {dict.styleguide.cancel}
+          </button>
+        </Link>
+        <button
+          type="submit"
+          className="w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 font-semibold py-2 px-4 rounded-lg shadow-md"
+        >
+          {dict.styleguide.save}
+        </button>
       </div>
     </form>
   );

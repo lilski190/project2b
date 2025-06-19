@@ -17,16 +17,16 @@ export default async function LoginPage({ params }) {
   const dict = await getDictionary(lang);
 
   return (
-    <div style={{ padding: 24 }}>
-      {JSON.stringify(dict)}
+    <div className="p-7">
       <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">{dict.login.login}</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+        <div className="hero-content flex-col md:flex-row-reverse md:items-start">
+          <div className="text-center md:text-left w-full  mb-3 lg:w-2/3">
+            <h1 className="headline">{dict.login.login}</h1>
+            <p className="pt-3 text-left px-2 md:pl-0 md:pt-6">
+              {dict.login.description}
+            </p>
+            <p className="pb-3 pt-1 text-left px-2 md:pl-0 md:py-3">
+              {dict.login.explenation}
             </p>
           </div>
 

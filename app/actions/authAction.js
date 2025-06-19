@@ -82,9 +82,11 @@ export async function loginAction(formData) {
       secure: true,
     });
 
-    console.log("Verein- und Member-ID-Cookies gesetzt:", {
-      verein_id: LoginData.verein_id,
-      member_id: LoginData.member_id,
+    cookieStore.set("member_name", LoginData.member_name, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
     });
 
     console.log("Login-Daten erfolgreich abgerufen, jetzt redirect:)");
@@ -146,5 +148,6 @@ export async function getLoginData(vereinName) {
     verein_id: verein.id,
     member_id: member.id,
     verein_name: verein.name,
+    member_name: member.name,
   };
 }

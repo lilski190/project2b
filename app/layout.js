@@ -17,7 +17,7 @@ export default async function RootLayout({ children, params }) {
   const lang = param.lang || "de";
 
   return (
-    <html className="main text-base-content" lang="en">
+    <html className="main text-base-content bg-base-200" lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

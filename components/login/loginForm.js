@@ -3,6 +3,7 @@
 import { Toaster } from "react-hot-toast";
 import { loginAction } from "@/app/actions/authAction";
 import { useState } from "react";
+import { VEREINE } from "@/lib/globals";
 
 /**
  * LoginForm Komponent
@@ -36,12 +37,9 @@ export default function LoginForm({ dict }) {
             <option value="" disabled>
               Pick a Verein
             </option>
-            <option value="testVerein">testVerein</option>
-            <option value="Verein 2">Verein 2</option>
-            <option value="Verein 1">Verein 1</option>
-            <option value="Heimwerts-Kleinkunst">
-              Heimwerts Kleinkunstfestival e.V.
-            </option>
+            {VEREINE.map((verein, index) => (
+              <option value={verein}>{verein}</option>
+            ))}
           </select>
           <label className="label">Email</label>
           <input
