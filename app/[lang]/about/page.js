@@ -14,7 +14,7 @@ export default async function AboutPage({ params }) {
 
   return (
     <div>
-      {JSON.stringify(dict)}
+      {JSON.stringify(dict.about)}
       <h1 className="mb-5 text-5xl font-bold">{dict.about.title}</h1>
       <p>{dict.about.description}</p>
     </div>

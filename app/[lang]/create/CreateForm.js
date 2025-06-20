@@ -23,11 +23,18 @@ export default function CreateForm({
   template,
   contentID,
   vereinID,
+  VereinTags,
+  selectedTags,
+  author,
+  title,
 }) {
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState("");
 
   const router = useRouter();
+
+  const [tags, setTags] = useState(["tag1", "tag2", "tag3"]);
+  const [title2, setTitle] = useState("ein Titel");
 
   useEffect(() => {
     localStorage.setItem("CreateForm", JSON.stringify(data));
@@ -42,7 +49,7 @@ export default function CreateForm({
     try {
       if (contentID === "0" || contentID === undefined) {
         console.log("Creating new content with template:", template);
-        result = await createContent(storage, template);
+        result = await createContent(storage, template, author, tags, title);
       } else {
         result = await updateContent(storage, template, contentID);
       }
@@ -85,166 +92,176 @@ export default function CreateForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <button type="submit" className="btn btn-primary">
-        Save Data
-      </button>
-      ID: {vereinID}
-      <Toaster position="top-center" />
-      <div className="">
-        <div className="col-span-1 bg-base-200">
-          <div className="flex justify-between w-full">
-            <div className="lableText">Dummi headline</div>
-            <InformationTooltip text="DUMMI TEXT" />
-          </div>
-          {data.types.map((typ, index) => {
-            if (typ.type === "text") {
-              return (
-                <div key={index} className="p-3">
-                  TEXT
-                  <div className="w-full">
-                    <TextArea
-                      fieldID="text_test"
+    <div>
+      <div>
+        FOR TAGS; AUTHOR; TITLE
+        <div>TITLE {title}</div>
+        <div>TAGS {VereinTags}</div>
+        <div> SELCETED TAGS: {selectedTags} </div>
+        <div>AUTHORS: {author}</div>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <button type="submit" className="btn btn-primary">
+          Save Data
+        </button>
+
+        <Toaster position="top-center" />
+        <div className="">
+          <div className="col-span-1 bg-base-200">
+            <div className="flex justify-between w-full">
+              <div className="lableText">Dummi headline</div>
+              <InformationTooltip text="DUMMI TEXT" />
+            </div>
+            {data.types.map((typ, index) => {
+              if (typ.type === "text") {
+                return (
+                  <div key={index} className="p-3">
+                    TEXT
+                    <div className="w-full">
+                      <TextArea
+                        fieldID="text_test"
+                        Textvalue={typ.value || ""}
+                        onChange={(e) => handleChange(index, e.target.value)}
+                      />
+                    </div>
+                  </div>
+                );
+              } else if (typ.type === "image") {
+                return (
+                  <div key={index}>
+                    <FileUpload
+                      BASEURL={baseUrl}
+                      folderID={vereinID}
+                      bucket="content"
+                      url={
+                        typ.value ||
+                        "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                      }
+                      onChange={(newValue) => handleChange(index, newValue)}
+                    />
+                  </div>
+                );
+              } else if (typ.type === "grafic") {
+                return (
+                  <div key={index}>
+                    This is a type grafic!
+                    <Checkbox
+                      fieldID="grafic_checkbox"
                       Textvalue={typ.value || ""}
                       onChange={(e) => handleChange(index, e.target.value)}
                     />
                   </div>
-                </div>
-              );
-            } else if (typ.type === "image") {
-              return (
-                <div key={index}>
-                  <FileUpload
-                    BASEURL={baseUrl}
-                    folderID={vereinID}
-                    bucket="content"
-                    url={
-                      typ.value ||
-                      "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
-                    }
-                    onChange={(newValue) => handleChange(index, newValue)}
-                  />
-                </div>
-              );
-            } else if (typ.type === "grafic") {
-              return (
-                <div key={index}>
-                  This is a type grafic!
-                  <Checkbox
-                    fieldID="grafic_checkbox"
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                  />
-                </div>
-              );
-            } else if (typ.type === "headline") {
-              return (
-                <div key={index} className="p-3">
-                  HEADLINE
-                  <TextField
-                    fieldID="headline_test"
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                  />
-                </div>
-              );
-            } else if (typ.type === "textLayer") {
-              return (
-                <div key={index}>
-                  This is a type textLayer!
-                  <TextField
-                    fieldID="textLayerField"
-                    Textvalue={typ.textValue || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                  />
-                </div>
-              );
-            } else if (typ.type === "background") {
-              return (
-                <div key={index}>
-                  This is a type background! {typ.options} {JSON.stringify(typ)}
-                  <RadioButton
-                    fieldID="background_checkbox"
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    options={typ.options}
-                  />
-                </div>
-              );
-            } else if (typ.type === "color") {
-              return (
-                <div key={index}>
-                  This is a type color!
-                  <Checkbox
-                    fieldID="color_checkbox"
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                  />
-                </div>
-              );
-            } else if (typ.type === "logo") {
-              return (
-                <div key={index}>
-                  LOGO
-                  <LogoComponent
-                    fieldID="logo_rafio"
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    options={typ.options}
-                  />
-                  LOGO END:
-                </div>
-              );
-            } else if (typ.type === "gallery") {
-              return (
-                <div key={index}>
-                  This is a type gallery!
-                  <div className="grid grid-cols-3 gap-4">
-                    <FileUpload
-                      BASEURL="https://example.com/upload"
-                      folderID="TODO"
-                      bucket="styles"
-                      url={typ.value || ""}
-                      onChange={(newValue) => handleChange(index, newValue)}
-                    />
-                    <FileUpload
-                      BASEURL="https://example.com/upload"
-                      folderID="TODO"
-                      bucket="styles"
-                      url={typ.value || ""}
-                      onChange={(newValue) => handleChange(index, newValue)}
-                    />
-                    <FileUpload
-                      BASEURL="https://example.com/upload"
-                      folderID="TODO"
-                      bucket="styles"
-                      url={typ.value || ""}
-                      onChange={(newValue) => handleChange(index, newValue)}
+                );
+              } else if (typ.type === "headline") {
+                return (
+                  <div key={index} className="p-3">
+                    HEADLINE
+                    <TextField
+                      fieldID="headline_test"
+                      Textvalue={typ.value || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
                     />
                   </div>
-                </div>
-              );
-            } else if (typ.type === "layer") {
-              return (
-                <div key={typ.type + "_" + index}>
-                  <LayerComponent
-                    fieldID={"layer_" + index}
-                    Textvalue={typ.value || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    options={typ.options}
-                  />
-                </div>
-              );
-            } else {
-              return (
-                <div key={typ.type + "_" + index}>
-                  Type: {JSON.stringify(typ)}
-                </div>
-              );
-            }
-          })}
+                );
+              } else if (typ.type === "textLayer") {
+                return (
+                  <div key={index}>
+                    This is a type textLayer!
+                    <TextField
+                      fieldID="textLayerField"
+                      Textvalue={typ.textValue || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                    />
+                  </div>
+                );
+              } else if (typ.type === "background") {
+                return (
+                  <div key={index}>
+                    This is a type background! {typ.options}{" "}
+                    {JSON.stringify(typ)}
+                    <RadioButton
+                      fieldID="background_checkbox"
+                      Textvalue={typ.value || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                      options={typ.options}
+                    />
+                  </div>
+                );
+              } else if (typ.type === "color") {
+                return (
+                  <div key={index}>
+                    This is a type color!
+                    <Checkbox
+                      fieldID="color_checkbox"
+                      Textvalue={typ.value || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                    />
+                  </div>
+                );
+              } else if (typ.type === "logo") {
+                return (
+                  <div key={index}>
+                    LOGO
+                    <LogoComponent
+                      fieldID="logo_rafio"
+                      Textvalue={typ.value || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                      options={typ.options}
+                    />
+                    LOGO END:
+                  </div>
+                );
+              } else if (typ.type === "gallery") {
+                return (
+                  <div key={index}>
+                    This is a type gallery!
+                    <div className="grid grid-cols-3 gap-4">
+                      <FileUpload
+                        BASEURL="https://example.com/upload"
+                        folderID="TODO"
+                        bucket="styles"
+                        url={typ.value || ""}
+                        onChange={(newValue) => handleChange(index, newValue)}
+                      />
+                      <FileUpload
+                        BASEURL="https://example.com/upload"
+                        folderID="TODO"
+                        bucket="styles"
+                        url={typ.value || ""}
+                        onChange={(newValue) => handleChange(index, newValue)}
+                      />
+                      <FileUpload
+                        BASEURL="https://example.com/upload"
+                        folderID="TODO"
+                        bucket="styles"
+                        url={typ.value || ""}
+                        onChange={(newValue) => handleChange(index, newValue)}
+                      />
+                    </div>
+                  </div>
+                );
+              } else if (typ.type === "layer") {
+                return (
+                  <div key={typ.type + "_" + index}>
+                    <LayerComponent
+                      fieldID={"layer_" + index}
+                      Textvalue={typ.value || ""}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                      options={typ.options}
+                    />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={typ.type + "_" + index}>
+                    Type: {JSON.stringify(typ)}
+                  </div>
+                );
+              }
+            })}
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }

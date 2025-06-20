@@ -8,7 +8,7 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
   let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
 
-  let logos = styleguide.data.logo;
+  let logos = styleguide[0].logo;
 
   const opacities = [100, 80, 60, 40, 20, 0];
   const sizes = [

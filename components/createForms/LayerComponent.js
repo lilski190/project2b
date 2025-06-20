@@ -7,10 +7,10 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
   let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
 
-  console.log("Styleguide XY", styleguide.data.colors);
+  console.log("Styleguide XY", styleguide[0]);
 
   const extendedColors = {
-    ...styleguide.data.colors,
+    ...styleguide[0].colors,
     black: "#000000",
     white: "#FFFFFF",
   };

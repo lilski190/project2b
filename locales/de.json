@@ -163,7 +163,25 @@
   },
   "impressum": {
     "title": "Impressum",
-    "description": "TODO: Hier sind rechtliche Informationen"
+    "section1Title": "Angaben gemäß § 5 TMG",
+    "name": "Lilian Drabinski",
+    "addressLine1": "Magdeburger Str. 50",
+    "addressLine2": "14770 Brandenburg an der Havel",
+    "emailLabel": "E-Mail",
+    "section2Title": "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+    "projectNote": "Diese Website ist ein nicht-kommerzielles Hochschulprojekt im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg.",
+    "section3Title": "Haftungsausschluss",
+    "liabilityText1": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.",
+    "liabilityText2": "Die Verantwortung für das Urheberrecht an hochgeladenen Bildern und Grafiken liegt bei den jeweiligen Vereinen.",
+    "resourcesTitle": "Verwendete Ressourcen",
+    "resourcesIntro": "Dieses Projekt wurde mit verschiedenen frei verfügbaren Tools und Ressourcen umgesetzt:",
+    "resourceHeroicons": "Icons von",
+    "resourceFreepik": "Illustrationen von",
+    "resourceFreepik2": "- Rechte liegen bei den jeweiligen Urheber:innen",
+    "resourceGoogleFonts": "Schriften von",
+    "resourceDaisyui": "Styling mit",
+    "resourceTailwind": "und",
+    "resourcesOutro": "Alle verwendeten externen Ressourcen wurden gemäß ihrer jeweiligen Lizenzbedingungen eingebunden. Dieses Projekt dient ausschließlich Forschungs- und Lehrzwecken im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg."
   },
   "notFound": {
     "title": "404 - Seite nicht gefunden",

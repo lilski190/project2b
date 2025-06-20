@@ -87,10 +87,10 @@ export default async function TemplatesPage({ params }) {
   }
 
   return (
-    <div>
-      {JSON.stringify(dict)}
-      <h1 className="mb-5 text-5xl font-bold">{dict.templates.title}</h1>
-      <p>{dict.templates.description}</p>
+    <div className="p-6 max-md:p-3">
+      {JSON.stringify(dict.templates)}
+      <h1 className="mb-5 headline">{dict.templates.title}</h1>
+      <p className="baseText">{dict.templates.description}</p>
 
       <div className="grid grid-cols-3 gap-4">
         {TempaltesArray.map((template, index) => (

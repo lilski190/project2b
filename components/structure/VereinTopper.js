@@ -82,6 +82,7 @@ export default function VereinTopper({
             {memberText} {memberName}
           </div>
         </div>
+
         <div className="h-36 w-auto relative max-md:h-24">
           <img
             src={BASEURL + "styles/" + style[0]?.logo.big}

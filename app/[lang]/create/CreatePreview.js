@@ -32,7 +32,6 @@ export default function CreateForm({ dict, data }) {
 
   return (
     <div className="bg-primary/30">
-      {JSON.stringify(data)}
       <ImageWithText previewData={previewData} options={data} />
     </div>
   );

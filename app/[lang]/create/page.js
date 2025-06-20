@@ -45,6 +45,8 @@ export default async function CreatePage({ params, searchParams }) {
   const rawId = cookieStore.get("verein_id")?.value;
   const vereinId = rawId?.split("-")[0];
   const vereinName = cookieStore.get("verein_name")?.value;
+  const vereinTags = cookieStore.get("verein_tags")?.value;
+  const author = cookieStore.get("member_name")?.value;
 
   const sourceKey = (sourceKeyAwait.template || "test").trim();
   const contentID = sourceKeyAwait.content || 0;
@@ -53,12 +55,23 @@ export default async function CreatePage({ params, searchParams }) {
   console.log("seelcted data", selectedData, sourceKey);
 
   let contentData;
+  let authors;
+  let selectedTags;
+  let title;
   if (contentID != 0) {
     let loadedData = await getSpecificContentAction(contentID);
+    console.log("loadedData XY: ", loadedData);
     contentData = loadedData.data[0].content;
+    authors = loadedData.data[0].author;
+    // authors.push(author);
+    selectedTags = loadedData.data[0].tags;
+    title = loadedData.data[0].title;
     console.log("loaded Content: ", contentData);
   } else {
     contentData = selectedData.form;
+    authors = [author];
+    selectedTags = [];
+    title = "";
     console.log("loaded new ", contentData);
   }
 
@@ -68,8 +81,8 @@ export default async function CreatePage({ params, searchParams }) {
 
   return (
     <div>
-      <h1 className="mb-5 text-5xl font-bold">{dict.create.title}</h1>
-      <p>{dict.create.description}</p>
+      <h1 className="mb-5 headline">{dict.create.title}</h1>
+      <p className="baseText">{dict.create.description}</p>
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
         <CreatePreview dict={dict} data={selectedData.preview} />
         <CreateForm
@@ -78,6 +91,10 @@ export default async function CreatePage({ params, searchParams }) {
           template={sourceKey}
           contentID={contentID}
           vereinID={vereinName + "_" + vereinId}
+          VereinTags={vereinTags}
+          selectedTags={selectedTags}
+          title={title}
+          author={authors}
         />
       </div>
     </div>

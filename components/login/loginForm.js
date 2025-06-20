@@ -38,7 +38,9 @@ export default function LoginForm({ dict }) {
               Pick a Verein
             </option>
             {VEREINE.map((verein, index) => (
-              <option value={verein}>{verein}</option>
+              <option value={verein} key={"Verein_" + index}>
+                {verein}
+              </option>
             ))}
           </select>
           <label className="label">Email</label>

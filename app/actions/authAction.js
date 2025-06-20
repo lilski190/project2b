@@ -89,6 +89,13 @@ export async function loginAction(formData) {
       secure: true,
     });
 
+    cookieStore.set("verein_tags", JSON.stringify(LoginData.verein_tags), {
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
+
     console.log("Login-Daten erfolgreich abgerufen, jetzt redirect:)");
 
     redirect("/dashboard");
@@ -126,7 +133,7 @@ export async function getLoginData(vereinName) {
   // 3. Verein abrufen (nur wenn Member erfolgreich geladen wurde)
   const { data: verein, error: vereinError } = await supabase
     .from("Verein")
-    .select("id, name")
+    .select("id, name, tags")
     .eq("id", member.verein_id)
     .single();
 
@@ -149,5 +156,6 @@ export async function getLoginData(vereinName) {
     member_id: member.id,
     verein_name: verein.name,
     member_name: member.name,
+    verein_tags: verein.tags || [],
   };
 }

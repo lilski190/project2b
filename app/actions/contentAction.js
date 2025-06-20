@@ -19,7 +19,7 @@ export async function getSpecificContentAction(id) {
 
   const { data, error } = await supabase
     .from("Content")
-    .select("content")
+    .select("content, author, tags, title")
     .eq("verein_id", vereinId)
     .eq("id", id);
 
@@ -63,7 +63,7 @@ export async function updateContent(formData, template, contentID) {
   return { res };
 }
 
-export async function createContent(formData, template) {
+export async function createContent(formData, template, author, tags, title) {
   console.log("Neuen Content erstellen!", formData);
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
@@ -83,6 +83,9 @@ export async function createContent(formData, template) {
         verein_id: vereinId,
         create_at: new Date().toISOString(),
         last_update: new Date().toISOString(),
+        author: author || "[]",
+        tags: tags || "[]", // sicherstellen, dass tags ein Array ist
+        title: title || "",
       },
     ])
     .select("id");
