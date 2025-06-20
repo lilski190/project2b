@@ -33,8 +33,8 @@ export default function CreateForm({
 
   const router = useRouter();
 
-  const [tags, setTags] = useState(["tag1", "tag2", "tag3"]);
-  const [title2, setTitle] = useState("ein Titel");
+  const [tags, setTags] = useState(selectedTags);
+  const [titleUpdate, setTitle] = useState(title);
 
   useEffect(() => {
     localStorage.setItem("CreateForm", JSON.stringify(data));
@@ -49,9 +49,22 @@ export default function CreateForm({
     try {
       if (contentID === "0" || contentID === undefined) {
         console.log("Creating new content with template:", template);
-        result = await createContent(storage, template, author, tags, title);
+        result = await createContent(
+          storage,
+          template,
+          author,
+          tags,
+          titleUpdate
+        );
       } else {
-        result = await updateContent(storage, template, contentID);
+        result = await updateContent(
+          storage,
+          template,
+          contentID,
+          author,
+          tags,
+          titleUpdate
+        );
       }
       console.log("Submit result:", result);
       const neueId = result?.data?.[0]?.id;
@@ -91,13 +104,53 @@ export default function CreateForm({
     console.log("Updated localStorage with data:", storage);
   };
 
+  const handleCheckboxChange = (tag) => {
+    setTags(
+      (prevTags) =>
+        prevTags.includes(tag)
+          ? prevTags.filter((t) => t !== tag) // remove if already selected
+          : [...prevTags, tag] // add if not selected
+    );
+  };
+
   return (
     <div>
       <div>
-        FOR TAGS; AUTHOR; TITLE
-        <div>TITLE {title}</div>
-        <div>TAGS {VereinTags}</div>
-        <div> SELCETED TAGS: {selectedTags} </div>
+        <div>
+          TITLE:
+          <input
+            type="text"
+            value={titleUpdate}
+            onChange={(e) => setTitle(e.target.value)}
+            className="input input-bordered w-full"
+            placeholder="Titel eingeben"
+          />
+        </div>
+        <div className="w-full max-w-xs">
+          <details className="dropdown">
+            <summary className="m-1 btn btn-outline">Tags auswählen</summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+              {JSON.parse(VereinTags).map((tag, index) => (
+                <li key={`tag_${index}`}>
+                  <label className="cursor-pointer flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={tags.includes(tag)}
+                      onChange={() => handleCheckboxChange(tag)}
+                      className="checkbox checkbox-info checkbox-sm"
+                    />
+                    <span>{tag}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </details>
+
+          <div className="mt-4">
+            Selected Tags:
+            <div className="text-sm">{tags.join(", ") || "Keine"}</div>
+          </div>
+        </div>
         <div>AUTHORS: {author}</div>
       </div>
       <form onSubmit={handleSubmit}>

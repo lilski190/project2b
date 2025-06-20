@@ -24,7 +24,8 @@ export default async function ContentPage({ params }) {
   const cookieStore = await cookies();
   const VereinTags = cookieStore.get("verein_tags")?.value;
 
-  let headlines = ["ID", "Titel", "Date", "Author", "Tags"];
+  let headlines = dict.content.headers;
+  let colKeys = ["id", "title", "last_update", "author", "tags"];
   const data = await loadAllContent();
   const contentArray = data?.data;
 
@@ -35,7 +36,6 @@ export default async function ContentPage({ params }) {
 
   return (
     <div className="p-6 max-md:p-3">
-      {VereinTags}
       <h1 className="headline">{dict.content.title}</h1>
       <p className="mt-2 baseText">{dict.content.description}</p>
       <div className="mt-6 ">
@@ -43,6 +43,7 @@ export default async function ContentPage({ params }) {
           headlines={headlines}
           content={contentArray}
           filter={JSON.parse(VereinTags)}
+          colKeys={colKeys}
         />
       </div>
     </div>

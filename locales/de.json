@@ -150,9 +150,11 @@
     "description": "Wähle eine Tempalte-Vorlage und leg los"
   },
   "content": {
-    "title": "Content",
-    "description": "Verwaltung des Vereinscontents"
+    "title": "Vereinscontent",
+    "description": "Verwaltung des Vereinscontents. In der folgenden Tabelle kannst du bestehende Inhalte einsehen, nach Titel oder Datum sortieren sowie gezielt nach Autoren oder Tags filtern. Über den Stift-Button lassen sich die Inhalte direkt bearbeiten und aktualisieren. So behaltet ihr jederzeit den Überblick über alle Beiträge.",
+    "headers": ["", "Titel", "Datum", "Autoren", "Tags"]
   },
+
   "create": {
     "title": "Content Erstellen",
     "description": "Speichern nciht vergessen ;)"

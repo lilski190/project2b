@@ -32,7 +32,14 @@ export async function getSpecificContentAction(id) {
   return { data };
 }
 
-export async function updateContent(formData, template, contentID) {
+export async function updateContent(
+  formData,
+  template,
+  contentID,
+  author,
+  tags,
+  title
+) {
   console.log("Daten für den Content updaten!", formData);
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
@@ -49,6 +56,9 @@ export async function updateContent(formData, template, contentID) {
       template: template,
       content: formData,
       last_update: new Date().toISOString(),
+      author: author,
+      tags: tags,
+      title: title,
     })
     .eq("verein_id", vereinId)
     .eq("id", contentID);

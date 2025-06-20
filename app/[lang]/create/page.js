@@ -63,7 +63,9 @@ export default async function CreatePage({ params, searchParams }) {
     console.log("loadedData XY: ", loadedData);
     contentData = loadedData.data[0].content;
     authors = loadedData.data[0].author;
-    // authors.push(author);
+    if (!authors.includes(author)) {
+      authors.push(author);
+    }
     selectedTags = loadedData.data[0].tags;
     title = loadedData.data[0].title;
     console.log("loaded Content: ", contentData);
