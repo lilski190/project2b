@@ -26,6 +26,9 @@ export default async function StyleguidePage({ params }) {
   const rawId = cookieStore.get("verein_id")?.value;
   const vereinId = rawId?.split("-")[0];
   const vereinName = cookieStore.get("verein_name")?.value;
+  const vereinName = cookieStore.get("verein_name")?.value;
+  const vereinNameMitUnterstrichen = vereinName?.replace(/\s+/g, "_");
+  //TODO: VERIEN NAME leerezeichen ersetzen durch _ !!!
 
   if (!user) {
     redirect("/login");
