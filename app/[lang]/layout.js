@@ -26,7 +26,7 @@ export default async function RootLayout({ children, params }) {
         {children}
       </HeaderWithSidebar>
       <div className="min-h-screen">{children}</div>
-      <Footer />
+      <Footer dict={dict.footer} />
     </div>
   );
 }

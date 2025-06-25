@@ -58,7 +58,9 @@ export default function LogoUpload({
 
     const { data, error } = await supabase.storage
       .from(bucket) // <-- passe den Bucket-Namen an
-      .upload(filePath, selectedFile);
+      .upload(filePath, selectedFile, {
+        contentType: selectedFile.type || "image/png",
+      });
 
     console.log("Upload result:", data, error);
     if (data.path) {

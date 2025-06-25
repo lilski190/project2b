@@ -18,66 +18,43 @@ export default async function TemplatesPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  let title = dict.templates.titles;
+  let descriptions = dict.templates.descriptions;
 
+  console.log("title", title);
+  console.log("descriptions", descriptions);
+  console.log("action", dict.templates);
   let TempaltesArray = [
     {
-      title: "Bild mit Text",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
+      title: title[0] || "Image with text",
+      text: descriptions[0] || "Create a new Component with an Image and Text",
+      img: "basic/mockups/ImgText.jpg",
       action: {
-        text: "Neues erstellen",
+        text: dict.templates.action || "Create",
         url: "/create",
         parameter: ["template", "text_with_image"],
       },
     },
     {
-      title: "Bild mit Grafik",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
+      title: title[1] || "Image Gallery",
+      text: descriptions[1] || "Create a new Component with mulitple Images",
+
+      img: "basic/mockups/Gallery.jpg",
       action: {
-        text: "Neues erstellen",
-        url: "/create",
-        parameter: ["template", "image_with_graphic"],
-      },
-    },
-    {
-      title: "Bilder Galerie",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
-      action: {
-        text: "Neues erstellen",
+        text: dict.templates.action || "Create",
         url: "/create",
         parameter: ["template", "image_gallery"],
       },
     },
     {
-      title: "Text mit Graifik",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
+      title: title[2] || "Grafic with text",
+      text: descriptions[2] || "Create a new Component with an Grafic and Text",
+
+      img: "basic/mockups/TextGrafic.jpg",
       action: {
-        text: "Neues erstellen",
+        text: dict.templates.action || "Create",
         url: "/create",
         parameter: ["template", "text_with_graphic"],
-      },
-    },
-    {
-      title: "Text mit Bild und Grafik",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
-      action: {
-        text: "Neues erstellen",
-        url: "/create",
-        parameter: ["template", "text_with_image_and_graphic"],
-      },
-    },
-    {
-      title: "Test Component",
-      text: "das ist der Beschreibungstext für diesen Component",
-      img: "img/vorschaubild",
-      action: {
-        text: "Neues erstellen",
-        url: "/create",
-        parameter: ["template", "test"],
       },
     },
   ];
@@ -88,17 +65,17 @@ export default async function TemplatesPage({ params }) {
 
   return (
     <div className="p-6 max-md:p-3">
-      {JSON.stringify(dict.templates)}
-      <h1 className="mb-5 headline">{dict.templates.title}</h1>
-      <p className="baseText">{dict.templates.description}</p>
+      <h1 className="headline">{dict.templates.title}</h1>
+      <p className="mt-2 baseText">{dict.templates.description}</p>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 mt-6">
         {TempaltesArray.map((template, index) => (
-          <div key={"template_" + template + "_" + index}>
+          <div key={"template_" + template + "_" + index} className="h-full ">
             <BasicCard
               title={template.title}
               text={template.text}
               action={template.action}
+              img={template.img}
             />
           </div>
         ))}

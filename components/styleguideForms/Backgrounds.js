@@ -8,7 +8,7 @@ import { BASEURL } from "@/lib/globals";
  */
 const Backgrounds = ({ backgrounds, dict, folderID }) => {
   return (
-    <div className="grid grid-cols-2 gap-4 py-2 bg-neutral/30 rounded-md mt-1 px-2 md:grid-cols-1 lg:grid-cols-2">
+    <div className="grid grid-cols-2 gap-4 pb-2 pt-3 bg-neutral/30 rounded-md mt-1 px-2 md:grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-center justify-center w-full">
         <div className="flex justify-evenly items-end w-full">
           <div className="px-1.5">

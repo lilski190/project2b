@@ -146,8 +146,15 @@
     "cancel": "Abbrechen"
   },
   "templates": {
-    "title": "Templates",
-    "description": "Wähle eine Tempalte-Vorlage und leg los"
+    "title": "Content Vorlagen",
+    "description": "Um neuen Contet zu erstellen kannst du ganz einfach eine passende Vorlage auswählen und loslegen",
+    "titles": ["Bild mit Text", "Bilder Gallerie", "Text mit Grafik"],
+    "descriptions": [
+      "Ein Bild mit Text kombinieren",
+      "Eine Galerie mit mehreren Bildern erstellen",
+      "Text mit einer Grafik kombinieren"
+    ],
+    "action": "Erstellen"
   },
   "content": {
     "title": "Vereinscontent",
@@ -194,9 +201,12 @@
     "description": "Bitte versuchen Sie es später erneut."
   },
   "footer": {
-    "contactUs": "TODO: Was soll in den Footer? Kontaktieren Sie uns",
-    "privacyPolicy": "Datenschutz-Bestimmungen",
-    "termsOfService": "Nutzungsbedingungen"
+    "name": "Projektname",
+    "description": "  Eine Plattform, auf der Vereine sich präsentieren können.",
+    "copyright": "Alle Rechte vorbehalten",
+    "about": "  Über das Projekt",
+    "join": "Verein anmelden",
+    "impressum": "Impressum"
   },
   "sidebar": {
     "home": "Homepage",

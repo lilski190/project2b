@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { BASEURL } from "@/lib/globals";
 
 /**
  * BasicCard Komponent
@@ -9,13 +10,13 @@ import Link from "next/link";
  * @param {string} text - Der anzuzeigende Text auf dem Button.
  * @param {string} colorClass - Die Farbklasse, die auf den Button angewendet werden soll.
  */
-const BasicCard = ({ title, text, action }) => {
+const BasicCard = ({ title, text, action, img }) => {
   return (
-    <div className="card bg-base-100 w-full shadow-sm">
+    <div className="card bg-base-100 w-full shadow-sm h-full">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          src={BASEURL + (img ? img : "basic/illustration/Image.jpg")}
+          alt="Preview Image for Card"
         />
       </figure>
       <div className="card-body">
