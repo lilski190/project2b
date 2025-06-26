@@ -114,50 +114,87 @@ export default function CreateForm({
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          TITLE:
+    <div className="">
+      <div className="pb-3">
+        <div className="px-3">
+          <div className="flex justify-between w-full pb-1 ">
+            <div className="lableText">{dict.form.title}</div>
+            <InformationTooltip text={dict.formDescriptions.title} />
+          </div>
           <input
             type="text"
             value={titleUpdate}
             onChange={(e) => setTitle(e.target.value)}
             className="input input-bordered w-full"
-            placeholder="Titel eingeben"
+            placeholder={dict.form.title_placeholder}
           />
         </div>
-        <div className="w-full max-w-xs">
-          <details className="dropdown">
-            <summary className="m-1 btn btn-outline">Tags auswählen</summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-              {JSON.parse(VereinTags).map((tag, index) => (
-                <li key={`tag_${index}`}>
-                  <label className="cursor-pointer flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={tags.includes(tag)}
-                      onChange={() => handleCheckboxChange(tag)}
-                      className="checkbox checkbox-info checkbox-sm"
-                    />
-                    <span>{tag}</span>
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </details>
-
-          <div className="mt-4">
-            Selected Tags:
-            <div className="text-sm">{tags.join(", ") || "Keine"}</div>
+        <div className="w-full  px-3 pt-3">
+          <div className="flex justify-between w-full pb-1 ">
+            <div className="lableText">{dict.form.tags_title}</div>
+            <InformationTooltip text={dict.formDescriptions.tags} />
+          </div>
+          <div className="flex justify-start">
+            <div className="dropdown mr-3">
+              <div tabIndex={0} role="button" className="btn btn-outline">
+                {dict.form.tags}
+              </div>
+              <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 max-h-52">
+                {JSON.parse(VereinTags).map((tag, index) => (
+                  <li key={`tag_${index}`}>
+                    <label className="cursor-pointer flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={tags.includes(tag)}
+                        onChange={() => handleCheckboxChange(tag)}
+                        className="checkbox checkbox-info checkbox-sm"
+                      />
+                      <span>{tag}</span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="">
+              <div className="lableTextSmall flex">
+                {tags.map((tag, index) => (
+                  <div
+                    key={tag + "_" + "index"}
+                    className="border px-2 rounded mx-1 "
+                  >
+                    {tag}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-        <div>AUTHORS: {author}</div>
+        <div className="w-full  px-3 pt-3">
+          <div className="flex justify-between w-full pb-1 ">
+            <div className="lableText">{dict.form.authors}</div>
+            <InformationTooltip text={dict.formDescriptions.authors} />
+          </div>
+          <div className="lableTextSmall flex -ml-1">
+            {author.map((aut, index) => (
+              <div
+                key={aut + "_" + "index"}
+                className="border px-2 rounded mx-1 "
+              >
+                {aut}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <button type="submit" className="btn btn-primary">
-          Save Data
-        </button>
-
+        <div className="fixed p-3 pr-4 top-0 right-0 z-30">
+          <button
+            type="submit"
+            className="btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
+          >
+            {dict.save}
+          </button>
+        </div>
         <Toaster position="top-center" />
         <div className="">
           <div className="col-span-1 bg-base-200">
@@ -313,6 +350,14 @@ export default function CreateForm({
               }
             })}
           </div>
+        </div>
+        <div className="mx-3">
+          <button
+            type="submit"
+            className=" w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
+          >
+            {dict.save}
+          </button>
         </div>
       </form>
     </div>

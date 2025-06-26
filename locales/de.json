@@ -164,7 +164,22 @@
 
   "create": {
     "title": "Content Erstellen",
-    "description": "Speichern nciht vergessen ;)"
+    "description": "Speichern nicht vergessen ;)",
+    "form": {
+      "title": "Titel",
+      "title_placeholder": "Titel eingeben",
+      "authors": "Authoren",
+      "tags": "Tags auswählen",
+      "tags_title": "Tags"
+    },
+    "formDescriptions": {
+      "title": "Gibt dem Content einen schlagkräftigen Titel um ihn später gut wiederzufinden",
+      "authors": "Hier sind alle Vereinsmitglieder die an diesem Content mitgewirkt haben",
+      "tags": "Die Tags helfen dabei in der Content Liste alles zu sortieren und gruppieren"
+    },
+
+    "save": "Speichern",
+    "export": "Content exportieren"
   },
   "management": {
     "title": "Mitglieder Management",

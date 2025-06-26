@@ -88,7 +88,7 @@ export default async function CreatePage({ params, searchParams }) {
       <div className="grid grid-cols-2 max-md:grid-cols-1 ">
         <CreatePreview dict={dict} data={selectedData.preview} />
         <CreateForm
-          dict={dict}
+          dict={dict.create}
           data={contentData}
           template={sourceKey}
           contentID={contentID}
