@@ -1,0 +1,68 @@
+{
+  "id": "test",
+  "form": {
+    "types": [
+      {
+        "type": "image",
+        "value": "https://example.com/image.jpg"
+      },
+      {
+        "type": "grafic",
+        "num": 3,
+        "value": [
+          "https://example.com/graf1.jpg",
+          "https://example.com/graf2.jpg",
+          "https://example.com/graf3.jpg"
+        ]
+      },
+      {
+        "type": "headline",
+        "value": "Sample Headline"
+      },
+      {
+        "type": "text",
+        "value": "This is a sample text for the test descriptor."
+      },
+      {
+        "type": "background",
+        "value": "https://example.com/background.jpg"
+      },
+      { "type": "color", "value": "#FFFFFF" },
+      { "type": "logo", "value": "https://example.com/logo.png" },
+      {
+        "type": "gallery",
+        "value": [
+          "https://example.com/gallery1.jpg",
+          "https://example.com/gallery2.jpg",
+          "https://example.com/gallery3.jpg"
+        ]
+      }
+    ]
+  },
+  "preview": {
+    "web": {
+      "width": 800,
+      "height": 600
+    },
+    "instagram": {
+      "width": 1080,
+      "height": 1080
+    },
+    "facebook": {
+      "width": 1200,
+      "height": 630
+    },
+    "DINA4": {
+      "width": 595,
+      "height": 842
+    },
+    "Presentation": {
+      "width": 1920,
+      "height": 1080
+    },
+    "DINA6": {
+      "width": 105,
+      "height": 148
+    }
+  }
+}

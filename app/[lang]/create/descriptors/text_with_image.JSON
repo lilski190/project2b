@@ -1,0 +1,73 @@
+{
+  "id": "text_with_image",
+  "form": {
+    "types": [
+      {
+        "type": "image",
+        "lable": "upload",
+        "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg"
+      },
+      {
+        "type": "headline",
+        "lable": "headline",
+        "value": "Hier is der Text auf dem Bild"
+      },
+      {
+        "type": "layer",
+        "lable": "textLayer",
+        "id": "textLayer",
+        "value": ["#FFFFFF", ["center", "center"], "80%", "center"],
+        "options": ["bg", "posLayer", "sizeW", "textAlign"]
+      },
+      {
+        "type": "text",
+        "lable": "textDescription",
+        "value": "This is a sample text. Hier ist eine Längere Beschreibung für unter dem Bild oder so"
+      },
+      {
+        "type": "layer",
+        "lable": "bgLayer",
+        "id": "bgLayer",
+        "value": ["#000000", 40, "40%", "60%", ["center", "center"]],
+        "options": ["bg", "opacity", "size", "sizeW", "posLayer"]
+      },
+      {
+        "type": "logo",
+        "lable": "logoLayer",
+        "value": [
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
+          40,
+          "60%",
+          ["center", "center"]
+        ],
+        "options": ["logo", "opacity", "size", "posLayer"]
+      }
+    ]
+  },
+  "preview": {
+    "web": {
+      "width": 1920,
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
+    },
+    "instagram": {
+      "width": 1080,
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 100
+    },
+    "Presentation": {
+      "width": 1920,
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
+    },
+    "DINA6": {
+      "width": 105,
+      "height": 148,
+      "widthPercent": 70.95,
+      "heightPercent": 100
+    }
+  }
+}

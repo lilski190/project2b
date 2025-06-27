@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { pathnames } from "@/lib/globals";
+
+import { usePathname } from "next/navigation";
+import { getDictionary } from "@/lib/getDictionary";
+
 /**
  * HeaderWithSidebar Komponent
  * Dieser Komponent ist ein Header mit einer Sidebar, die Links zu verschiedenen Seiten enthält.
@@ -9,9 +14,21 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
  * Das Styling erfolgt über Tailwind CSS-Klassen und DaisyUI-Klassen.
  * @param {String} lang - Die aktuelle Sprache der Anwendung, die in der URL verwendet wird.
  */
-export default function HeaderWithSidebar({ lang }) {
+export default function HeaderWithSidebar({ lang, dict }) {
+  const pathname = usePathname();
+
+  // Zerlegt den Pfad in Teile: ["", "de", "style"]
+  const segments = pathname.split("/");
+
+  // Letztes Segment holen
+  const lastSegment = segments[segments.length - 1];
+
+  let actions = pathnames.actions;
+
+  const isAction = actions.includes(lastSegment);
+
   return (
-    <div className="drawer">
+    <div className="drawer z-30">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
@@ -33,7 +50,7 @@ export default function HeaderWithSidebar({ lang }) {
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2">Projekttitel: Vereinsstyle</div>
+          <div className="mx-2 flex-1 px-2">{dict.sidebar.projectName}</div>
           <div className="flex-none lg:block">
             <ul className="menu menu-horizontal">
               <li>
@@ -41,6 +58,13 @@ export default function HeaderWithSidebar({ lang }) {
               </li>
             </ul>
           </div>
+          {isAction && (
+            <div className="flex-none lg:block">
+              <button className="btn bg-transparent border-none text-transparent">
+                {dict.styleguide.save}
+              </button>
+            </div>
+          )}
         </div>
         {/* Platz für den Seiteninhalt */}
         <div className="mt-16  bg-base-100">
@@ -53,46 +77,46 @@ export default function HeaderWithSidebar({ lang }) {
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-4">
           <li>
-            <Link href={`/${lang}/`}>Homepage</Link>
+            <Link href={`/${lang}/`}>{dict.sidebar.home}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/login`}>Login</Link>
+            <Link href={`/${lang}/login`}>{dict.sidebar.login}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/dashboard`}>Dashboard</Link>
+            <Link href={`/${lang}/dashboard`}>{dict.sidebar.dashboard}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/about`}>About</Link>
+            <Link href={`/${lang}/about`}>{dict.sidebar.about}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/collection`}>Collection</Link>
+            <Link href={`/${lang}/collection`}>{dict.sidebar.collection}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/exmaples`}>Beispiele</Link>
+            <Link href={`/${lang}/examples`}>{dict.sidebar.examples}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/tutorial`}>Tutorial</Link>
+            <Link href={`/${lang}/tutorial`}>{dict.sidebar.tutorial}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/join`}>Verein anmelden</Link>
+            <Link href={`/${lang}/join`}>{dict.sidebar.join}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/styleguide`}>Vereinsstyle</Link>
+            <Link href={`/${lang}/styleguide`}>{dict.sidebar.styleguide}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/templates`}>Styleing Tempaltes</Link>
+            <Link href={`/${lang}/templates`}>{dict.sidebar.templates}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/content`}>Contentliste</Link>
+            <Link href={`/${lang}/content`}>{dict.sidebar.list}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/create`}>Content erstellen</Link>
+            <Link href={`/${lang}/create`}>{dict.sidebar.create}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/management`}>Vereinsmanagement</Link>
+            <Link href={`/${lang}/management`}>{dict.sidebar.management}</Link>
           </li>
           <li>
-            <Link href={`/${lang}/impressum`}>Impressum</Link>
+            <Link href={`/${lang}/impressum`}>{dict.sidebar.impressum}</Link>
           </li>
         </ul>
       </div>

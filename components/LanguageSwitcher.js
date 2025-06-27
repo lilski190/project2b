@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 /**
  * LanguageSwitch Komponent
@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 export default function LanguageSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams(); // ← neu
 
   const currentLang = pathname.split("/")[1] || "de";
 
@@ -20,9 +21,9 @@ export default function LanguageSwitcher() {
     const segments = pathname.split("/").filter(Boolean);
     segments[0] = lang;
     const newPath = `/${segments.join("/")}`;
-    router.push(newPath);
+    const query = searchParams.toString();
+    router.push(`${newPath}${query ? `?${query}` : ""}`);
   };
-
   const langLabels = {
     de: "Deutsch",
     en: "English",

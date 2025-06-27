@@ -1,69 +1,252 @@
 {
   "home": {
-    "title": "Das ist die landing Page für Project 2b",
+    "title": "TODO: Hallo, schön das du",
     "description": "Hier ist eine kurze Projekt Beschreibung"
   },
   "login": {
-    "title": "Das ist der Deutsche Login Titel",
-    "description": "Das ist die Deutsche Login Beschreibung",
-    "login": "Einloggen"
+    "description": "Hier ist der Login zu der Vereinsseite wo der Content erstellt und verwaltet werden kann",
+    "explenation": "Um dich anmelden zu können muss dein Verein angemeldet sein. Anschleißend braucht du als Mitglied einen Account.",
+    "error_case_notRegistered": "Dein Verein ist Angemedet aber du bist noch nicht registriert? Dann melde dich bei dem Admin von deinem Verein und bitte ihn einen Accout für dich zu erstellen //TODO URL  ",
+    "error_case_verein": "Dein Verein ist nicht in der Liste? Dann ist dein Verein noch nicht angemendet. Um zu erfahren wie du deinen Verein anmebden kannst gehe zu: //TODO URL",
+    "login": "Login"
   },
   "dashboard": {
-    "title": "Das ist der Deutsche Dashboard Titel",
-    "description": "Das ist die Deutsche Dashboard Beschreibung",
-    "welcome": "Willkommen auf der Dashboard-Seite"
+    "title": "Willkommen im Dashboard von",
+    "description": "Hier kannst du Inhalte erstellen, gestalten und verwalten.",
+    "title_styleguide": "Design-Richtlinien",
+    "description_styleguide": "Farbwelten, Schriften und Logos – alles an einem Ort.",
+    "title_templates": "Vorlagen",
+    "description_templates": "Erstelle Inhalte schneller mit vordefinierten Templates.",
+    "title_list": "Content Liste",
+    "description_list": "Verwalte, bearbeite oder lösche bestehenden Content.",
+    "welcome": "Schön, dass du da bist"
   },
   "about": {
-    "title": "Hier ist die About the Project Seite",
-    "description": "Da können ganz viele Informationen zu dem Projekt stehen"
+    "title": "Was ist //TODO Projekt name?",
+    "description": "Projekt name ist eine Website für kleine und ehrenamtliche Vereine",
+    "background": "Das Projekt wurde im Rahmen einens Moduls an der TH-Brandenburg entwickelt.",
+    "idea": "Viele keinen Vereine haben das Problem, dass sie sich größtenteils ehrenamtlcih organisieren. Geld ist immer knapp und muss gut calculiert werden. Dabei bleiben oft nicht genug ressourcen übrig für Design und Contetnmanager. Das Resultat ist, dass Vereine sich nach außen hin und im Netz nicht so präsentierne können wie sie sollten. Denn Vereine leisten einen wichitgen Beitrag zur Gesellschaft. UNd das sollte auch jeder sehen, seih es mit Ankündigungen für events oder der Darstellung der Vereinsarbeit. Daher wurde <Projekt name> erstellt. Um einfach und schnell Content für verschiedene Formate zu erstellen, auch ohne Vorkenntnisse.",
+    "disclaimer": "Das Projekt ist ein Wissenschaftlicher Prototyp und befindet sich zur Zeit noch in der Entwicklungsphase."
   },
   "examples": {
-    "title": "Hier ist die Examples Seite",
-    "description": "Hier sind Beispiele für das Projekt"
+    "title": "Contnet Beispiele ",
+    "description": "Die Beispeiel auf dieser Seite wurden in zusammenarbeit mit den Kleinkunstverein erstellt."
   },
   "tutorial": {
-    "title": "Hier ist die Tutorial Seite",
-    "description": "Hier sind Tutorials für das Projekt"
+    "title": "Tutorial",
+    "description": "Anleitung zur Benutzung dieser Website",
+    "body": [
+      {
+        "headline": "Styleguide einrichten",
+        "text": "Jeder Verein hat einen Styleguide. Diesen kann man auf der Vereinsseite Personalisieren, sodass er dem Style des Vereins entspricht. Dazu kann man verschiedene Felder wie Farbe, Hintergründe und Textarten aber auch Grafik elemente hinzufügen und anpassen. Der Styleguide wird automatisch auf jeden Content angewendet. So bleibt der Vereinsstyle consinstent."
+      },
+      {
+        "headline": "Content erstellen",
+        "text": "Um Content zu erstellen gibt es eine Auswahl an Templates die ausgewählt werden kann. Danach können in einem Editor die Inhalte eingefüllt werden und der Style kann ausch angepasst werden."
+      },
+      {
+        "headline": "Content verwalten",
+        "text": "Der Content kann in einer Liste verwaltet werden. Hier kann man den Content nochmal in einem Anderen Format erstellen, oder eine Vorlage dublizieren."
+      },
+      {
+        "headline": "Verein anmelden",
+        "text": "Um deinen Verein anzumelden gehe bitte auf die seite /join und erfahre dort mehr"
+      }
+    ]
   },
   "join": {
-    "title": "Hier ist die Join the Project Seite",
-    "description": "Hier sind Informationen zum Mitmachen"
+    "title": "Willste mitmachen?",
+    "description": "Dann kannst du hier deinen Verein anmelden",
+    "explenation": "Da es sich bei diesem Projekt um einen Wissenschafltichen Prototypen handelt ist der Zugang beschränkt. Wir freuen uns sehr über dein Intresse und wenn du mit deinem Verein dieses Tool testen und mithelfen willst es Weiterzuentwickeln, dann folge diesen Schritten: ",
+    "steps": [
+      {
+        "num": "Schritt 1",
+        "description": "Fülle das Formular aus. Stelle dabei bitte deinen Verein vor und erzähle warum ihr das Tool nutzen wollt. Gebt außerdem eine oder mehr E-Mail adressen an. Die Besitzer dieser E-Mails werden dann die Admins des Vereins "
+      },
+      {
+        "nom": "Schritt 2",
+        "description": "Formular absenden und abwarten. Wir schauen und euren Verein an und melden uns dann bei euch:)"
+      },
+      {
+        "num": "Schritt 3",
+        "description": "Admin anmelden. Jeder Admin bekommt von uns eine E-Mail mit Anweisungen zum Login."
+      },
+      {
+        "num": "Schritt 4",
+        "description": "Jetzt könnt ihr loslegen. Empfehlung: Bearbeitet zuerst euren Styleguide, dann könnt ihr euren Content direkt in eurem Vereinsstyle bewundern"
+      }
+    ]
   },
   "styleguide": {
-    "title": "Hier ist die Styleguide Seite",
-    "description": "Hier sind Informationen zu den Design-Richtlinien"
+    "title": "Styleguide",
+    "description": "Hier gestaltet ihr das Aussehen eures Vereinsauftritts. Wählt Farben, Schriften, Logos und mehr aus, damit alles zu euch passt.",
+    "headlines": {
+      "colors": "Farben",
+      "backgrounds": "Hintergründe",
+      "grafics": "Grafiken",
+      "logo": "Logo",
+      "fonts": "Schriftarten",
+      "slogan": "Slogan"
+    },
+    "colorDescription": {
+      "main": "Hauptfarben ",
+      "detail": "Ergänzende Farben",
+      "text": "Schriftfarben",
+      "neutral": "Neutrale Farben "
+    },
+    "backgroundDescription": {
+      "light": "Helle Hintergründe",
+      "dark": "Dunkle Hintergründe",
+      "textureUpload": {
+        "modalTitle": "Datein hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lade hoch...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Heller Hintergrund Nr. 1",
+        "Heller Hintergrund Nr. 2",
+        "Dunkler Hintergrund Nr. 1",
+        "Dunkler Hintergrund Nr. 2"
+      ]
+    },
+    "logoDescription": {
+      "big": "Logo",
+      "small": "Kleines Logo",
+      "oneColor": "Einfarbiges Logo",
+      "logoUpload": {
+        "modalTitle": "Datein hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lade hoch...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Vereins Logo",
+        "Vereins Logo kleine Version",
+        "Veinslogo einfarbig"
+      ]
+    },
+    "fontsDescription": {
+      "preview": "Dies ist ein Vorschautext in der ausgewählten Schriftart.",
+      "headline": "Überschriften",
+      "body": "Textkörper"
+    },
+
+    "infotext": {
+      "colors": "Wählt die Farben, die euren Verein am besten repräsentieren. Diese Farben werden in Texten, Grafiken und Hintergründen verwendet. Kurze Erklärung zu den einzelen Farben: ",
+      "backgrounds": "Hier könnt ihr passende Hintergrundbilder für eure Inhalte hochladen. Es ist gut eine Auswahl an Hellen und Dunklen Hintergründen zu haben. Die TExturen kannst du entweder über den Button auswählen oder mit Drag und Drop in das Feld ziehen",
+      "grafics": "Hier werden später eure eigenen grafischen Elemente wie Icons oder Illustrationen erscheinen.",
+      "logo": "Ladet euer Vereinslogo hoch. Es wird auf euren Seiten verwendet.",
+      "fonts": "Wählt die Schriftarten aus, die euch gefallen. Ihr seht direkt eine Vorschau mit Beispieltext. Erklärung was der unterschied zwischen der Headline und dem Textkörper ist",
+      "slogan": "Gebt euren Vereinsslogan oder ein Motto ein, das auf der Seite angezeigt wird."
+    },
+    "save": "Speichern",
+    "cancel": "Abbrechen"
   },
   "templates": {
-    "title": "Hier ist die Templates Seite",
-    "description": "Hier sind Vorlagen für das Projekt"
+    "title": "Content Vorlagen",
+    "description": "Um neuen Contet zu erstellen kannst du ganz einfach eine passende Vorlage auswählen und loslegen",
+    "titles": ["Bild mit Text", "Bilder Gallerie", "Text mit Grafik"],
+    "descriptions": [
+      "Ein Bild mit Text kombinieren",
+      "Eine Galerie mit mehreren Bildern erstellen",
+      "Text mit einer Grafik kombinieren"
+    ],
+    "action": "Erstellen"
   },
   "content": {
-    "title": "Hier ist die Content Seite",
-    "description": "Hier sind Inhalte für das Projekt"
+    "title": "Vereinscontent",
+    "description": "Verwaltung des Vereinscontents. In der folgenden Tabelle kannst du bestehende Inhalte einsehen, nach Titel oder Datum sortieren sowie gezielt nach Autoren oder Tags filtern. Über den Stift-Button lassen sich die Inhalte direkt bearbeiten und aktualisieren. So behaltet ihr jederzeit den Überblick über alle Beiträge.",
+    "headers": ["", "Titel", "Datum", "Autoren", "Tags"]
   },
+
   "create": {
-    "title": "Hier ist die Create Seite",
-    "description": "Hier können Sie Inhalte erstellen"
+    "title": "Content Erstellen",
+    "description": "Speichern nicht vergessen ;)",
+    "form": {
+      "title": "Titel",
+      "title_placeholder": "Titel eingeben",
+      "authors": "Authoren",
+      "tags": "Tags auswählen",
+      "tags_title": "Tags"
+    },
+    "formDescriptions": {
+      "title": "Gibt dem Content einen schlagkräftigen Titel um ihn später gut wiederzufinden",
+      "authors": "Hier sind alle Vereinsmitglieder die an diesem Content mitgewirkt haben",
+      "tags": "Die Tags helfen dabei in der Content Liste alles zu sortieren und gruppieren"
+    },
+    "lables": {
+      "generell": "Allgemeine Angaben",
+      "upload": "Bild hochladen",
+      "headline": "Überschrift",
+      "textLayer": "Text Positionierung",
+      "textDescription": "Beschreibung",
+      "bgLayer": "Hintergund einstellungen",
+      "logoLayer": "Logo Positionierung"
+    },
+
+    "save": "Speichern",
+    "export": "Content exportieren"
   },
   "management": {
-    "title": "Hier ist die Management Seite",
-    "description": "Hier können Sie Inhalte verwalten"
+    "title": "Mitglieder Management",
+    "description": "Als Admin kannst du hier Mitglieder hinzufügen, bearebiten oder entfernen"
   },
   "impressum": {
-    "title": "Hier ist die Impressum Seite",
-    "description": "Hier sind rechtliche Informationen"
+    "title": "Impressum",
+    "section1Title": "Angaben gemäß § 5 TMG",
+    "name": "Lilian Drabinski",
+    "addressLine1": "Magdeburger Str. 50",
+    "addressLine2": "14770 Brandenburg an der Havel",
+    "emailLabel": "E-Mail",
+    "section2Title": "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+    "projectNote": "Diese Website ist ein nicht-kommerzielles Hochschulprojekt im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg.",
+    "section3Title": "Haftungsausschluss",
+    "liabilityText1": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.",
+    "liabilityText2": "Die Verantwortung für das Urheberrecht an hochgeladenen Bildern und Grafiken liegt bei den jeweiligen Vereinen.",
+    "resourcesTitle": "Verwendete Ressourcen",
+    "resourcesIntro": "Dieses Projekt wurde mit verschiedenen frei verfügbaren Tools und Ressourcen umgesetzt:",
+    "resourceHeroicons": "Icons von",
+    "resourceFreepik": "Illustrationen von",
+    "resourceFreepik2": "- Rechte liegen bei den jeweiligen Urheber:innen",
+    "resourceGoogleFonts": "Schriften von",
+    "resourceDaisyui": "Styling mit",
+    "resourceTailwind": "und",
+    "resourcesOutro": "Alle verwendeten externen Ressourcen wurden gemäß ihrer jeweiligen Lizenzbedingungen eingebunden. Dieses Projekt dient ausschließlich Forschungs- und Lehrzwecken im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg."
   },
   "notFound": {
     "title": "404 - Seite nicht gefunden",
-    "description": "Die angeforderte Seite existiert nicht."
+    "description": "Die angeforderte Seite existiert nicht. Gehe zurück zu:"
   },
   "error": {
     "title": "Ein Fehler ist aufgetreten",
     "description": "Bitte versuchen Sie es später erneut."
   },
   "footer": {
-    "contactUs": "Kontaktieren Sie uns",
-    "privacyPolicy": "Datenschutz-Bestimmungen",
-    "termsOfService": "Nutzungsbedingungen"
+    "name": "Projektname",
+    "description": "  Eine Plattform, auf der Vereine sich präsentieren können.",
+    "copyright": "Alle Rechte vorbehalten",
+    "about": "  Über das Projekt",
+    "join": "Verein anmelden",
+    "impressum": "Impressum"
+  },
+  "sidebar": {
+    "home": "Homepage",
+    "login": "Einloggen",
+    "dashboard": "Dashboard",
+    "about": "Über dieses Projekt",
+    "collection": "Sammlung",
+    "examples": "Beispiele",
+    "tutorial": "Tutorial",
+    "join": "Verein anmelden",
+    "styleguide": "Vereinsstyle",
+    "templates": "Styling Tempaltes",
+    "list": "Content Liste",
+    "create": "Content erstellen",
+    "management": "Vereins Management",
+    "impressum": "Impressum",
+    "projectName": "Name des Projektes"
   }
 }

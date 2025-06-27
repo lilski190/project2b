@@ -14,6 +14,7 @@ export default async function ExanplesPage({ params }) {
 
   return (
     <div>
+      {JSON.stringify(dict)}
       <h1 className="mb-5 text-5xl font-bold">{dict.examples.title}</h1>
       <p>{dict.examples.description}</p>
     </div>

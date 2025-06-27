@@ -2,6 +2,8 @@
 
 import { Toaster } from "react-hot-toast";
 import { loginAction } from "@/app/actions/authAction";
+import { useState } from "react";
+import { VEREINE } from "@/lib/globals";
 
 /**
  * LoginForm Komponent
@@ -12,11 +14,35 @@ import { loginAction } from "@/app/actions/authAction";
  * @param {Object} dict - Das Wörterbuch-Objekt, das die Übersetzungen für die verschiedenen Sprachen enthält.
  */
 export default function LoginForm({ dict }) {
+  const [selectedValue, setSelectedValue] = useState("");
   return (
     <>
       <Toaster position="top-center" />
       <form action={loginAction} className="card-body">
         <fieldset className="fieldset">
+          <label className="label">Verein</label>
+          <input
+            type="text"
+            name="verein"
+            value={selectedValue}
+            readOnly
+            hidden
+          />
+          <select
+            className="select"
+            value={selectedValue}
+            onChange={(e) => setSelectedValue(e.target.value)}
+            required
+          >
+            <option value="" disabled>
+              Pick a Verein
+            </option>
+            {VEREINE.map((verein, index) => (
+              <option value={verein} key={"Verein_" + index}>
+                {verein}
+              </option>
+            ))}
+          </select>
           <label className="label">Email</label>
           <input
             type="email"

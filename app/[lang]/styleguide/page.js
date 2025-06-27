@@ -1,7 +1,9 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
-
+import { getStyleguideAction } from "@/app/actions/styleguideAction";
+import StyleguideForm from "./StyleguideForm";
+import { cookies } from "next/headers";
 /**
  * Styleguide Seite der Anwendung.
  * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
@@ -17,15 +19,29 @@ export default async function StyleguidePage({ params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const styleguideData = await getStyleguideAction();
+  console.log("StyleguideData:", styleguideData.stringify);
+
+  const cookieStore = await cookies();
+  const rawId = cookieStore.get("verein_id")?.value;
+  const vereinId = rawId?.split("-")[0];
+  const vereinName = cookieStore.get("verein_name")?.value;
+  const vereinString = vereinName?.replace(/\s+/g, "_");
+  console.log("Verein Name:", vereinString);
+  //TODO: VERIEN NAME leerezeichen ersetzen durch _ !!!
 
   if (!user) {
     redirect("/login");
   }
 
   return (
-    <div>
-      <h1 className="mb-5 text-5xl font-bold">{dict.styleguide.title}</h1>
-      <p>{dict.styleguide.description}</p>
+    <div className="">
+      <StyleguideForm
+        dict={dict}
+        data={styleguideData.stringify}
+        folderID={vereinString + "_" + vereinId}
+        lang={lang}
+      />
     </div>
   );
 }

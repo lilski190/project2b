@@ -1,0 +1,40 @@
+{
+  "id": 18434,
+  "verein_Id": 3492324,
+  "colors": {
+    "main_01": "#FF5733",
+    "main_02": "#33FF57",
+    "detail_01": "#3357FF",
+    "detail_02": "#FF33A1",
+    "text_01": "#FFFFFF",
+    "text_02": "#000000",
+    "neutral_01": "#CCCCCC",
+    "neutral_02": "#666666"
+  },
+  "backgrounds": {
+    "light_01": "/freepik/light_blue.jpg",
+    "light_02": "/freepik/light_pink.jpg",
+    "dark_01": "/freepik/dark_green.jpg",
+    "dark_02": "/freepik/dark_black.jpg"
+  },
+  "logo": {
+    "big": "https://example.com/logo_big.png",
+    "small": "https://example.com/logo_small.png",
+    "one_color": "https://example.com/logo_one_color.png"
+  },
+  "fonts": {
+    "heading": {
+      "font_family": "Pacifico"
+    },
+    "body": {
+      "font_family": "Bangers"
+    }
+  },
+
+  "slogan": "this is a great slogan for the Verein",
+  "grafics": {
+    "grafik_01": "https://example.com/grafik_01.svg",
+    "grafik_02": "https://example.com/grafik_02.svg",
+    "grafik_03": "https://example.com/grafik_03.svg"
+  }
+}

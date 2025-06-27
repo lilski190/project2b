@@ -1,6 +1,10 @@
 import { getDictionary } from "@/lib/getDictionary";
 import DefaultButton from "@/components/buttons/defaultButton";
-
+import InformationTooltip from "@/components/tooltips/InformationTooltip";
+import Colors from "@/components/styleguideForms/Colors";
+import FileUpload from "@/components/input/fileUpload";
+import TextureUpload from "@/components/input/TextureUpload";
+import BasicCard from "@/components/cards/BasicCard";
 /**
  * Collection Seite der Anwendung.
  * Diese Seite ist eine Public Seite die nur für die Entwicklung gedacht ist.
@@ -17,10 +21,24 @@ export default async function CollectionPage({ params }) {
   let themes = ["main", "dark", "high-contrast"];
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-4">
+    <div className="grid grid-cols-3 gap-3 p-4">
+      {JSON.stringify(dict)}
       {themes.map((theme, index) => (
         <div key={theme + "_" + index} className={theme}>
           Color Theme: {theme}
+        </div>
+      ))}
+      <h2 className="font-bold col-span-3">Cards</h2>
+      {themes.map((theme, index) => (
+        <div className={` ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <BasicCard />
+        </div>
+      ))}
+      <h2 className="font-bold col-span-3">Upload File</h2>
+      {themes.map((theme, index) => (
+        <div className={` ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <TextureUpload />
+          <FileUpload />
         </div>
       ))}
       <h2 className="font-bold col-span-3">Buttons</h2>
@@ -37,6 +55,14 @@ export default async function CollectionPage({ params }) {
           </div>
           <div className="mx-0.5 my-2">
             <DefaultButton text="Neutral" colorClass="btn-neutral" />
+          </div>
+        </div>
+      ))}
+      {themes.map((theme, index) => (
+        <div className={`flex ${theme}`} key={"buttons_" + theme + "_" + index}>
+          <div className="flex justify-between w-full">
+            <div className="lableText">Headline</div>
+            <InformationTooltip text="some default text for the tooltip" />
           </div>
         </div>
       ))}

@@ -1,6 +1,10 @@
 import { getUserAction } from "@/app/actions/userActions";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/getDictionary";
+import BasicTable from "@/components/tables/BasicTable";
+import Content from "@/dummidaten/content.JSON";
+import { loadAllContent } from "@/app/actions/contentAction";
+import { cookies } from "next/headers";
 
 /**
  * Styleguide Seite der Anwendung.
@@ -17,15 +21,31 @@ export default async function ContentPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const cookieStore = await cookies();
+  const VereinTags = cookieStore.get("verein_tags")?.value;
 
+  let headlines = dict.content.headers;
+  let colKeys = ["id", "title", "last_update", "author", "tags"];
+  const data = await loadAllContent();
+  const contentArray = data?.data;
+
+  console.log("loades Array", contentArray);
   if (!user) {
     redirect("/login");
   }
 
   return (
-    <div>
-      <h1 className="mb-5 text-5xl font-bold">{dict.content.title}</h1>
-      <p>{dict.content.description}</p>
+    <div className="p-6 max-md:p-3">
+      <h1 className="headline">{dict.content.title}</h1>
+      <p className="mt-2 baseText">{dict.content.description}</p>
+      <div className="mt-6 ">
+        <BasicTable
+          headlines={headlines}
+          content={contentArray}
+          filter={JSON.parse(VereinTags)}
+          colKeys={colKeys}
+        />
+      </div>
     </div>
   );
 }

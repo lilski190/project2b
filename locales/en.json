@@ -31,7 +31,29 @@
   },
   "styleguide": {
     "title": "Here is the styleguide page",
-    "description": "Here are the design guidelines"
+    "description": "Here are the design guidelines",
+    "headlines": {
+      "colors": "Colors",
+      "backgrounds": "Backgrounds",
+      "grafics": "Grafiken",
+      "logo": "Logo",
+      "fonts": "Fonts",
+      "slogan": "Slogan"
+    },
+    "colorDescription": {
+      "main": "Main Colors",
+      "detail": "Detailfarben",
+      "text": "Textfraben",
+      "neutral": "Neutrale Farben"
+    },
+    "infotext": {
+      "colors": "Here are the colors used in the project",
+      "backgrounds": "Here are the backgrounds used in the project",
+      "grafics": "Here are the graphics used in the project",
+      "logo": "Here is the logo used in the project",
+      "fonts": "Here are the fonts used in the project",
+      "slogan": "Here is the slogan used in the project"
+    }
   },
   "templates": {
     "title": "Here is the templates page",
