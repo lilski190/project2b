@@ -43,7 +43,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: dict.templates.action || "Create",
         url: "/create",
-        parameter: ["template", "image_gallery"],
+        parameter: ["template", "text_with_image"], //TODO: image_gallery
       },
     },
     {
@@ -54,7 +54,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: dict.templates.action || "Create",
         url: "/create",
-        parameter: ["template", "text_with_graphic"],
+        parameter: ["template", "text_with_image"], //TODO: text_with_graphic
       },
     },
   ];

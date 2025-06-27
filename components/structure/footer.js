@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Footer({ dict }) {
   return (
     <div>
@@ -14,15 +15,15 @@ export default function Footer({ dict }) {
         </aside>
         <nav>
           <div className="grid grid-flow-col gap-4">
-            <a href="/about" className="hover:underline">
+            <Link href="/about" className="hover:underline">
               {dict.about}
-            </a>
-            <a href="/join" className="hover:underline">
+            </Link>
+            <Link href="/join" className="hover:underline">
               {dict.join}
-            </a>
-            <a href="/impressum" className="hover:underline">
+            </Link>
+            <Link href="/impressum" className="hover:underline">
               {dict.impressum}
-            </a>
+            </Link>
           </div>
         </nav>
       </footer>
