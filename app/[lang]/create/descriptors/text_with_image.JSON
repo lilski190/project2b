@@ -4,30 +4,36 @@
     "types": [
       {
         "type": "image",
+        "lable": "upload",
         "value": "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg"
       },
       {
         "type": "headline",
+        "lable": "headline",
         "value": "Hier is der Text auf dem Bild"
       },
       {
         "type": "layer",
+        "lable": "textLayer",
         "id": "textLayer",
         "value": ["#FFFFFF", ["center", "center"], "80%", "center"],
         "options": ["bg", "posLayer", "sizeW", "textAlign"]
       },
       {
         "type": "text",
+        "lable": "textDescription",
         "value": "This is a sample text. Hier ist eine Längere Beschreibung für unter dem Bild oder so"
       },
       {
         "type": "layer",
+        "lable": "bgLayer",
         "id": "bgLayer",
         "value": ["#000000", 40, "40%", "60%", ["center", "center"]],
         "options": ["bg", "opacity", "size", "sizeW", "posLayer"]
       },
       {
         "type": "logo",
+        "lable": "logoLayer",
         "value": [
           "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
           40,

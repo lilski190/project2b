@@ -1,12 +1,13 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import { BASEURL } from "@/lib/globals";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useEffect, useState } from "react";
 
 export default function ImageWithText({ previewData, options }) {
   const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
+  const [localImgUrl, setLocalImgUrl] = useState(null);
 
   let imgURL;
   let text;
@@ -19,6 +20,12 @@ export default function ImageWithText({ previewData, options }) {
   let logoPosition;
   let layerPosition;
   let textPosition;
+
+  let style = JSON.parse(localStorage.getItem("Styleguide"));
+  console.log("parsed Style", style);
+  let fonts = style[0].fonts;
+  console.log("fonts", fonts);
+  let headfont = fonts?.heading;
 
   if (previewData?.types) {
     imgURL = previewData?.types?.find((item) => item.type === "image")?.value;
@@ -36,24 +43,35 @@ export default function ImageWithText({ previewData, options }) {
     logoStyle = previewData?.types?.find((item) => item.type === "logo")?.value;
   }
 
+  async function getImageAsBase64(url) {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch (err) {
+      console.error("Fehler beim Laden des Bildes als Base64:", err);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    if (imgURL) {
+      getImageAsBase64(imgURL).then((dataUrl) => {
+        if (dataUrl) setLocalImgUrl(dataUrl);
+      });
+    }
+  }, [imgURL]);
+
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
     return hex;
   }
   //layerData = ["black", "30", "full", "end", "left"];
-
-  const getSafeColor = (color) => {
-    if (typeof color !== "string") return "#000";
-
-    // Prüfen, ob die Farbe im oklch-Format ist
-    if (color.trim().startsWith("oklch")) {
-      console.warn("Unsupported color format, replacing:", color);
-      return "#000"; // Oder ein passender Ersatzwert
-    }
-
-    return color;
-  };
 
   if (layerData != undefined) {
     console.log("Layers", layerData[4]);
@@ -62,13 +80,12 @@ export default function ImageWithText({ previewData, options }) {
     // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
     // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
     layer = {
-      backgroundColor: "#202020", // getSafeColor(
-      //   layerData[0] + percentToHexAlpha(parseInt(layerData[1]))
+      backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
       // ),
-      // opacity: Number(layerData[1]) / 100,
+      // Backgroungopacity: Number(layerData[1]) / 100,
       height: layerData[2], // h-30 ≈ 30 * 0.25rem
       width: layerData[3], // w-30
-      color: "#FFFFFF",
+
       fontSize: "1.5rem", // text-2xl
       fontWeight: "bold",
       position: "absolute",
@@ -85,7 +102,7 @@ export default function ImageWithText({ previewData, options }) {
       justifyContent: layerData[4][0],
     };
     textPosition = {
-      color: "#808080", //getSafeColor(textLayer[0]),
+      color: textLayer[0],
       width: textLayer[2],
       textAlign: textLayer[3],
     };
@@ -127,6 +144,7 @@ export default function ImageWithText({ previewData, options }) {
     } else if (activeTab === "instagram") {
       const link = document.createElement("a");
       link.href = imgData;
+      console.log("IMG", link.href);
       link.download = "instagram-post.png"; // JPG wäre kleiner, PNG hat bessere Qualität
       link.click();
     } else if (activeTab === "Presentation" || activeTab === "DINA6") {
@@ -191,17 +209,24 @@ export default function ImageWithText({ previewData, options }) {
             style={{
               all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
               fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
+              width: `${options[activeTab].width}px`,
+              height: `${options[activeTab].height}px`,
+              overflow: "hidden",
             }}
           >
-            <div className="relative w-full h-full">
-              {imgURL && (
-                <img
-                  src={imgURL}
-                  alt="Content uploaded"
-                  className="w-full h-full object-cover"
-                />
+            <div className="relative overflow-hidden w-full h-full" style={{}}>
+              {localImgUrl && (
+                <div
+                  style={{
+                    backgroundImage: `url(${localImgUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                ></div>
               )}
-              <div style={layerPosition}>
+              <div style={layerPosition} className={headfont.font_family}>
                 <div style={layer}>
                   <div style={textPosition} className="p-3 ">
                     {text && <div> {text}</div>}
@@ -216,12 +241,16 @@ export default function ImageWithText({ previewData, options }) {
           </div>
         </div>
       </div>
-      {description && <div> {description}</div>}
+      {description && <div> {}</div>}
 
-      <button className="btn btn-primary" onClick={handleExport}>
-        EXPORT
-      </button>
-      {JSON.stringify(logoStyle)}
+      <div className="p-6">
+        <button
+          className=" w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
+          onClick={handleExport}
+        >
+          EXPORT
+        </button>
+      </div>
     </div>
   );
 }

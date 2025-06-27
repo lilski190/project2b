@@ -82,10 +82,12 @@ export default async function CreatePage({ params, searchParams }) {
   }
 
   return (
-    <div>
-      <h1 className="mb-5 headline">{dict.create.title}</h1>
-      <p className="baseText">{dict.create.description}</p>
-      <div className="grid grid-cols-2 max-md:grid-cols-1 ">
+    <div className="pt-6 max-md:pt-3">
+      <h1 className="px-6  max-md:px-3 headline">{dict.create.title}</h1>
+      <p className="px-6  max-md:px-3 mt-2 baseText ">
+        {dict.create.description}
+      </p>
+      <div className="grid grid-cols-2 max-md:grid-cols-1 mt-6">
         <CreatePreview dict={dict} data={selectedData.preview} />
         <CreateForm
           dict={dict.create}

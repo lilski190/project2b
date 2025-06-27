@@ -67,8 +67,6 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
 
   return (
     <div className="p-3">
-      {JSON.stringify(Textvalue)}
-      LOGOS: {JSON.stringify(logos)}
       {options.map((option, index) => {
         switch (option) {
           case "bg":
@@ -195,8 +193,6 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
             return (
               <div key={option}>
                 <div className="">
-                  <div>Logos</div>
-                  {JSON.stringify(logos)}
                   <div className="flex">
                     {Object.entries(logos).map(([key, logo]) => (
                       <div key={logo} className="m-2">

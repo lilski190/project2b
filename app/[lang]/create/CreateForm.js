@@ -11,7 +11,7 @@ import Checkbox from "@/components/input/checkbox";
 import LayerComponent from "@/components/createForms/LayerComponent";
 import TextLayerComponent from "@/components/createForms/TextLayerComponent";
 import LogoComponent from "@/components/createForms/LogoComponent";
-
+import InformationTooltipRight from "@/components/tooltips/InformationTooltipRight";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 /**
@@ -30,8 +30,9 @@ export default function CreateForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState("");
-
   const router = useRouter();
+  const [openIndexes, setOpenIndexes] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const [tags, setTags] = useState(selectedTags);
   const [titleUpdate, setTitle] = useState(title);
@@ -39,6 +40,16 @@ export default function CreateForm({
   useEffect(() => {
     localStorage.setItem("CreateForm", JSON.stringify(data));
   }, []);
+
+  const toggleAccordion = (index) => {
+    setOpenIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
+  const toggleSingleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,77 +126,92 @@ export default function CreateForm({
 
   return (
     <div className="">
-      <div className="pb-3">
-        <div className="px-3">
-          <div className="flex justify-between w-full pb-1 ">
-            <div className="lableText">{dict.form.title}</div>
-            <InformationTooltip text={dict.formDescriptions.title} />
+      <div className="">
+        <div
+          className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+            openIndex === 0 ? "collapse-open" : ""
+          }`}
+        >
+          <div
+            className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+            onClick={() => toggleSingleAccordion(0)}
+          >
+            {dict.lables.generell}
           </div>
-          <input
-            type="text"
-            value={titleUpdate}
-            onChange={(e) => setTitle(e.target.value)}
-            className="input input-bordered w-full"
-            placeholder={dict.form.title_placeholder}
-          />
-        </div>
-        <div className="w-full  px-3 pt-3">
-          <div className="flex justify-between w-full pb-1 ">
-            <div className="lableText">{dict.form.tags_title}</div>
-            <InformationTooltip text={dict.formDescriptions.tags} />
-          </div>
-          <div className="flex justify-start">
-            <div className="dropdown mr-3">
-              <div tabIndex={0} role="button" className="btn btn-outline">
-                {dict.form.tags}
-              </div>
-              <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 max-h-52">
-                {JSON.parse(VereinTags).map((tag, index) => (
-                  <li key={`tag_${index}`}>
-                    <label className="cursor-pointer flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={tags.includes(tag)}
-                        onChange={() => handleCheckboxChange(tag)}
-                        className="checkbox checkbox-info checkbox-sm"
-                      />
-                      <span>{tag}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="collapse-content text-sm">
             <div className="">
-              <div className="lableTextSmall flex">
-                {tags.map((tag, index) => (
+              <div className="flex justify-between w-full pb-1 ">
+                <div className="lableText">{dict.form.title}</div>
+                <InformationTooltip text={dict.formDescriptions.title} />
+              </div>
+              <input
+                type="text"
+                value={titleUpdate}
+                onChange={(e) => setTitle(e.target.value)}
+                className="input input-bordered w-full"
+                placeholder={dict.form.title_placeholder}
+              />
+            </div>
+            <div className="w-full pt-3">
+              <div className="flex justify-between w-full pb-1 ">
+                <div className="lableText">{dict.form.tags_title}</div>
+                <InformationTooltip text={dict.formDescriptions.tags} />
+              </div>
+              <div className="flex justify-start">
+                <div className="dropdown mr-3">
+                  <div tabIndex={0} role="button" className="btn btn-outline">
+                    {dict.form.tags}
+                  </div>
+                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 max-h-52">
+                    {JSON.parse(VereinTags).map((tag, index) => (
+                      <li key={`tag_${index}`}>
+                        <label className="cursor-pointer flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={tags.includes(tag)}
+                            onChange={() => handleCheckboxChange(tag)}
+                            className="checkbox checkbox-info checkbox-sm"
+                          />
+                          <span>{tag}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="">
+                  <div className="lableTextSmall flex">
+                    {tags.map((tag, index) => (
+                      <div
+                        key={tag + "_" + "index"}
+                        className="border px-2 rounded mx-1 "
+                      >
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full  pt-3">
+              <div className="flex justify-between w-full pb-1 ">
+                <div className="lableText">{dict.form.authors}</div>
+                <InformationTooltip text={dict.formDescriptions.authors} />
+              </div>
+              <div className="lableTextSmall flex -ml-1">
+                {author.map((aut, index) => (
                   <div
-                    key={tag + "_" + "index"}
+                    key={aut + "_" + "index"}
                     className="border px-2 rounded mx-1 "
                   >
-                    {tag}
+                    {aut}
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-        <div className="w-full  px-3 pt-3">
-          <div className="flex justify-between w-full pb-1 ">
-            <div className="lableText">{dict.form.authors}</div>
-            <InformationTooltip text={dict.formDescriptions.authors} />
-          </div>
-          <div className="lableTextSmall flex -ml-1">
-            {author.map((aut, index) => (
-              <div
-                key={aut + "_" + "index"}
-                className="border px-2 rounded mx-1 "
-              >
-                {aut}
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
+
       <form onSubmit={handleSubmit}>
         <div className="fixed p-3 pr-4 top-0 right-0 z-30">
           <button
@@ -198,37 +224,62 @@ export default function CreateForm({
         <Toaster position="top-center" />
         <div className="">
           <div className="col-span-1 bg-base-200">
-            <div className="flex justify-between w-full">
-              <div className="lableText">Dummi headline</div>
-              <InformationTooltip text="DUMMI TEXT" />
-            </div>
             {data.types.map((typ, index) => {
               if (typ.type === "text") {
                 return (
-                  <div key={index} className="p-3">
-                    TEXT
-                    <div className="w-full">
-                      <TextArea
-                        fieldID="text_test"
-                        Textvalue={typ.value || ""}
-                        onChange={(e) => handleChange(index, e.target.value)}
-                      />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10 "
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      <div className="flex items-start">
+                        <div className=""> {dict.lables[typ.lable]} </div>
+                      </div>
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <TextArea
+                          fieldID="text_test"
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                        />
+                      </div>
                     </div>
                   </div>
                 );
               } else if (typ.type === "image") {
                 return (
-                  <div key={index}>
-                    <FileUpload
-                      BASEURL={baseUrl}
-                      folderID={vereinID}
-                      bucket="content"
-                      url={
-                        typ.value ||
-                        "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
-                      }
-                      onChange={(newValue) => handleChange(index, newValue)}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          bucket="content"
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) => handleChange(index, newValue)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "grafic") {
@@ -244,82 +295,136 @@ export default function CreateForm({
                 );
               } else if (typ.type === "headline") {
                 return (
-                  <div key={index} className="p-3">
-                    HEADLINE
-                    <TextField
-                      fieldID="headline_test"
-                      Textvalue={typ.value || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <TextField
+                          fieldID="headline_test"
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "textLayer") {
                 return (
-                  <div key={index}>
-                    This is a type textLayer!
-                    <TextField
-                      fieldID="textLayerField"
-                      Textvalue={typ.textValue || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <TextField
+                          fieldID="textLayerField"
+                          Textvalue={typ.textValue || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "background") {
                 return (
-                  <div key={index}>
-                    This is a type background! {typ.options}{" "}
-                    {JSON.stringify(typ)}
-                    <RadioButton
-                      fieldID="background_checkbox"
-                      Textvalue={typ.value || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                      options={typ.options}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <RadioButton
+                          fieldID="background_checkbox"
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                          options={typ.options}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "color") {
                 return (
-                  <div key={index}>
-                    This is a type color!
-                    <Checkbox
-                      fieldID="color_checkbox"
-                      Textvalue={typ.value || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <Checkbox
+                          fieldID="color_checkbox"
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "logo") {
                 return (
-                  <div key={index}>
-                    LOGO
-                    <LogoComponent
-                      fieldID="logo_rafio"
-                      Textvalue={typ.value || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                      options={typ.options}
-                    />
-                    LOGO END:
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <LogoComponent
+                          fieldID="logo_rafio"
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                          options={typ.options}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else if (typ.type === "gallery") {
                 return (
                   <div key={index}>
-                    This is a type gallery!
+                    {dict.lables[typ.lable]}
                     <div className="grid grid-cols-3 gap-4">
-                      <FileUpload
-                        BASEURL="https://example.com/upload"
-                        folderID="TODO"
-                        bucket="styles"
-                        url={typ.value || ""}
-                        onChange={(newValue) => handleChange(index, newValue)}
-                      />
-                      <FileUpload
-                        BASEURL="https://example.com/upload"
-                        folderID="TODO"
-                        bucket="styles"
-                        url={typ.value || ""}
-                        onChange={(newValue) => handleChange(index, newValue)}
-                      />
                       <FileUpload
                         BASEURL="https://example.com/upload"
                         folderID="TODO"
@@ -332,13 +437,28 @@ export default function CreateForm({
                 );
               } else if (typ.type === "layer") {
                 return (
-                  <div key={typ.type + "_" + index}>
-                    <LayerComponent
-                      fieldID={"layer_" + index}
-                      Textvalue={typ.value || ""}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                      options={typ.options}
-                    />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full">
+                        <LayerComponent
+                          fieldID={"layer_" + index}
+                          Textvalue={typ.value || ""}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                          options={typ.options}
+                        />
+                      </div>
+                    </div>
                   </div>
                 );
               } else {
@@ -351,7 +471,7 @@ export default function CreateForm({
             })}
           </div>
         </div>
-        <div className="mx-3">
+        <div className="p-6 bg-base-100">
           <button
             type="submit"
             className=" w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"

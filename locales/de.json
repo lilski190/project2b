@@ -177,6 +177,15 @@
       "authors": "Hier sind alle Vereinsmitglieder die an diesem Content mitgewirkt haben",
       "tags": "Die Tags helfen dabei in der Content Liste alles zu sortieren und gruppieren"
     },
+    "lables": {
+      "generell": "Allgemeine Angaben",
+      "upload": "Bild hochladen",
+      "headline": "Überschrift",
+      "textLayer": "Text Positionierung",
+      "textDescription": "Beschreibung",
+      "bgLayer": "Hintergund einstellungen",
+      "logoLayer": "Logo Positionierung"
+    },
 
     "save": "Speichern",
     "export": "Content exportieren"
