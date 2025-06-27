@@ -13,7 +13,6 @@ export default async function Home({ params }) {
 
   return (
     <div className="bg-base-200">
-      {JSON.stringify(dict)}
       <div className="hero min-h-screen">
         <div className="hero-overlay"></div>
         <div className="hero-content text-neutral-content text-center">
