@@ -50,6 +50,7 @@ export default async function CreatePage({ params, searchParams }) {
 
   const sourceKey = (sourceKeyAwait.template || "test").trim();
   const contentID = sourceKeyAwait.content || 0;
+  const duplicate = sourceKeyAwait.duplicate || false;
 
   const selectedData = dataMap[sourceKey];
   console.log("seelcted data", selectedData, sourceKey);
@@ -69,6 +70,16 @@ export default async function CreatePage({ params, searchParams }) {
     selectedTags = loadedData.data[0].tags;
     title = loadedData.data[0].title;
     console.log("loaded Content: ", contentData);
+    if (duplicate) {
+      console.log("DUPLICATE CONTENT");
+
+      //load old contetn
+      //set new ids, so that on save it will be saved as new
+      title = `${title} (Kopie)`;
+      if (!authors.includes(author)) {
+        authors.push(author);
+      }
+    }
   } else {
     contentData = selectedData.form;
     authors = [author];
@@ -94,6 +105,7 @@ export default async function CreatePage({ params, searchParams }) {
           data={contentData}
           template={sourceKey}
           contentID={contentID}
+          duplicate={duplicate}
           vereinID={vereinName + "_" + vereinId}
           VereinTags={vereinTags}
           selectedTags={selectedTags}

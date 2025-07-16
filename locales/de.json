@@ -133,11 +133,32 @@
       "headline": "Überschriften",
       "body": "Textkörper"
     },
+    "graficsDescription": {
+      "form": "Formen gefüllt",
+      "grafic": "Liniengeafiken ",
+      "graficsUpload": {
+        "modalTitle": "Datein hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lade hoch...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Form 1",
+        "Form 2",
+        "Form 3",
+        "Form 4",
+        "Linien Grafik Nr. 1",
+        "Linien Grafik Nr. 2",
+        "Linien Grafik Nr. 3",
+        "Linien Grafik Nr. 4"
+      ]
+    },
 
     "infotext": {
       "colors": "Wählt die Farben, die euren Verein am besten repräsentieren. Diese Farben werden in Texten, Grafiken und Hintergründen verwendet. Kurze Erklärung zu den einzelen Farben: ",
       "backgrounds": "Hier könnt ihr passende Hintergrundbilder für eure Inhalte hochladen. Es ist gut eine Auswahl an Hellen und Dunklen Hintergründen zu haben. Die TExturen kannst du entweder über den Button auswählen oder mit Drag und Drop in das Feld ziehen",
-      "grafics": "Hier werden später eure eigenen grafischen Elemente wie Icons oder Illustrationen erscheinen.",
+      "grafics": "Hier können Formen und Liniengrafiken wie z.B. Icons hochgeladen werden.",
       "logo": "Ladet euer Vereinslogo hoch. Es wird auf euren Seiten verwendet.",
       "fonts": "Wählt die Schriftarten aus, die euch gefallen. Ihr seht direkt eine Vorschau mit Beispieltext. Erklärung was der unterschied zwischen der Headline und dem Textkörper ist",
       "slogan": "Gebt euren Vereinsslogan oder ein Motto ein, das auf der Seite angezeigt wird."

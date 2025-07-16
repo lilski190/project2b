@@ -75,6 +75,16 @@ export async function saveStyleguideAction(formData) {
       },
     },
     slogan: formData.get("slogan"),
+    grafics: {
+      form_01: formData.get("form_01"),
+      form_02: formData.get("form_02"),
+      form_03: formData.get("form_03"),
+      form_04: formData.get("form_04"),
+      grafik_01: formData.get("grafik_01"),
+      grafik_02: formData.get("grafik_02"),
+      grafik_03: formData.get("grafik_03"),
+      grafik_04: formData.get("grafik_04"),
+    },
   };
 
   console.log("Parsed data:", data);
@@ -87,6 +97,7 @@ export async function saveStyleguideAction(formData) {
       logo: data.logo,
       fonts: data.fonts,
       slogan: data.slogan,
+      grafics: data.grafics,
     })
     .eq("verein_id", vereinId);
 

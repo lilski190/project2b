@@ -27,6 +27,7 @@ export default function CreateForm({
   selectedTags,
   author,
   title,
+  duplicate,
 }) {
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState("");
@@ -58,7 +59,7 @@ export default function CreateForm({
     let storage = JSON.parse(localStorage.getItem("CreateForm"));
     let result = null;
     try {
-      if (contentID === "0" || contentID === undefined) {
+      if (contentID === "0" || contentID === undefined || duplicate) {
         console.log("Creating new content with template:", template);
         result = await createContent(
           storage,
@@ -164,7 +165,7 @@ export default function CreateForm({
                   </div>
                   <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 max-h-52">
                     {JSON.parse(VereinTags).map((tag, index) => (
-                      <li key={`tag_${index}`}>
+                      <li key={`tag_${index}_${index}`}>
                         <label className="cursor-pointer flex items-center gap-2">
                           <input
                             type="checkbox"
@@ -200,7 +201,7 @@ export default function CreateForm({
               <div className="lableTextSmall flex -ml-1">
                 {author.map((aut, index) => (
                   <div
-                    key={aut + "_" + "index"}
+                    key={aut + "_" + "index_" + index}
                     className="border px-2 rounded mx-1 "
                   >
                     {aut}
