@@ -1,7 +1,14 @@
 {
   "home": {
-    "title": "TODO: Hallo, schön das du",
-    "description": "Hier ist eine kurze Projekt Beschreibung"
+    "welcome_01": "Willkommen",
+    "welcome_02": "schön, dass ihr da seid!",
+    "intro_text": "Dieses Tool unterstützt kleine Vereine dabei, sich online professionell zu präsentieren – auch ohne Design- oder Technikkenntnisse. Mit wenigen Klicks könnt ihr Inhalte gestalten, speichern und direkt für Website, Print oder Social Media nutzen.",
+    "more_info_text": "Mehr über das Projekt erfahrt ihr hier:",
+    "more_info_button": "Mehr erfahren",
+    "login_button": "Einloggen",
+    "login_hint": "Mit Vereinsdaten anmelden und loslegen.",
+    "join_button": "Jetzt mitmachen",
+    "join_hint": "Neu dabei? Hier gehts zur Anmeldung"
   },
   "login": {
     "description": "Hier ist der Login zu der Vereinsseite wo der Content erstellt und verwaltet werden kann",
@@ -22,11 +29,18 @@
     "welcome": "Schön, dass du da bist"
   },
   "about": {
-    "title": "Was ist //TODO Projekt name?",
-    "description": "Projekt name ist eine Website für kleine und ehrenamtliche Vereine",
-    "background": "Das Projekt wurde im Rahmen einens Moduls an der TH-Brandenburg entwickelt.",
-    "idea": "Viele keinen Vereine haben das Problem, dass sie sich größtenteils ehrenamtlcih organisieren. Geld ist immer knapp und muss gut calculiert werden. Dabei bleiben oft nicht genug ressourcen übrig für Design und Contetnmanager. Das Resultat ist, dass Vereine sich nach außen hin und im Netz nicht so präsentierne können wie sie sollten. Denn Vereine leisten einen wichitgen Beitrag zur Gesellschaft. UNd das sollte auch jeder sehen, seih es mit Ankündigungen für events oder der Darstellung der Vereinsarbeit. Daher wurde <Projekt name> erstellt. Um einfach und schnell Content für verschiedene Formate zu erstellen, auch ohne Vorkenntnisse.",
-    "disclaimer": "Das Projekt ist ein Wissenschaftlicher Prototyp und befindet sich zur Zeit noch in der Entwicklungsphase."
+    "title": "Was ist Projektname?",
+    "description": "Projektname ist ein digitales Werkzeug, das kleinen und ehrenamtlich geführten Vereinen dabei hilft, sich professionell im Netz zu präsentieren – ganz ohne Vorkenntnisse.",
+    "section_headings": {
+      "background": "Hintergrund",
+      "idea": "Warum dieses Projekt?",
+      "features": "Was kann das Tool?",
+      "disclaimer": "Hinweis"
+    },
+    "background": "Das Projekt entstand im Sommersemester 2025 im Rahmen eines Studienmoduls an der Technischen Hochschule Brandenburg. Die Idee basierte auf einer Analyse realer Vereinswebsites aus der Region Brandenburg und wurde nutzerzentriert entwickelt.",
+    "idea": "Viele Vereine in Deutschland arbeiten fast ausschließlich ehrenamtlich. Zeit, Geld und technisches Know-how sind oft knapp – besonders wenn es um die Gestaltung der eigenen Website oder Social-Media-Inhalte geht. Das führt leider oft dazu, dass wertvolle Vereinsarbeit nicht sichtbar wird – obwohl sie eine zentrale Rolle im sozialen, kulturellen und gesellschaftlichen Leben spielt. Projektname setzt genau hier an: Das Tool unterstützt Vereine dabei, Inhalte für verschiedene Kanäle schnell, einfach und einheitlich zu erstellen – sei es für einen neuen Veranstaltungspost oder eine Info-Grafik zur Vereinsarbeit.",
+    "features": "Das Tool bietet unter anderem: einen eigenen Vereins-Styleguide (Farben, Logos, Schriftarten), wiederverwendbare Vorlagen für Beiträge, zentrale Verwaltung von Text- und Bildinhalten sowie Exportfunktionen für verschiedene Formate – direkt im Browser.",
+    "disclaimer": "Dieses Projekt ist ein wissenschaftlicher Prototyp. Es befindet sich aktuell in der Entwicklungsphase und wird im diesem Rahmen evaluiert. Die Plattform wird kontinuierlich erweitert – Rückmeldungen sind willkommen!"
   },
   "examples": {
     "title": "Contnet Beispiele ",
@@ -55,28 +69,33 @@
     ]
   },
   "join": {
-    "title": "Willste mitmachen?",
-    "description": "Dann kannst du hier deinen Verein anmelden",
-    "explenation": "Da es sich bei diesem Projekt um einen Wissenschafltichen Prototypen handelt ist der Zugang beschränkt. Wir freuen uns sehr über dein Intresse und wenn du mit deinem Verein dieses Tool testen und mithelfen willst es Weiterzuentwickeln, dann folge diesen Schritten: ",
+    "title": "Willst du mitmachen?",
+    "description": "Teste das Tool gemeinsam mit deinem Verein – kostenlos, unverbindlich und ohne Vorkenntnisse.",
+    "explenation": "Da es sich bei diesem Projekt um einen wissenschaftlichen Prototypen handelt, ist der Zugang derzeit noch nicht öffentlich. Im Sommer 2025 (August–September) startet jedoch eine erste Testphase. Wenn du und dein Verein Interesse habt, das Tool auszuprobieren und aktiv Feedback zu geben, stelle ich euch gerne einen Testzugang zur Verfügung.",
+    "closing": "Ich freue mich sehr darauf, das Projekt gemeinsam mit euch weiter zu gestalten.",
+    "closing_02": "Viele Grüße, Lilian",
+    "steps_headline": "Wie könnt ihr mitmachen?",
     "steps": [
       {
         "num": "Schritt 1",
-        "description": "Fülle das Formular aus. Stelle dabei bitte deinen Verein vor und erzähle warum ihr das Tool nutzen wollt. Gebt außerdem eine oder mehr E-Mail adressen an. Die Besitzer dieser E-Mails werden dann die Admins des Vereins "
+        "description_01": "Schreibt eine kurze E-Mail an:",
+        "description_02": "Stellt euch kurz vor: Wer seid ihr? Was macht euer Verein? Wie viele Personen sollen mit dem Tool arbeiten?"
       },
       {
-        "nom": "Schritt 2",
-        "description": "Formular absenden und abwarten. Wir schauen und euren Verein an und melden uns dann bei euch:)"
+        "num": "Schritt 2",
+        "description": "Ich melde mich zeitnah bei euch zurück und richte einen Test-Account für euren Verein ein."
       },
       {
         "num": "Schritt 3",
-        "description": "Admin anmelden. Jeder Admin bekommt von uns eine E-Mail mit Anweisungen zum Login."
+        "description": "Ihr erhaltet per E-Mail Zugangsdaten für eure Mitglieder."
       },
       {
         "num": "Schritt 4",
-        "description": "Jetzt könnt ihr loslegen. Empfehlung: Bearbeitet zuerst euren Styleguide, dann könnt ihr euren Content direkt in eurem Vereinsstyle bewundern"
+        "description": "Los geht's! Empfehlung: Startet mit dem Styleguide – dann passt euer Content direkt zum Vereinslook."
       }
     ]
   },
+
   "styleguide": {
     "title": "Styleguide",
     "description": "Hier gestaltet ihr das Aussehen eures Vereinsauftritts. Wählt Farben, Schriften, Logos und mehr aus, damit alles zu euch passt.",
@@ -246,8 +265,6 @@
     "description": "Bitte versuchen Sie es später erneut."
   },
   "footer": {
-    "name": "Projektname",
-    "description": "  Eine Plattform, auf der Vereine sich präsentieren können.",
     "copyright": "Alle Rechte vorbehalten",
     "about": "  Über das Projekt",
     "join": "Verein anmelden",
@@ -268,6 +285,10 @@
     "create": "Content erstellen",
     "management": "Vereins Management",
     "impressum": "Impressum",
-    "projectName": "Name des Projektes"
+    "logout": "Ausloggen"
+  },
+  "generall": {
+    "projectName": "Projektname",
+    "projectSlogan": "  Eine Plattform, mit der Vereine sich präsentieren können."
   }
 }

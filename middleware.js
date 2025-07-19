@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
-const SUPPORTED_LANGUAGES = ["de", "en"];
+const SUPPORTED_LANGUAGES = ["de", "en", "deLS"];
 
 /**
  * Middleware für die Anwendung

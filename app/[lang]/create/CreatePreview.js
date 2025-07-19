@@ -31,8 +31,10 @@ export default function CreateForm({ dict, data }) {
   }, []);
 
   return (
-    <div className="bg-primary/30">
-      <ImageWithText previewData={previewData} options={data} />
+    <div className="h-24">
+      <div className="z-10">
+        <ImageWithText previewData={previewData} options={data} />
+      </div>
     </div>
   );
 }

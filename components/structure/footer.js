@@ -1,16 +1,17 @@
 import Link from "next/link";
-export default function Footer({ dict }) {
+export default function Footer({ dict, project }) {
   return (
-    <div>
-      <footer className="footer footer-horizontal footer-center bg-neutral text-neutral-content p-10">
+    <div className="z-30 relative">
+      <footer className="footer footer-horizontal footer-center bg-neutral text-neutral-content p-10 z-50">
         <aside>
           <p className="font-bold">
-            {dict.name}
+            {project.projectName}
             <br />
-            {dict.description}
+            {project.projectSlogan}
           </p>
           <p>
-            © {new Date().getFullYear()} {dict.name} – {dict.copyright}
+            © {new Date().getFullYear()} {project.projectName} –{" "}
+            {dict.copyright}
           </p>
         </aside>
         <nav>

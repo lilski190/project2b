@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 export default function ImageWithText({ previewData, options }) {
   const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
   const [localImgUrl, setLocalImgUrl] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
 
   let imgURL;
   let text;
@@ -18,14 +20,9 @@ export default function ImageWithText({ previewData, options }) {
   let textLayer;
   let logoStyle = {};
   let logoPosition;
+  let logolayer;
   let layerPosition;
   let textPosition;
-
-  let style = JSON.parse(localStorage.getItem("Styleguide"));
-  console.log("parsed Style", style);
-  let fonts = style[0].fonts;
-  console.log("fonts", fonts);
-  let headfont = fonts?.heading;
 
   if (previewData?.types) {
     imgURL = previewData?.types?.find((item) => item.type === "image")?.value;
@@ -63,6 +60,19 @@ export default function ImageWithText({ previewData, options }) {
       getImageAsBase64(imgURL).then((dataUrl) => {
         if (dataUrl) setLocalImgUrl(dataUrl);
       });
+      const styleRaw = localStorage?.getItem("Styleguide");
+      if (styleRaw) {
+        try {
+          const style = JSON.parse(styleRaw);
+          const fonts = style[0]?.fonts;
+          console.log("fonts", fonts);
+          if (fonts?.heading) {
+            setHeadfont(fonts.heading);
+          }
+        } catch (err) {
+          console.error("Fehler beim Parsen von localStorage Styleguide:", err);
+        }
+      }
     }
   }, [imgURL]);
 
@@ -112,8 +122,22 @@ export default function ImageWithText({ previewData, options }) {
       display: "flex",
       alignItems: logoStyle[3][1],
       justifyContent: logoStyle[3][0],
+      opacity: parseInt(logoStyle[1], 10) / 100,
+    };
+    logolayer = {
+      // ),
+      // Backgroungopacity: Number(layerData[1]) / 100,
+      //height: logoStyle[2], // h-30 ≈ 30 * 0.25rem
+      width: logoStyle[2], // w-30
+      aspectRatio: "1 /1",
+      // backgroundColor: "#909090",
+      position: "absolute",
+      display: "flex",
     };
   }
+
+  let logoUrl = BASEURL + "styles/" + logoStyle[0];
+
   //layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]} bg-primary`;
 
   const handleExport = async () => {
@@ -180,77 +204,105 @@ export default function ImageWithText({ previewData, options }) {
   }
 
   return (
-    <div className="">
-      <div role="tablist" className="tabs tabs-lift w-full flex">
-        {Object.entries(options || {}).map(([key, value]) => {
-          const isActive = key === activeTab;
-          return (
-            <div
-              role="tab"
-              key={key}
-              className={`tab flex-1 ${isActive ? "tab-active" : ""}`}
-              onClick={() => setActiveTab(key)}
-            >
-              {key}
-            </div>
-          );
-        })}
-      </div>
-      <div className="w-full aspect-square">
-        <div
-          className="bg-black"
-          style={{
-            width: `${options[activeTab].widthPercent}%`,
-            height: `${options[activeTab].heightPercent}%`,
-          }}
+    <div
+      className={`max-md:collapse max-md:collapse-arrow bg-base-100 border border-base-300 ${
+        isCollapsed ? "collapse-open" : ""
+      }`}
+    >
+      {/* Toggle Button nur auf kleinen Screens sichtbar */}
+      <div
+        className="collapse-title font-semibold cursor-pointer hover:bg-white/10 h-16"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        <button
+          className="btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
+          onClick={handleExport}
         >
+          Export: {activeTab}
+        </button>
+      </div>
+
+      {/* Tabs nur zeigen, wenn nicht collapsed ODER auf großen Screens */}
+      <div className={`${isCollapsed ? "hidden" : ""} md:block `}>
+        <div role="tablist" className="tabs tabs-lift w-full flex">
+          {Object.entries(options || {}).map(([key, value]) => {
+            const isActive = key === activeTab;
+            return (
+              <div
+                role="tab"
+                key={key}
+                className={`tab flex-1 ${isActive ? "tab-active" : ""}`}
+                onClick={() => setActiveTab(key)}
+              >
+                {key}
+              </div>
+            );
+          })}
+        </div>
+        <div className="w-full aspect-square">
           <div
-            id="export"
+            className="bg-black "
             style={{
-              all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
-              fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
-              width: `${options[activeTab].width}px`,
-              height: `${options[activeTab].height}px`,
-              overflow: "hidden",
+              width: `${options[activeTab].widthPercent}%`,
+              height: `${options[activeTab].heightPercent}%`,
             }}
           >
-            <div className="relative overflow-hidden w-full h-full" style={{}}>
-              {localImgUrl && (
-                <div
-                  style={{
-                    backgroundImage: `url(${localImgUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                ></div>
-              )}
-              <div style={layerPosition} className={headfont.font_family}>
-                <div style={layer}>
-                  <div style={textPosition} className="p-3 ">
-                    {text && <div> {text}</div>}
+            <div
+              id="export"
+              style={{
+                all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
+                fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
+                width: `${options[activeTab].width}px`,
+                height: `${options[activeTab].height}px`,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                className="relative overflow-hidden w-full h-full"
+                style={{}}
+              >
+                {localImgUrl && (
+                  <div
+                    style={{
+                      backgroundImage: `url(${localImgUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></div>
+                )}
+                <div style={layerPosition} className={headfont.font_family}>
+                  <div style={layer}>
+                    <div style={textPosition} className="p-3 ">
+                      {text && <div> {text}</div>}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div style={logoPosition}>
-                <div className="p-3"></div>
+                <div style={logoPosition}>
+                  <div style={logolayer}>
+                    {localImgUrl && (
+                      <div
+                        style={{
+                          backgroundImage: `url(${logoUrl})`,
+                          backgroundSize: "contain",
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          height: "100%",
+                          width: "100%",
+                          margin: "2px",
+                        }}
+                      ></div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       {description && <div> {}</div>}
-
-      <div className="p-6">
-        <button
-          className=" w-full btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
-          onClick={handleExport}
-        >
-          EXPORT
-        </button>
-      </div>
     </div>
   );
 }

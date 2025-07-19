@@ -7,7 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
  * Dieser Komponent ist ein checkbarer Dropdown-Button, der es dem Benutzer ermöglicht, die Sprache der Anwendung zu ändern.
  * Das Styling erfolgt über Tailwind CSS-Klassen und DaisyUI-Klassen.
  * Bei einem Klick auf den Button wird die Sprache geändert und die Seite wird neu geladen mit einer neuen URL.
- * Die Sprachen sind Deutsch (de) und Englisch (en).
+ * Die Sprachen sind Deutsch (de) und Englisch (en) und .
  * Die aktuelle Sprache wird aus der URL abgeleitet.
  */
 export default function LanguageSwitcher() {
@@ -27,6 +27,7 @@ export default function LanguageSwitcher() {
   const langLabels = {
     de: "Deutsch",
     en: "English",
+    deLS: "Leichte Sprache",
   };
 
   return (
@@ -39,7 +40,7 @@ export default function LanguageSwitcher() {
         tabIndex={0}
         className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52"
       >
-        {["de", "en"].map((lang) => (
+        {["de", "en", "deLS"].map((lang) => (
           <li key={lang}>
             <button
               onClick={() => handleLanguageChange(lang)}

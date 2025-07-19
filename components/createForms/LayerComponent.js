@@ -1,16 +1,35 @@
 "use client";
 
-import collapse from "daisyui/components/collapse";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const fallbackStyleguide = [
+  {
+    colors: {
+      primary: "#000000",
+      secondary: "#ffffff",
+    },
+  },
+];
 
 const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
-  let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
+  const [styleguide, setStyleguide] = useState(fallbackStyleguide);
 
-  console.log("Styleguide XY", styleguide[0]);
+  useEffect(() => {
+    // Nur im Client verfügbar
+    const styleRaw = localStorage?.getItem("Styleguide");
+    if (styleRaw) {
+      try {
+        const parsed = JSON.parse(styleRaw);
+        setStyleguide(parsed); // oder ganze Liste, falls du sie brauchst
+      } catch (err) {
+        console.error("Fehler beim Parsen des Styleguides:", err);
+      }
+    }
+  }, []);
 
   const extendedColors = {
-    ...styleguide[0].colors,
+    ...styleguide?.[0]?.colors,
     black: "#000000",
     white: "#FFFFFF",
   };
@@ -80,7 +99,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
           case "bg":
             return (
               <div key={option} className="py-1.5 w-5/6">
-                <div>Hintergrundfarbe </div>
+                <div>Farbe </div>
                 <div className="flex flex-wrap w-full">
                   {Object.entries(extendedColors).map(([key, color]) => (
                     <div key={key} className="m-2">

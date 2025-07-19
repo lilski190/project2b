@@ -93,25 +93,27 @@ export default async function CreatePage({ params, searchParams }) {
   }
 
   return (
-    <div className="pt-6 max-md:pt-3">
-      <h1 className="px-6  max-md:px-3 headline">{dict.create.title}</h1>
-      <p className="px-6  max-md:px-3 mt-2 baseText ">
-        {dict.create.description}
-      </p>
-      <div className="grid grid-cols-2 max-md:grid-cols-1 mt-6">
+    <div className="">
+      <div className="w-1/2 fixed max-md:fixed max-md:w-full z-10">
         <CreatePreview dict={dict} data={selectedData.preview} />
-        <CreateForm
-          dict={dict.create}
-          data={contentData}
-          template={sourceKey}
-          contentID={contentID}
-          duplicate={duplicate}
-          vereinID={vereinName + "_" + vereinId}
-          VereinTags={vereinTags}
-          selectedTags={selectedTags}
-          title={title}
-          author={authors}
-        />
+      </div>
+
+      <div className="grid grid-cols-2 max-md:grid-cols-1">
+        <div className="w-full aspect-square"></div>
+        <div className="max-md:pt-24">
+          <CreateForm
+            dict={dict.create}
+            data={contentData}
+            template={sourceKey}
+            contentID={contentID}
+            duplicate={duplicate}
+            vereinID={vereinName + "_" + vereinId}
+            VereinTags={vereinTags}
+            selectedTags={selectedTags}
+            title={title}
+            author={authors}
+          />
+        </div>
       </div>
     </div>
   );

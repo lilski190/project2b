@@ -129,7 +129,7 @@ export default function CreateForm({
     <div className="">
       <div className="">
         <div
-          className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+          className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
             openIndex === 0 ? "collapse-open" : ""
           }`}
         >
@@ -214,7 +214,7 @@ export default function CreateForm({
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="fixed p-3 pr-4 top-0 right-0 z-30">
+        <div className="fixed p-3 pr-4 top-0 right-0 z-50">
           <button
             type="submit"
             className="btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
@@ -230,7 +230,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -257,7 +257,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -298,7 +298,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -323,7 +323,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -348,7 +348,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -374,7 +374,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -399,7 +399,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -440,7 +440,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
