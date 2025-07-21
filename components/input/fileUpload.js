@@ -152,7 +152,6 @@ export default function FileUpload({
           </div>
         </label>
       </div>
-
       {modalOpen && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50">
           <div className="bg-white  relative z-50  rounded-lg p-6 w-96 shadow-lg ">

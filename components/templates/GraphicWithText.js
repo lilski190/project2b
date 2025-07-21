@@ -5,7 +5,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 
-export default function ImageWithText({ previewData, options }) {
+export default function GraohicWithText({ previewData, options }) {
   const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
@@ -111,6 +111,7 @@ export default function ImageWithText({ previewData, options }) {
       alignItems: textLayer[1][1],
       justifyContent: textLayer[1][0],
     };
+
     layerPosition = {
       position: "absolute",
       inset: 0, // shorthand for top/right/bottom/left = 0
@@ -118,6 +119,8 @@ export default function ImageWithText({ previewData, options }) {
       alignItems: layerData[4][1],
       justifyContent: layerData[4][0],
     };
+  }
+  if (textLayer != undefined && logoStyle != undefined) {
     textPosition = {
       color: textLayer[0],
       width: textLayer[2],
@@ -274,17 +277,6 @@ export default function ImageWithText({ previewData, options }) {
                 className="relative overflow-hidden w-full h-full"
                 style={{}}
               >
-                {localImgUrl && (
-                  <div
-                    style={{
-                      backgroundImage: `url(${localImgUrl})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></div>
-                )}
                 <div style={layerPosition} className={headfont.font_family}>
                   <div style={layer}>
                     <div style={textPosition} className="p-3 ">

@@ -97,23 +97,25 @@ export default function CreateForm({
   let baseUrl =
     "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/content/";
 
-  const handleChange = async (index, e) => {
-    console.log("handleChange called with index:", index, "and value:", e);
-    let storage = JSON.parse(localStorage.getItem("CreateForm"));
+  const handleChange = async (index, value, imageIndex = null) => {
+    let storage = JSON.parse(localStorage.getItem("CreateForm")) || {};
     let currentData = storage.types;
-    console.log("Current localStorage data:", currentData);
-    if (!currentData) {
-      console.log("No data found in localStorage, initializing currentData.");
-      currentData = {};
+
+    if (!currentData || !currentData[index]) return;
+
+    if (currentData[index].type === "gallery" && imageIndex !== null) {
+      // Stelle sicher, dass value ein Array ist
+      if (!Array.isArray(currentData[index].value)) {
+        currentData[index].value = [];
+      }
+      currentData[index].value[imageIndex] = value;
     } else {
-      currentData[index].value = e;
+      currentData[index].value = value;
     }
 
     storage.types = currentData;
-
     localStorage.setItem("CreateForm", JSON.stringify(storage));
     window.dispatchEvent(new Event("createform-updated"));
-    console.log("Updated localStorage with data:", storage);
   };
 
   const handleCheckboxChange = (tag) => {
@@ -423,16 +425,60 @@ export default function CreateForm({
                 );
               } else if (typ.type === "gallery") {
                 return (
-                  <div key={index}>
-                    {dict.lables[typ.lable]}
-                    <div className="grid grid-cols-3 gap-4">
-                      <FileUpload
-                        BASEURL="https://example.com/upload"
-                        folderID="TODO"
-                        bucket="styles"
-                        url={typ.value || ""}
-                        onChange={(newValue) => handleChange(index, newValue)}
-                      />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full ">
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          fieldID={"gallery_01"}
+                          bucket="content"
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 0)
+                          }
+                        />
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          bucket="content"
+                          fieldID={"gallery_02"}
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 1)
+                          }
+                        />
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          bucket="content"
+                          fieldID={"gallery_03"}
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 2)
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
                 );

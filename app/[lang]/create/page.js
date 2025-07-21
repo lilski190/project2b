@@ -11,7 +11,6 @@ import { cookies } from "next/headers";
 import text_with_image from "./descriptors/text_with_image.json";
 import text_with_image_and_graphic from "./descriptors/text_with_image_and_graphic.json";
 import text_with_graphic from "./descriptors/text_with_graphic.json";
-import image_with_graphic from "./descriptors/image_with_graphic.json";
 import image_gallery from "./descriptors/image_gallery.json";
 import test from "./descriptors/test.json";
 
@@ -30,7 +29,6 @@ const dataMap = {
   text_with_image,
   text_with_image_and_graphic,
   text_with_graphic,
-  image_with_graphic,
   image_gallery,
   test,
 };
@@ -95,7 +93,11 @@ export default async function CreatePage({ params, searchParams }) {
   return (
     <div className="">
       <div className="w-1/2 fixed max-md:fixed max-md:w-full z-10">
-        <CreatePreview dict={dict} data={selectedData.preview} />
+        <CreatePreview
+          dict={dict}
+          data={selectedData.preview}
+          template={sourceKey}
+        />
       </div>
 
       <div className="grid grid-cols-2 max-md:grid-cols-1">

@@ -1,28 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { saveStyleguideAction } from "@/app/actions/styleguideAction";
 import InformationTooltip from "@/components/tooltips/InformationTooltip";
-import { useEffect, useState } from "react";
 import ImageWithText from "@/components/templates/ImageWithText";
+import ImageGallery from "@/components/templates/ImageGallery";
+import GraphicWithText from "@/components/templates/GraphicWithText";
 
-/**
- * Styleguide FORM Komponent
- */
-export default function CreateForm({ dict, data }) {
-  // let parsedData = JSON.parse(data);
-  // console.log("data", parsedData);
+export default function CreateForm({ dict, data, template }) {
   const [previewData, setPreviewData] = useState({});
+
   useEffect(() => {
     const handleUpdate = () => {
       const updated = JSON.parse(localStorage.getItem("CreateForm"));
       setPreviewData(updated);
     };
 
-    // Listener registrieren
     window.addEventListener("createform-updated", handleUpdate);
-
-    // Initial laden
     handleUpdate();
 
     return () => {
@@ -30,11 +25,34 @@ export default function CreateForm({ dict, data }) {
     };
   }, []);
 
-  return (
-    <div className="h-24">
-      <div className="z-10">
-        <ImageWithText previewData={previewData} options={data} />
+  // Optional: Normalize template string
+  const normalizedTemplate = template?.toLowerCase();
+
+  let TemplateComponent = null;
+
+  if (normalizedTemplate === "text_with_graphic") {
+    TemplateComponent = (
+      <GraphicWithText previewData={previewData} options={data} />
+    );
+  } else if (normalizedTemplate === "text_with_image") {
+    TemplateComponent = (
+      <ImageWithText previewData={previewData} options={data} />
+    );
+  } else if (normalizedTemplate === "image_gallery") {
+    TemplateComponent = (
+      <ImageGallery previewData={previewData} options={data} />
+    );
+  } else {
+    TemplateComponent = (
+      <div className="text-error">
+        Kein gültiges Template ausgewählt: {template}
       </div>
+    );
+  }
+
+  return (
+    <div className="h-auto">
+      <div className="z-10">{TemplateComponent}</div>
     </div>
   );
 }

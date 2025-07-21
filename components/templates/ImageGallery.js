@@ -5,11 +5,13 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 
-export default function ImageWithText({ previewData, options }) {
+export default function ImageGallery({ previewData, options }) {
   const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
+  const [localGalleryUrl, setLocalGalleryUrl] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(true);
+
   const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
 
   let imgURL;
@@ -25,8 +27,13 @@ export default function ImageWithText({ previewData, options }) {
   let layerPosition;
   let textPosition;
   let logoUrl;
+  let galleryURLS;
+
   if (previewData?.types) {
     imgURL = previewData?.types?.find((item) => item.type === "image")?.value;
+    galleryURLS = previewData?.types?.find(
+      (item) => item.type === "gallery"
+    )?.value;
     text = previewData?.types?.find((item) => item.type === "headline")?.value;
     description = previewData?.types?.find(
       (item) => item.type === "text"
@@ -57,15 +64,42 @@ export default function ImageWithText({ previewData, options }) {
   }
 
   useEffect(() => {
+    console.log("Use effect");
+
+    if (logoUrl) {
+      getImageAsBase64(logoUrl).then((dataUrl) => {
+        if (dataUrl) setLocalImgUrl(dataUrl);
+      });
+    }
+    if (galleryURLS) {
+      console.log("Called gallery thing");
+      const fetchImagesSequentially = async () => {
+        const results = [];
+
+        for (let i = 0; i < galleryURLS.length; i++) {
+          try {
+            const base64 = await getImageAsBase64(galleryURLS[i]);
+            results.push(base64);
+          } catch (err) {
+            console.error("Fehler bei Bild:", galleryURLS[i], err);
+            results.push(null); // oder Platzhalter
+          }
+        }
+
+        setLocalGalleryUrl(results);
+      };
+
+      fetchImagesSequentially();
+    }
+    if (logoUrl) {
+      getImageAsBase64(logoUrl).then((dataUrl) => {
+        if (dataUrl) setLocalLogoUrl(dataUrl);
+      });
+    }
     if (imgURL) {
       getImageAsBase64(imgURL).then((dataUrl) => {
         if (dataUrl) setLocalImgUrl(dataUrl);
       });
-      if (logoUrl) {
-        getImageAsBase64(logoUrl).then((dataUrl) => {
-          if (dataUrl) setLocalLogoUrl(dataUrl);
-        });
-      }
 
       const styleRaw = localStorage?.getItem("Styleguide");
       if (styleRaw) {
@@ -81,47 +115,24 @@ export default function ImageWithText({ previewData, options }) {
         }
       }
     }
-  }, [imgURL]);
+  }, [imgURL, logoUrl, galleryURLS]);
 
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
     return hex;
   }
-  //layerData = ["black", "30", "full", "end", "left"];
 
   if (layerData != undefined) {
-    console.log("Layers", layerData[4]);
-    // const [justify, align] = layerData[4].split(",");
-    console.log("align", layerData[4][1], "justify", layerData[4][0]);
-    // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
-    // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
-    layer = {
-      backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      height: layerData[2], // h-30 ≈ 30 * 0.25rem
-      width: layerData[3], // w-30
-
-      fontSize: "1.5rem", // text-2xl
-      fontWeight: "bold",
-      position: "absolute",
-      display: "flex",
-      //   Child alligment:
-      alignItems: textLayer[1][1],
-      justifyContent: textLayer[1][0],
-    };
     layerPosition = {
-      position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
-      display: "flex",
-      alignItems: layerData[4][1],
-      justifyContent: layerData[4][0],
+      backgroundColor: layerData[0],
     };
+  }
+  if (textLayer != undefined) {
     textPosition = {
       color: textLayer[0],
-      width: textLayer[2],
-      textAlign: textLayer[3],
+      width: textLayer[1],
+      textAlign: textLayer[2],
     };
     logoPosition = {
       position: "absolute",
@@ -149,7 +160,7 @@ export default function ImageWithText({ previewData, options }) {
 
   if (logoUrl) {
     getImageAsBase64(logoUrl).then((dataUrl) => {
-      if (dataUrl) setLocalLogoUrl(dataUrl);
+      if (dataUrl) setLocalImgUrl(dataUrl);
     });
   }
 
@@ -271,28 +282,14 @@ export default function ImageWithText({ previewData, options }) {
               }}
             >
               <div
-                className="relative overflow-hidden w-full h-full"
-                style={{}}
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  width: "100%",
+                  height: "100%",
+                  ...layerPosition,
+                }}
               >
-                {localImgUrl && (
-                  <div
-                    style={{
-                      backgroundImage: `url(${localImgUrl})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></div>
-                )}
-                <div style={layerPosition} className={headfont.font_family}>
-                  <div style={layer}>
-                    <div style={textPosition} className="p-3 ">
-                      {text && <div> {text}</div>}
-                    </div>
-                  </div>
-                </div>
-
                 <div style={logoPosition}>
                   <div style={logolayer}>
                     {localLogoUrl && (
@@ -309,6 +306,53 @@ export default function ImageWithText({ previewData, options }) {
                       ></div>
                     )}
                   </div>
+                </div>
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: headfont.font_family, // Das bleibt dynamisch
+                      width: "100%",
+                      height: "33.3333%", // 2/6 = 33.3333%
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "1.5rem", // text-2xl
+                      fontWeight: "700", // font-bold
+                    }}
+                  >
+                    <div style={textPosition}>{text && <div>{text}</div>}</div>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))", // grid-cols-3
+                    gap: "0.25rem", // gap-1
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  {localGalleryUrl.map((img, i) => (
+                    <div
+                      key={`gallery_img_${i}`}
+                      style={{
+                        flex: "0 0 auto",
+                        width: "100%",
+                        height: "70%",
+                        backgroundImage: `url(${img})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  ))}
                 </div>
               </div>
             </div>
