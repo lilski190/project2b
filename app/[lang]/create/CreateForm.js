@@ -40,7 +40,7 @@ export default function CreateForm({
 
   useEffect(() => {
     localStorage.setItem("CreateForm", JSON.stringify(data));
-  }, []);
+  });
 
   const toggleAccordion = (index) => {
     setOpenIndexes((prev) =>

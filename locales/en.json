@@ -217,7 +217,8 @@
       "textLayer": "Text Positioning",
       "textDescription": "Description",
       "bgLayer": "Background Settings",
-      "logoLayer": "Logo Positioning"
+      "logoLayer": "Logo Positioning",
+      "graficLayer": "Grafic Positioning"
     },
     "save": "Save",
     "export": "Export Content"

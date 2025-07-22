@@ -81,7 +81,7 @@ export default function ImageWithText({ previewData, options }) {
         }
       }
     }
-  }, [imgURL]);
+  }, [imgURL, logoUrl]);
 
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);

@@ -221,7 +221,8 @@
       "textLayer": "Text-Position",
       "textDescription": "Beschreibung",
       "bgLayer": "Hintergrund-Einstellungen",
-      "logoLayer": "Logo-Position"
+      "logoLayer": "Logo-Position",
+      "graficLayer": "Grafik"
     },
     "save": "Speichern",
     "export": "Inhalt exportieren"

@@ -224,7 +224,8 @@
       "textLayer": "Text Positionierung",
       "textDescription": "Beschreibung",
       "bgLayer": "Hintergund einstellungen",
-      "logoLayer": "Logo Positionierung"
+      "logoLayer": "Logo Positionierung",
+      "graficLayer": "Grafik Positionierung"
     },
 
     "save": "Speichern",
@@ -288,7 +289,7 @@
     "logout": "Ausloggen"
   },
   "generall": {
-    "projectName": "Projektname",
-    "projectSlogan": "  Eine Plattform, mit der Vereine sich präsentieren können."
+    "projectName": "Verein*t",
+    "projectSlogan": "  Eine Plattform, mit der Vereinscontent erstellt und verwaltet werden kann."
   }
 }

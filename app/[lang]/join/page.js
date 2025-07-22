@@ -28,7 +28,7 @@ export default async function JoinPage({ params }) {
         </h2>
         <ul className="steps max-md:steps-vertical px-12 mb-12">
           {dict.join.steps.map((step, index) => (
-            <li className="step step-primary">
+            <li className="step step-primary" key={step.num + index}>
               <div
                 key={index}
                 className="flex h-full flex-col items-center max-md:items-start justify-start"

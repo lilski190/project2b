@@ -17,10 +17,17 @@
 
       {
         "type": "layer",
-        "lable": "bgLayer",
-        "id": "bgLayer",
-        "value": ["#000000", 40, "40%", "60%", ["center", "center"]],
-        "options": ["bg", "opacity", "size", "sizeW", "posLayer"]
+        "lable": "graficLayer",
+        "id": "graficLayer01",
+        "value": [
+          "#808080",
+          40,
+          "40%",
+
+          ["center", "center"],
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/mockups/Form.svg"
+        ],
+        "options": ["bg", "opacity", "size", "posLayer", "svg"]
       },
       {
         "type": "logo",
@@ -32,6 +39,13 @@
           ["center", "center"]
         ],
         "options": ["logo", "opacity", "size", "posLayer"]
+      },
+      {
+        "type": "layer",
+        "lable": "bgLayer",
+        "id": "bgLayer",
+        "value": ["#000000"],
+        "options": ["bg"]
       }
     ]
   },
