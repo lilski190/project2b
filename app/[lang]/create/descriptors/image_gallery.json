@@ -3,66 +3,71 @@
   "form": {
     "types": [
       {
-        "type": "image",
-        "value": "https://example.com/image.jpg"
-      },
-      {
-        "type": "grafic",
-        "num": 3,
+        "type": "gallery",
+        "lable": "upload",
         "value": [
-          "https://example.com/graf1.jpg",
-          "https://example.com/graf2.jpg",
-          "https://example.com/graf3.jpg"
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg",
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg",
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/Image.jpg"
         ]
       },
       {
         "type": "headline",
-        "value": "Sample Headline"
+        "lable": "headline",
+        "value": "Hier is der Text auf dem Bild"
       },
       {
-        "type": "text",
-        "value": "This is a sample text for the test descriptor."
+        "type": "layer",
+        "lable": "bgLayer",
+        "id": "bgLayer",
+        "value": ["#000000"],
+        "options": ["bg"]
       },
       {
-        "type": "background",
-        "value": "https://example.com/background.jpg"
+        "type": "layer",
+        "lable": "textLayer",
+        "id": "textLayer",
+        "value": ["#FFFFFF", "80%", "center"],
+        "options": ["bg", "sizeW", "textAlign"]
       },
-      { "type": "color", "value": "#FFFFFF" },
-      { "type": "logo", "value": "https://example.com/logo.png" },
+
       {
-        "type": "gallery",
+        "type": "logo",
+        "lable": "logoLayer",
         "value": [
-          "https://example.com/gallery1.jpg",
-          "https://example.com/gallery2.jpg",
-          "https://example.com/gallery3.jpg"
-        ]
+          "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/styles/test/Bunker.jpg",
+          40,
+          "60%",
+          ["center", "center"]
+        ],
+        "options": ["logo", "opacity", "size", "posLayer"]
       }
     ]
   },
   "preview": {
     "web": {
-      "width": 800,
-      "height": 600
+      "width": 1920,
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
     },
     "instagram": {
       "width": 1080,
-      "height": 1080
-    },
-    "facebook": {
-      "width": 1200,
-      "height": 630
-    },
-    "DINA4": {
-      "width": 595,
-      "height": 842
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 100
     },
     "Presentation": {
       "width": 1920,
-      "height": 1080
+      "height": 1080,
+      "widthPercent": 100,
+      "heightPercent": 56.25
     },
     "DINA6": {
       "width": 105,
-      "height": 148
+      "height": 148,
+      "widthPercent": 70.95,
+      "heightPercent": 100
     }
   }
 }

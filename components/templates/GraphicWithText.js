@@ -4,13 +4,15 @@ import { BASEURL } from "@/lib/globals";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
+import parse from "html-react-parser";
 
-export default function ImageWithText({ previewData, options }) {
+export default function GraohicWithText({ previewData, options }) {
   const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
+  const [svgContent, setSvgContent] = useState(null);
 
   let imgURL;
   let text;
@@ -24,7 +26,11 @@ export default function ImageWithText({ previewData, options }) {
   let logolayer;
   let layerPosition;
   let textPosition;
+  let textSize;
   let logoUrl;
+  let backgroundData;
+  let bgColor;
+
   if (previewData?.types) {
     imgURL = previewData?.types?.find((item) => item.type === "image")?.value;
     text = previewData?.types?.find((item) => item.type === "headline")?.value;
@@ -33,12 +39,15 @@ export default function ImageWithText({ previewData, options }) {
     )?.value;
     logo = previewData?.types?.find((item) => item.type === "logo")?.value[0];
     layerData = previewData?.types?.find(
-      (item) => item.type === "layer" && item.id === "bgLayer"
+      (item) => item.type === "layer" && item.id === "graficLayer01"
     )?.value;
     textLayer = previewData?.types?.find(
       (item) => item.type === "layer" && item.id === "textLayer"
     )?.value;
     logoStyle = previewData?.types?.find((item) => item.type === "logo")?.value;
+    backgroundData = previewData?.types?.find(
+      (item) => item.type === "layer" && item.id === "bgLayer"
+    )?.value;
   }
 
   async function getImageAsBase64(url) {
@@ -83,6 +92,41 @@ export default function ImageWithText({ previewData, options }) {
     }
   }, [imgURL, logoUrl]);
 
+  useEffect(() => {
+    const fetchSvg = async () => {
+      try {
+        const svgUrl = layerData?.[4];
+        if (!svgUrl || !svgUrl.endsWith(".svg")) {
+          console.warn("Keine gültige SVG-URL gefunden:", svgUrl);
+          return;
+        }
+
+        const res = await fetch(svgUrl);
+        if (!res.ok) {
+          throw new Error(`Fetch-Fehler: ${res.status} ${res.statusText}`);
+        }
+
+        const text = await res.text();
+
+        const styledSvg = text
+          .replace(
+            /fill=".*?"/g,
+            `fill="${layerData[0] + percentToHexAlpha(parseInt(layerData[1]))}"`
+          )
+          .replace(/stroke=".*?"/g, 'stroke="transparent"')
+          .replace(/width=".*?"/g, `width="100%"`)
+          .replace(/height=".*?"/g, `height="100%"`);
+
+        console.log("styled svg", styledSvg);
+        setSvgContent(styledSvg);
+      } catch (err) {
+        console.error("Fehler beim Laden der SVG:", err);
+      }
+    };
+
+    fetchSvg();
+  }, [layerData]);
+
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
@@ -97,31 +141,57 @@ export default function ImageWithText({ previewData, options }) {
     // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
     // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
     layer = {
-      backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
+      // backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
       // ),
       // Backgroungopacity: Number(layerData[1]) / 100,
       height: layerData[2], // h-30 ≈ 30 * 0.25rem
-      width: layerData[3], // w-30
+      width: layerData[2], // w-30
+      margin: "-20% -30% -20% -30%",
 
       fontSize: "1.5rem", // text-2xl
       fontWeight: "bold",
-      position: "absolute",
+
       display: "flex",
       //   Child alligment:
       alignItems: textLayer[1][1],
       justifyContent: textLayer[1][0],
+      position: "relative",
     };
+
     layerPosition = {
       position: "absolute",
       inset: 0, // shorthand for top/right/bottom/left = 0
       display: "flex",
-      alignItems: layerData[4][1],
-      justifyContent: layerData[4][0],
+      alignItems: layerData[3][1],
+      justifyContent: layerData[3][0],
     };
+  }
+  if (backgroundData != undefined) {
+    bgColor = {
+      backgroundColor: backgroundData[0],
+    };
+  }
+  if (textLayer != undefined && logoStyle != undefined) {
     textPosition = {
       color: textLayer[0],
-      width: textLayer[2],
+      width: "100%", //textLayer[2],
+
       textAlign: textLayer[3],
+      position: "absolute", // wichtig!
+      top: 0,
+      left: 2,
+      bottom: 0,
+      right: 0,
+      display: "flex",
+      alignItems: textLayer[1][1], // z.B. center
+      justifyContent: textLayer[1][0], // z.B. center
+      padding: "1rem",
+      //backgroundColor: "#c62f2f57", // optional: Hintergrundfarbe für den Textbereich
+    };
+    textSize = {
+      margin: "2rem",
+      width: textLayer[2],
+      fontSize: "1rem",
     };
     logoPosition = {
       position: "absolute",
@@ -234,7 +304,6 @@ export default function ImageWithText({ previewData, options }) {
           Export: {activeTab}
         </button>
       </div>
-
       {/* Tabs nur zeigen, wenn nicht collapsed ODER auf großen Screens */}
       <div className={`${isCollapsed ? "hidden" : ""} md:block `}>
         <div role="tablist" className="tabs tabs-lift w-full flex">
@@ -268,27 +337,20 @@ export default function ImageWithText({ previewData, options }) {
                 width: `${options[activeTab].width}px`,
                 height: `${options[activeTab].height}px`,
                 overflow: "hidden",
+                backgroundColor: bgColor
+                  ? bgColor.backgroundColor
+                  : "transparent",
               }}
             >
               <div
                 className="relative overflow-hidden w-full h-full"
-                style={{}}
+                style={bgColor}
               >
-                {localImgUrl && (
-                  <div
-                    style={{
-                      backgroundImage: `url(${localImgUrl})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></div>
-                )}
                 <div style={layerPosition} className={headfont.font_family}>
                   <div style={layer}>
+                    {svgContent && parse(svgContent)}
                     <div style={textPosition} className="p-3 ">
-                      {text && <div> {text}</div>}
+                      {text && <div style={textSize}>{text}</div>}
                     </div>
                   </div>
                 </div>
@@ -315,6 +377,7 @@ export default function ImageWithText({ previewData, options }) {
           </div>
         </div>
       </div>
+
       {description && <div> {}</div>}
     </div>
   );

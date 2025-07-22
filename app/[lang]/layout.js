@@ -3,6 +3,7 @@ import "../../app/globals.css";
 import HeaderWithSidebar from "@/components/structure/HeaderWithSidebar";
 import Footer from "@/components/structure//footer";
 import { getDictionary } from "@/lib/getDictionary";
+import { getUserAction } from "@/app/actions/userActions";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -19,14 +20,19 @@ export default async function RootLayout({ children, params }) {
   const param = await params;
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
+  const user = await getUserAction();
+  let loggedIn = false;
+  if (user?.id != null || user?.id != undefined) {
+    loggedIn = true;
+  }
 
   return (
     <div className="main text-base-content">
-      <HeaderWithSidebar lang={lang} dict={dict}>
+      <HeaderWithSidebar lang={lang} dict={dict} user={loggedIn}>
         {children}
       </HeaderWithSidebar>
       <div className="min-h-screen">{children}</div>
-      <Footer dict={dict.footer} />
+      <Footer dict={dict.footer} project={dict.generall} />
     </div>
   );
 }

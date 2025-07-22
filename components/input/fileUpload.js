@@ -92,7 +92,7 @@ export default function FileUpload({
   };
 
   return (
-    <div className=" p-3  ">
+    <div className=" p-3  z-50">
       <div className="flex justify-center">
         <label
           htmlFor="file-upload"
@@ -152,10 +152,9 @@ export default function FileUpload({
           </div>
         </label>
       </div>
-
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg p-6 w-96 shadow-lg ">
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50">
+          <div className="bg-white  relative z-50  rounded-lg p-6 w-96 shadow-lg ">
             <h2 className="text-lg font-semibold mb-4">
               {dict?.modalTitle || "Datei hochladen"}
             </h2>

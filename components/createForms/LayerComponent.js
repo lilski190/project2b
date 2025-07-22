@@ -1,16 +1,59 @@
 "use client";
 
-import collapse from "daisyui/components/collapse";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import parse from "html-react-parser";
+
+const fallbackStyleguide = [
+  {
+    colors: {
+      primary: "#000000",
+      secondary: "#ffffff",
+    },
+  },
+];
 
 const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
-  let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
+  const [styleguide, setStyleguide] = useState(fallbackStyleguide);
+  const [svgContent, setSvgContent] = useState(null);
 
-  console.log("Styleguide XY", styleguide[0]);
+  useEffect(() => {
+    // Nur im Client verfügbar
+    const styleRaw = localStorage?.getItem("Styleguide");
+    if (styleRaw) {
+      try {
+        const parsed = JSON.parse(styleRaw);
+        setStyleguide(parsed); // oder ganze Liste, falls du sie brauchst
+      } catch (err) {
+        console.error("Fehler beim Parsen des Styleguides:", err);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchSvg = async () => {
+      try {
+        const res = await fetch(layer?.find((l) => l?.includes?.(".svg"))); // oder statisch: fetch('https://...svg')
+        const text = await res.text();
+        const styledSvg = text
+          .replace(
+            /fill=".*?"/g,
+            `fill=${layer[0] + percentToHexAlpha(parseInt(layer[1]))}`
+          )
+          .replace(/stroke=".*?"/g, 'stroke="transparent"')
+          .replace(/width=".*?"/g, `width=${layer[2] || "100%"}`)
+          .replace(/height=".*?"/g, `height=${layer[2] || "100%"}`);
+        setSvgContent(styledSvg);
+      } catch (err) {
+        console.error("Fehler beim Laden der SVG:", err);
+      }
+    };
+
+    fetchSvg();
+  }, [layer]);
 
   const extendedColors = {
-    ...styleguide[0].colors,
+    ...styleguide?.[0]?.colors,
     black: "#000000",
     white: "#FFFFFF",
   };
@@ -80,7 +123,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
           case "bg":
             return (
               <div key={option} className="py-1.5 w-5/6">
-                <div>Hintergrundfarbe </div>
+                <div>Farbe</div>
                 <div className="flex flex-wrap w-full">
                   {Object.entries(extendedColors).map(([key, color]) => (
                     <div key={key} className="m-2">
@@ -269,6 +312,13 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
                     ))}
                   </div>
                 </div>
+              </div>
+            );
+          case "svg":
+            return (
+              <div key={option} className="py-1.5">
+                <div>Form</div>
+                <div className="w-48 ">{svgContent && parse(svgContent)}</div>
               </div>
             );
 

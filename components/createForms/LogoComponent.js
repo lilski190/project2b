@@ -1,14 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { BASEURL } from "@/lib/globals";
+import { ICONS } from "@/lib/globals";
 
 const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
-  let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
+  const [styleguide, setStyleguide] = useState(null);
 
-  let logos = styleguide[0].logo;
+  useEffect(() => {
+    // Nur im Client verfügbar
+    const styleRaw = localStorage?.getItem("Styleguide");
+    if (styleRaw) {
+      try {
+        const parsed = JSON.parse(styleRaw);
+        setStyleguide(parsed); // oder ganze Liste, falls du sie brauchst
+      } catch (err) {
+        console.error("Fehler beim Parsen des Styleguides:", err);
+      }
+    }
+  }, []);
+
+  let logos = styleguide?.[0]?.logo;
 
   const opacities = [100, 80, 60, 40, 20, 0];
   const sizes = [
@@ -194,7 +208,7 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
               <div key={option}>
                 <div className="">
                   <div className="flex">
-                    {Object.entries(logos).map(([key, logo]) => (
+                    {Object.entries(logos || {}).map(([key, logo]) => (
                       <div key={logo} className="m-2">
                         <label className="cursor-pointer">
                           <input
@@ -211,7 +225,7 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
                                 width={30}
                                 height={20}
                                 alt="logo"
-                                className=" h-16 w-16"
+                                className="h-16 w-16"
                               />
                             </div>
                           </div>
@@ -229,7 +243,22 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
                           defaultChecked
                         />
                         <div className="bg-white/20 transition-all duration-200 hover:scale-110 peer-checked:ring-4 peer-checked:ring-info">
-                          <div className="w-full h-16 w-20">NONE</div>
+                          <div className=" h-16 w-16 text-center flex items-center justify-center">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1}
+                              stroke="currentColor"
+                              className="size-13"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d={ICONS.cross}
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </label>
                     </div>

@@ -103,8 +103,35 @@ export async function loginAction(formData) {
 }
 
 export async function logoutAction() {
+  console.log("CALLED LOGOUT: ");
+  // Supabase-Session beenden
   await supabase.auth.signOut();
-  redirect("/");
+
+  const cookieStore = await cookies();
+
+  const projectRef =
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.split("https://")[1]?.split(".")[0];
+
+  // Liste der Login-relevanten Cookies
+  const cookieNames = [
+    `sb-${projectRef}-auth-token`,
+    "verein_id",
+    "verein_name",
+    "member_id",
+    "member_name",
+    "verein_tags",
+  ];
+
+  // Alle Cookies löschen
+  for (const name of cookieNames) {
+    cookieStore.set(name, "", {
+      path: "/",
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      maxAge: 0, // Sofort löschen
+    });
+  }
 }
 
 export async function getLoginData(vereinName) {

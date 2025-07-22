@@ -1,91 +1,287 @@
 {
   "home": {
-    "title": "This is the landing page",
-    "description": "Here is a short project description"
+    "welcome_01": "Welcome",
+    "welcome_02": "Glad you're here!",
+    "intro_text": "This tool helps small clubs present themselves professionally online – even without design or technical skills. With just a few clicks, you can create content, save it, and use it directly for websites, print, or social media.",
+    "more_info_text": "Learn more about the project here:",
+    "more_info_button": "Learn more",
+    "login_button": "Log in",
+    "login_hint": "Log in with your club credentials and get started.",
+    "join_button": "Join now",
+    "join_hint": "New here? Go to registration"
   },
   "login": {
-    "title": "This is the German login title",
-    "description": "This is the German login description",
+    "description": "This is the login to your club's page, where you can create and manage content.",
+    "explenation": "To log in, your club must be registered. Then, as a member, you need an account.",
+    "error_case_notRegistered": "Your club is registered, but you don’t have an account yet? Please contact your club’s admin and ask them to create one for you. //TODO URL",
+    "error_case_verein": "Your club is not listed? Then it hasn't been registered yet. To learn how to register your club, go to: //TODO URL",
     "login": "Login"
   },
   "dashboard": {
-    "title": "This is the German dashboard title",
-    "description": "This is the German dashboard description",
-    "welcome": "Welcome to the dashboard page"
+    "title": "Welcome to the dashboard of",
+    "description": "Here you can create, design, and manage content.",
+    "title_styleguide": "Design Guidelines",
+    "description_styleguide": "Color schemes, fonts, and logos – all in one place.",
+    "title_templates": "Templates",
+    "description_templates": "Create content faster with predefined templates.",
+    "title_list": "Content List",
+    "description_list": "Manage, edit, or delete existing content.",
+    "welcome": "Glad to have you here"
   },
   "about": {
-    "title": "Here is the about the project page",
-    "description": "This section can contain a lot of information about the project"
+    "title": "What is Projektname?",
+    "description": "Projektname is a digital tool that helps small, volunteer-run clubs present themselves professionally online – no prior knowledge required.",
+    "section_headings": {
+      "background": "Background",
+      "idea": "Why this project?",
+      "features": "What can the tool do?",
+      "disclaimer": "Disclaimer"
+    },
+    "background": "The project was developed during the summer semester of 2025 as part of a study module at the Brandenburg University of Applied Sciences. The idea was based on an analysis of real club websites in the Brandenburg region and developed with a user-centered approach.",
+    "idea": "Many clubs in Germany operate almost entirely on a volunteer basis. Time, money, and technical know-how are often limited – especially when it comes to website or social media content. As a result, valuable club work often goes unnoticed – even though it plays a central role in social, cultural, and community life. Projektname addresses this challenge by helping clubs quickly and easily create consistent content for multiple channels – whether it’s a new event post or an infographic about their work.",
+    "features": "The tool offers: a custom club style guide (colors, logos, fonts), reusable templates for posts, centralized text and image management, and export options for various formats – directly in the browser.",
+    "disclaimer": "This project is a scientific prototype. It is currently in development and being evaluated as part of this context. The platform is continuously evolving – feedback is welcome!"
   },
   "examples": {
-    "title": "Here is the examples page",
-    "description": "Here are examples for the project"
+    "title": "Content Examples",
+    "description": "The examples on this page were created in collaboration with a local performing arts club."
   },
   "tutorial": {
-    "title": "Here is the tutorial page",
-    "description": "Here are tutorials for the project"
+    "title": "Tutorial",
+    "description": "Instructions for using this website",
+    "body": [
+      {
+        "headline": "Set up your Style Guide",
+        "text": "Each club has its own style guide. You can customize it on your club page to match your club’s look. Choose and adjust fields like colors, backgrounds, fonts, and graphics. The style guide will automatically apply to all content to maintain a consistent appearance."
+      },
+      {
+        "headline": "Create Content",
+        "text": "To create content, choose from a selection of templates. Then fill in the content using an editor, and adjust the design as needed."
+      },
+      {
+        "headline": "Manage Content",
+        "text": "Content can be managed in a list. You can create alternate formats or duplicate a template."
+      },
+      {
+        "headline": "Register Your Club",
+        "text": "To register your club, please go to the /join page to learn more."
+      }
+    ]
   },
   "join": {
-    "title": "Here is the join the project page",
-    "description": "Here is information about how to join"
+    "title": "Want to join?",
+    "description": "Test the tool with your club – free, non-binding, and no prior knowledge required.",
+    "explenation": "As this is a scientific prototype, access is currently not public. A first test phase will launch in summer 2025 (August–September). If your club is interested in trying it out and providing feedback, I’d be happy to set up a test account for you.",
+    "closing": "I look forward to shaping this project together with you.",
+    "closing_02": "Best regards, Lilian",
+    "steps_headline": "How to join?",
+    "steps": [
+      {
+        "num": "Step 1",
+        "description_01": "Write a short email to:",
+        "description_02": "Introduce yourself briefly: Who are you? What does your club do? How many people will use the tool?"
+      },
+      {
+        "num": "Step 2",
+        "description": "I’ll get back to you soon and set up a test account for your club."
+      },
+      {
+        "num": "Step 3",
+        "description": "You’ll receive login credentials via email for your members."
+      },
+      {
+        "num": "Step 4",
+        "description": "You're ready to go! Tip: Start with the style guide to make sure your content matches your club’s look."
+      }
+    ]
   },
   "styleguide": {
-    "title": "Here is the styleguide page",
-    "description": "Here are the design guidelines",
+    "title": "Style Guide",
+    "description": "Design your club's look here. Choose colors, fonts, logos, and more to fit your style.",
     "headlines": {
       "colors": "Colors",
       "backgrounds": "Backgrounds",
-      "grafics": "Grafiken",
+      "grafics": "Graphics",
       "logo": "Logo",
       "fonts": "Fonts",
       "slogan": "Slogan"
     },
     "colorDescription": {
-      "main": "Main Colors",
-      "detail": "Detailfarben",
-      "text": "Textfraben",
-      "neutral": "Neutrale Farben"
+      "main": "Primary Colors",
+      "detail": "Accent Colors",
+      "text": "Text Colors",
+      "neutral": "Neutral Colors"
+    },
+    "backgroundDescription": {
+      "light": "Light Backgrounds",
+      "dark": "Dark Backgrounds",
+      "textureUpload": {
+        "modalTitle": "Upload files",
+        "cancle": "Cancel",
+        "save": "Save",
+        "loading": "Uploading...",
+        "buttonText": "Select file"
+      },
+      "imgAlt": [
+        "Light background No. 1",
+        "Light background No. 2",
+        "Dark background No. 1",
+        "Dark background No. 2"
+      ]
+    },
+    "logoDescription": {
+      "big": "Logo",
+      "small": "Small Logo",
+      "oneColor": "One-color Logo",
+      "logoUpload": {
+        "modalTitle": "Upload files",
+        "cancle": "Cancel",
+        "save": "Save",
+        "loading": "Uploading...",
+        "buttonText": "Select file"
+      },
+      "imgAlt": ["Club logo", "Club logo small version", "Single-color logo"]
+    },
+    "fontsDescription": {
+      "preview": "This is a preview text in the selected font.",
+      "headline": "Headlines",
+      "body": "Body text"
+    },
+    "graficsDescription": {
+      "form": "Filled Shapes",
+      "grafic": "Line Graphics",
+      "graficsUpload": {
+        "modalTitle": "Upload files",
+        "cancle": "Cancel",
+        "save": "Save",
+        "loading": "Uploading...",
+        "buttonText": "Select file"
+      },
+      "imgAlt": [
+        "Shape 1",
+        "Shape 2",
+        "Shape 3",
+        "Shape 4",
+        "Line Graphic No. 1",
+        "Line Graphic No. 2",
+        "Line Graphic No. 3",
+        "Line Graphic No. 4"
+      ]
     },
     "infotext": {
-      "colors": "Here are the colors used in the project",
-      "backgrounds": "Here are the backgrounds used in the project",
-      "grafics": "Here are the graphics used in the project",
-      "logo": "Here is the logo used in the project",
-      "fonts": "Here are the fonts used in the project",
-      "slogan": "Here is the slogan used in the project"
-    }
+      "colors": "Choose the colors that best represent your club. These will be used in texts, graphics, and backgrounds. Short explanation of each color:",
+      "backgrounds": "Upload background images for your content. It’s good to have both light and dark versions. You can use the button or drag and drop files into the field.",
+      "grafics": "Upload shapes and line graphics like icons here.",
+      "logo": "Upload your club’s logo. It will be used on your pages.",
+      "fonts": "Choose fonts you like. You’ll see a live preview. Explanation of headline vs. body text included.",
+      "slogan": "Enter your club’s slogan or motto to display on the site."
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "templates": {
-    "title": "Here is the templates page",
-    "description": "Here are templates for the project"
+    "title": "Content Templates",
+    "description": "To create new content, simply select a template and get started",
+    "titles": ["Image with text", "Image gallery", "Text with graphic"],
+    "descriptions": [
+      "Combine an image with text",
+      "Create a gallery with multiple images",
+      "Combine text with a graphic"
+    ],
+    "action": "Create"
   },
   "content": {
-    "title": "Here is the content page",
-    "description": "Here is the content for the project"
+    "title": "Club Content",
+    "description": "Manage your club content. In the table below you can view existing content, sort by title or date, and filter by authors or tags. Use the pencil button to edit and update content directly. Stay on top of all your posts.",
+    "headers": ["", "Title", "Date", "Authors", "Tags"]
   },
   "create": {
-    "title": "Here is the create page",
-    "description": "Here you can create content"
+    "title": "Create Content",
+    "description": "Don't forget to save ;)",
+    "form": {
+      "title": "Title",
+      "title_placeholder": "Enter title",
+      "authors": "Authors",
+      "tags": "Select tags",
+      "tags_title": "Tags"
+    },
+    "formDescriptions": {
+      "title": "Give your content a strong title to find it easily later",
+      "authors": "All club members involved in this content",
+      "tags": "Tags help organize and group content in the list"
+    },
+    "lables": {
+      "generell": "General Information",
+      "upload": "Upload image",
+      "headline": "Headline",
+      "textLayer": "Text Positioning",
+      "textDescription": "Description",
+      "bgLayer": "Background Settings",
+      "logoLayer": "Logo Positioning",
+      "graficLayer": "Grafic Positioning"
+    },
+    "save": "Save",
+    "export": "Export Content"
   },
   "management": {
-    "title": "Here is the management page",
-    "description": "Here you can manage content"
+    "title": "Member Management",
+    "description": "As an admin, you can add, edit, or remove members here."
   },
   "impressum": {
-    "title": "Here is the impressum page",
-    "description": "Here are legal information"
+    "title": "Imprint",
+    "section1Title": "Information according to § 5 TMG",
+    "name": "Lilian Drabinski",
+    "addressLine1": "Magdeburger Str. 50",
+    "addressLine2": "14770 Brandenburg an der Havel",
+    "emailLabel": "Email",
+    "section2Title": "Responsible for content according to § 55 Abs. 2 RStV",
+    "projectNote": "This website is a non-commercial university project as part of the Digital Media program at Brandenburg University of Applied Sciences.",
+    "section3Title": "Disclaimer",
+    "liabilityText1": "Despite careful content control, we assume no liability for the content of external links. The operators of the linked pages are solely responsible for their content.",
+    "liabilityText2": "Responsibility for the copyright of uploaded images and graphics lies with the respective clubs.",
+    "resourcesTitle": "Used Resources",
+    "resourcesIntro": "This project was implemented using various freely available tools and resources:",
+    "resourceHeroicons": "Icons from",
+    "resourceFreepik": "Illustrations by",
+    "resourceFreepik2": "- Rights belong to the respective authors",
+    "resourceGoogleFonts": "Fonts by",
+    "resourceDaisyui": "Styled with",
+    "resourceTailwind": "and",
+    "resourcesOutro": "All external resources used were integrated in accordance with their respective license terms. This project is for research and educational purposes only as part of the Digital Media program at Brandenburg University of Applied Sciences."
   },
   "notFound": {
     "title": "404 - Page not found",
-    "description": "The requested page does not exist."
+    "description": "The page you requested does not exist. Go back to:"
   },
   "error": {
     "title": "An error occurred",
     "description": "Please try again later."
   },
   "footer": {
-    "contactUs": "Contact us",
-    "privacyPolicy": "Datenschutz-Bestimmungen",
-    "termsOfService": "Nutzungsbedingungen"
+    "copyright": "All rights reserved",
+    "about": "About the project",
+    "join": "Register club",
+    "impressum": "Imprint"
+  },
+  "sidebar": {
+    "home": "Homepage",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "about": "About the project",
+    "collection": "Collection",
+    "examples": "Examples",
+    "tutorial": "Tutorial",
+    "join": "Register club",
+    "styleguide": "Club Style",
+    "templates": "Styling Templates",
+    "list": "Content List",
+    "create": "Create Content",
+    "management": "Member Management",
+    "impressum": "Imprint",
+    "logout": "Logout"
+  },
+  "generall": {
+    "projectName": "Projektname",
+    "projectSlogan": "A platform where clubs can present themselves."
   }
 }

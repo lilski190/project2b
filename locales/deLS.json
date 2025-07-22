@@ -1,0 +1,288 @@
+{
+  "home": {
+    "welcome_01": "Willkommen",
+    "welcome_02": "Schön, dass du da bist!",
+    "intro_text": "Dieses Tool hilft dir und deinem Verein, euch im Internet gut zu zeigen. Du brauchst keine Technik- oder Designkenntnisse. Mit ein paar Klicks kannst du Texte und Bilder machen und für Website, Druck oder Social Media nutzen.",
+    "more_info_text": "Mehr über das Projekt findest du hier:",
+    "more_info_button": "Mehr erfahren",
+    "login_button": "Einloggen",
+    "login_hint": "Melde dich mit den Vereinsdaten an und leg los.",
+    "join_button": "Jetzt mitmachen",
+    "join_hint": "Neu hier? Dann kannst du dich hier anmelden."
+  },
+  "login": {
+    "description": "Hier kannst du dich einloggen und Inhalte für deinen Verein erstellen oder bearbeiten.",
+    "explenation": "Damit du dich einloggen kannst, muss dein Verein angemeldet sein. Danach brauchst du einen eigenen Zugang.",
+    "error_case_notRegistered": "Dein Verein ist angemeldet, aber du hast noch keinen Zugang? Dann frag die Person, die euren Verein verwaltet. Sie kann dir einen Zugang geben.",
+    "error_case_verein": "Dein Verein ist nicht in der Liste? Dann ist er noch nicht angemeldet. Wie das geht, erfährst du hier:",
+    "login": "Einloggen"
+  },
+  "dashboard": {
+    "title": "Hallo im Dashboard von",
+    "description": "Hier kannst du Inhalte machen, gestalten und verwalten.",
+    "title_styleguide": "Vereinsstil",
+    "description_styleguide": "Farben, Schriften und Logos – alles an einem Ort.",
+    "title_templates": "Vorlagen",
+    "description_templates": "Nutze fertige Vorlagen, um schneller loszulegen.",
+    "title_list": "Inhalts-Liste",
+    "description_list": "Hier kannst du Inhalte bearbeiten oder löschen.",
+    "welcome": "Schön, dass du da bist!"
+  },
+  "about": {
+    "title": "Was ist Projektname?",
+    "description": "Projektname ist ein einfaches Online-Tool für kleine Vereine. Du brauchst kein Vorwissen.",
+    "section_headings": {
+      "background": "Wie ist das entstanden?",
+      "idea": "Warum gibt es das?",
+      "features": "Was kannst du damit machen?",
+      "disclaimer": "Hinweis"
+    },
+    "background": "Das Projekt wurde 2025 an der Hochschule Brandenburg gestartet. Es basiert auf echten Vereins-Webseiten aus Brandenburg.",
+    "idea": "Viele Vereine arbeiten ehrenamtlich. Es gibt wenig Zeit und Geld. Oft fehlen Technikkenntnisse. Deshalb sieht man ihre Arbeit online nicht. Dieses Tool hilft dabei, schnell und einfach gute Inhalte zu machen.",
+    "features": "Das Tool hat: einen Vereins-Stil (Farben, Schriften, Logos), Vorlagen für Beiträge, Verwaltung für Bilder und Texte und Export für Website, Druck und Social Media.",
+    "disclaimer": "Das Projekt ist ein Test. Es wird noch entwickelt. Deine Meinung hilft uns sehr!"
+  },
+  "examples": {
+    "title": "Beispiele",
+    "description": "Diese Inhalte haben wir mit einem Kleinkunstverein gemacht."
+  },
+  "tutorial": {
+    "title": "Anleitung",
+    "description": "So nutzt du diese Webseite:",
+    "body": [
+      {
+        "headline": "Vereinsstil einrichten",
+        "text": "Jeder Verein kann Farben, Schriften und Logos anpassen. Alles wird automatisch auf deine Inhalte angewendet. So bleibt alles einheitlich."
+      },
+      {
+        "headline": "Inhalte erstellen",
+        "text": "Wähle eine Vorlage. Dann kannst du im Editor deinen Text und Bilder einfügen und alles anpassen."
+      },
+      {
+        "headline": "Inhalte verwalten",
+        "text": "Alle Inhalte siehst du in einer Liste. Du kannst sie ändern, löschen oder kopieren."
+      },
+      {
+        "headline": "Verein anmelden",
+        "text": "Geh auf /join, um deinen Verein anzumelden."
+      }
+    ]
+  },
+  "join": {
+    "title": "Willst du mitmachen?",
+    "description": "Teste das Tool mit deinem Verein. Es kostet nichts und ist ganz einfach.",
+    "explenation": "Das ist ein Projekt von einer Hochschule. Es ist noch in der Testphase. Im Sommer 2025 (August–September) kannst du es mit deinem Verein ausprobieren. Wenn du Lust hast mitzumachen und Feedback gibst, bekommst du einen Test-Zugang.",
+    "closing": "Ich freue mich, wenn du dabei bist und wir das Tool gemeinsam besser machen.",
+    "closing_02": "Viele Grüße, Lilian",
+    "steps_headline": "So kannst du mitmachen:",
+    "steps": [
+      {
+        "num": "Schritt 1",
+        "description_01": "Schreib eine kurze E-Mail an:",
+        "description_02": "Stell dich und deinen Verein kurz vor: Wer seid ihr? Was macht ihr? Wie viele sollen mit dem Tool arbeiten?"
+      },
+      {
+        "num": "Schritt 2",
+        "description": "Ich melde mich bald bei dir und richte einen Test-Zugang für deinen Verein ein."
+      },
+      {
+        "num": "Schritt 3",
+        "description": "Du bekommst dann die Zugangsdaten für alle Mitglieder."
+      },
+      {
+        "num": "Schritt 4",
+        "description": "Los geht’s! Am besten fängst du mit dem Styleguide an. Dann passt alles zu deinem Vereinslook."
+      }
+    ]
+  },
+  "styleguide": {
+    "title": "Styleguide",
+    "description": "Hier macht ihr das Aussehen von eurem Verein. Wählt Farben, Schriften, Logos und mehr aus. So sieht alles gut zusammen aus.",
+    "headlines": {
+      "colors": "Farben",
+      "backgrounds": "Hintergründe",
+      "grafics": "Bilder und Formen",
+      "logo": "Logo",
+      "fonts": "Schriften",
+      "slogan": "Slogan"
+    },
+    "colorDescription": {
+      "main": "Hauptfarben",
+      "detail": "Zusatzfarben",
+      "text": "Schriftfarben",
+      "neutral": "Neutrale Farben"
+    },
+    "backgroundDescription": {
+      "light": "Helle Hintergründe",
+      "dark": "Dunkle Hintergründe",
+      "textureUpload": {
+        "modalTitle": "Datei hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lädt...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Heller Hintergrund Nr. 1",
+        "Heller Hintergrund Nr. 2",
+        "Dunkler Hintergrund Nr. 1",
+        "Dunkler Hintergrund Nr. 2"
+      ]
+    },
+    "logoDescription": {
+      "big": "Logo groß",
+      "small": "Logo klein",
+      "oneColor": "Einfarbiges Logo",
+      "logoUpload": {
+        "modalTitle": "Datei hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lädt...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Vereinslogo",
+        "Kleines Vereinslogo",
+        "Einfarbiges Vereinslogo"
+      ]
+    },
+    "fontsDescription": {
+      "preview": "Hier siehst du einen Beispieltext mit der Schrift.",
+      "headline": "Überschriften",
+      "body": "Fließtext"
+    },
+    "graficsDescription": {
+      "form": "Gefüllte Formen",
+      "grafic": "Linien-Bilder",
+      "graficsUpload": {
+        "modalTitle": "Datei hochladen",
+        "cancle": "Abbrechen",
+        "save": "Speichern",
+        "loading": "Lädt...",
+        "buttonText": "Datei auswählen"
+      },
+      "imgAlt": [
+        "Form 1",
+        "Form 2",
+        "Form 3",
+        "Form 4",
+        "Linien-Bild Nr. 1",
+        "Linien-Bild Nr. 2",
+        "Linien-Bild Nr. 3",
+        "Linien-Bild Nr. 4"
+      ]
+    },
+    "infotext": {
+      "colors": "Wählt die Farben aus, die gut zu eurem Verein passen. Diese Farben benutzt ihr für Texte, Bilder und Hintergründe.",
+      "backgrounds": "Hier könnt ihr Bilder als Hintergrund hochladen. Es ist gut, helle und dunkle Hintergründe zu haben. Die Bilder könnt ihr über den Knopf auswählen oder einfach ins Feld ziehen.",
+      "grafics": "Hier könnt ihr Formen und Linien-Bilder, wie z. B. Symbole, hochladen.",
+      "logo": "Ladet euer Vereinslogo hoch. Das Logo wird auf euren Seiten gezeigt.",
+      "fonts": "Wählt die Schriften, die euch gefallen. Ihr seht direkt einen Beispieltext. Überschriften sind große Texte, Fließtext ist der normale Text.",
+      "slogan": "Schreibt euren Vereins-Slogan oder ein Motto auf, das auf der Seite gezeigt wird."
+    },
+    "save": "Speichern",
+    "cancel": "Abbrechen"
+  },
+  "templates": {
+    "title": "Vorlagen für Inhalte",
+    "description": "Um neue Inhalte zu machen, kannst du eine Vorlage auswählen und sofort starten.",
+    "titles": ["Bild mit Text", "Bilder Galerie", "Text mit Bild"],
+    "descriptions": [
+      "Ein Bild zusammen mit Text zeigen",
+      "Eine Galerie mit vielen Bildern machen",
+      "Text zusammen mit einem Bild zeigen"
+    ],
+    "action": "Erstellen"
+  },
+  "content": {
+    "title": "Vereins-Inhalte",
+    "description": "Hier kannst du alle Inhalte vom Verein sehen und verwalten. In der Tabelle findest du alle Inhalte, kannst nach Titel oder Datum sortieren und nach Autoren oder Schlagwörtern suchen. Mit dem Stift-Button kannst du Inhalte bearbeiten und neu speichern. So habt ihr immer den Überblick über alle Beiträge.",
+    "headers": ["", "Titel", "Datum", "Autor:innen", "Schlagwörter"]
+  },
+  "create": {
+    "title": "Neuen Inhalt erstellen",
+    "description": "Nicht vergessen: Speichern!",
+    "form": {
+      "title": "Titel",
+      "title_placeholder": "Titel eingeben",
+      "authors": "Autor:innen",
+      "tags": "Schlagwörter auswählen",
+      "tags_title": "Schlagwörter"
+    },
+    "formDescriptions": {
+      "title": "Gib deinem Inhalt einen guten Titel. So findest du ihn später leicht wieder.",
+      "authors": "Hier stehen die Vereinsmitglieder, die an dem Inhalt mitgearbeitet haben.",
+      "tags": "Die Schlagwörter helfen, die Inhalte zu sortieren und zu finden."
+    },
+    "lables": {
+      "generell": "Allgemeine Angaben",
+      "upload": "Bild hochladen",
+      "headline": "Überschrift",
+      "textLayer": "Text-Position",
+      "textDescription": "Beschreibung",
+      "bgLayer": "Hintergrund-Einstellungen",
+      "logoLayer": "Logo-Position",
+      "graficLayer": "Grafik"
+    },
+    "save": "Speichern",
+    "export": "Inhalt exportieren"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "section1Title": "Angaben gemäß § 5 TMG",
+    "name": "Lilian Drabinski",
+    "addressLine1": "Magdeburger Str. 50",
+    "addressLine2": "14770 Brandenburg an der Havel",
+    "emailLabel": "E-Mail",
+    "section2Title": "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+    "projectNote": "Diese Website ist ein nicht-kommerzielles Hochschulprojekt im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg.",
+    "section3Title": "Haftungsausschluss",
+    "liabilityText1": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.",
+    "liabilityText2": "Die Verantwortung für das Urheberrecht an hochgeladenen Bildern und Grafiken liegt bei den jeweiligen Vereinen.",
+    "resourcesTitle": "Verwendete Ressourcen",
+    "resourcesIntro": "Dieses Projekt wurde mit verschiedenen frei verfügbaren Tools und Ressourcen umgesetzt:",
+    "resourceHeroicons": "Icons von",
+    "resourceFreepik": "Illustrationen von",
+    "resourceFreepik2": "- Rechte liegen bei den jeweiligen Urheber:innen",
+    "resourceGoogleFonts": "Schriften von",
+    "resourceDaisyui": "Styling mit",
+    "resourceTailwind": "und",
+    "resourcesOutro": "Alle verwendeten externen Ressourcen wurden gemäß ihrer jeweiligen Lizenzbedingungen eingebunden. Dieses Projekt dient ausschließlich Forschungs- und Lehrzwecken im Rahmen des Studiengangs Digitale Medien an der Technischen Hochschule Brandenburg."
+  },
+
+  "footer": {
+    "copyright": "Alle Rechte gehören uns",
+    "about": "Über das Projekt",
+    "join": "Verein anmelden",
+    "impressum": "Impressum"
+  },
+  "sidebar": {
+    "home": "Startseite",
+    "login": "Einloggen",
+    "dashboard": "Übersicht",
+    "about": "Über das Projekt",
+    "collection": "Sammlung",
+    "examples": "Beispiele",
+    "tutorial": "Anleitung",
+    "join": "Mitmachen",
+    "styleguide": "Vereinsstil",
+    "templates": "Vorlagen",
+    "list": "Inhalte verwalten",
+    "create": "Neuen Inhalt",
+    "management": "Mitglieder",
+    "impressum": "Impressum",
+    "logout": "Ausloggen"
+  },
+  "notFound": {
+    "title": "404 – Seite nicht gefunden",
+    "description": "Diese Seite gibt es nicht. Gehe zurück zur Startseite."
+  },
+  "error": {
+    "title": "Es gab einen Fehler",
+    "description": "Bitte versuche es später noch einmal."
+  },
+  "generall": {
+    "projectName": "Projektname",
+    "projectSlogan": "Ein Tool, mit dem dein Verein sichtbar wird."
+  }
+}

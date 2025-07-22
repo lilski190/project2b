@@ -218,32 +218,61 @@ const BasicTable = ({ headlines, content, filter, colKeys }) => {
           {filteredContent.map((row, index) => (
             <tr className="hover:bg-base-300" key={`TableRow_${index}`}>
               <th className="w-min bg-transparent">
-                <Link
-                  href={{
-                    pathname: "/create",
-                    query: {
-                      template: row.template,
-                      content: row.id,
-                    },
-                  }}
-                >
-                  <button className="btn btn-info btn-soft h-7 ">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.3}
-                      stroke="currentColor"
-                      className="size-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d={ICONS.pencil}
-                      />
-                    </svg>
-                  </button>
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    href={{
+                      pathname: "/create",
+                      query: {
+                        template: row.template,
+                        content: row.id,
+                      },
+                    }}
+                  >
+                    <button className="btn btn-info btn-soft h-7 ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.3}
+                        stroke="currentColor"
+                        className="size-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d={ICONS.pencil}
+                        />
+                      </svg>
+                    </button>
+                  </Link>
+                  <Link
+                    href={{
+                      pathname: "/create",
+                      query: {
+                        template: row.template,
+                        content: row.id,
+                        duplicate: true,
+                      },
+                    }}
+                  >
+                    <button className="btn btn-info btn-soft h-7 ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.3}
+                        stroke="currentColor"
+                        className="size-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d={ICONS.duplicate}
+                        />
+                      </svg>
+                    </button>
+                  </Link>
+                </div>
               </th>
               <td>{row.title}</td>
               <td>

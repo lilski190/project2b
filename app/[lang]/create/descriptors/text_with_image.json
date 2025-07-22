@@ -19,11 +19,7 @@
         "value": ["#FFFFFF", ["center", "center"], "80%", "center"],
         "options": ["bg", "posLayer", "sizeW", "textAlign"]
       },
-      {
-        "type": "text",
-        "lable": "textDescription",
-        "value": "This is a sample text. Hier ist eine Längere Beschreibung für unter dem Bild oder so"
-      },
+
       {
         "type": "layer",
         "lable": "bgLayer",

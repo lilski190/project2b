@@ -18,7 +18,7 @@ export default function TextureUpload({
   const [dragActive, setDragActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [urlPath, setUrlPath] = useState(url ? url : false); // Setze einen Standardwert für den URL-Pfad
+  const [urlPath, setUrlPath] = useState(url !== false ? url : false); // Setze einen Standardwert für den URL-Pfad
 
   let baseURL = BASEURL + bucket + "/";
 
@@ -112,10 +112,10 @@ export default function TextureUpload({
             readOnly
           />
 
-          {!urlPath ? (
+          {!urlPath || url == false ? (
             <Image
               src={
-                baseURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
+                BASEURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
               }
               fill
               alt={imgAlt || "File Upload"}

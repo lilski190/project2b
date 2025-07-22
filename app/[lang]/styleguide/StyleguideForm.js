@@ -112,7 +112,11 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
             <div className="lableText">{dict.styleguide.headlines.grafics}</div>
             <InformationTooltip text={dict.styleguide.infotext.grafics} />
           </div>
-          <Grafics />
+          <Grafics
+            dict={dict.styleguide.graficsDescription}
+            grafics={parsedData.grafics}
+            folderID={folderID}
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-6 mt-1 px-6">

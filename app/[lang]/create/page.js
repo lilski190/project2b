@@ -11,7 +11,6 @@ import { cookies } from "next/headers";
 import text_with_image from "./descriptors/text_with_image.json";
 import text_with_image_and_graphic from "./descriptors/text_with_image_and_graphic.json";
 import text_with_graphic from "./descriptors/text_with_graphic.json";
-import image_with_graphic from "./descriptors/image_with_graphic.json";
 import image_gallery from "./descriptors/image_gallery.json";
 import test from "./descriptors/test.json";
 
@@ -30,7 +29,6 @@ const dataMap = {
   text_with_image,
   text_with_image_and_graphic,
   text_with_graphic,
-  image_with_graphic,
   image_gallery,
   test,
 };
@@ -50,6 +48,7 @@ export default async function CreatePage({ params, searchParams }) {
 
   const sourceKey = (sourceKeyAwait.template || "test").trim();
   const contentID = sourceKeyAwait.content || 0;
+  const duplicate = sourceKeyAwait.duplicate || false;
 
   const selectedData = dataMap[sourceKey];
   console.log("seelcted data", selectedData, sourceKey);
@@ -69,6 +68,16 @@ export default async function CreatePage({ params, searchParams }) {
     selectedTags = loadedData.data[0].tags;
     title = loadedData.data[0].title;
     console.log("loaded Content: ", contentData);
+    if (duplicate) {
+      console.log("DUPLICATE CONTENT");
+
+      //load old contetn
+      //set new ids, so that on save it will be saved as new
+      title = `${title} (Kopie)`;
+      if (!authors.includes(author)) {
+        authors.push(author);
+      }
+    }
   } else {
     contentData = selectedData.form;
     authors = [author];
@@ -82,24 +91,31 @@ export default async function CreatePage({ params, searchParams }) {
   }
 
   return (
-    <div className="pt-6 max-md:pt-3">
-      <h1 className="px-6  max-md:px-3 headline">{dict.create.title}</h1>
-      <p className="px-6  max-md:px-3 mt-2 baseText ">
-        {dict.create.description}
-      </p>
-      <div className="grid grid-cols-2 max-md:grid-cols-1 mt-6">
-        <CreatePreview dict={dict} data={selectedData.preview} />
-        <CreateForm
-          dict={dict.create}
-          data={contentData}
+    <div className="">
+      <div className="w-1/2 fixed max-md:fixed max-md:w-full z-10">
+        <CreatePreview
+          dict={dict}
+          data={selectedData.preview}
           template={sourceKey}
-          contentID={contentID}
-          vereinID={vereinName + "_" + vereinId}
-          VereinTags={vereinTags}
-          selectedTags={selectedTags}
-          title={title}
-          author={authors}
         />
+      </div>
+
+      <div className="grid grid-cols-2 max-md:grid-cols-1">
+        <div className="w-full aspect-square"></div>
+        <div className="max-md:pt-24">
+          <CreateForm
+            dict={dict.create}
+            data={contentData}
+            template={sourceKey}
+            contentID={contentID}
+            duplicate={duplicate}
+            vereinID={vereinName + "_" + vereinId}
+            VereinTags={vereinTags}
+            selectedTags={selectedTags}
+            title={title}
+            author={authors}
+          />
+        </div>
       </div>
     </div>
   );

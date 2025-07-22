@@ -27,6 +27,7 @@ export default function CreateForm({
   selectedTags,
   author,
   title,
+  duplicate,
 }) {
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState("");
@@ -39,7 +40,7 @@ export default function CreateForm({
 
   useEffect(() => {
     localStorage.setItem("CreateForm", JSON.stringify(data));
-  }, []);
+  });
 
   const toggleAccordion = (index) => {
     setOpenIndexes((prev) =>
@@ -58,7 +59,7 @@ export default function CreateForm({
     let storage = JSON.parse(localStorage.getItem("CreateForm"));
     let result = null;
     try {
-      if (contentID === "0" || contentID === undefined) {
+      if (contentID === "0" || contentID === undefined || duplicate) {
         console.log("Creating new content with template:", template);
         result = await createContent(
           storage,
@@ -96,23 +97,25 @@ export default function CreateForm({
   let baseUrl =
     "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/content/";
 
-  const handleChange = async (index, e) => {
-    console.log("handleChange called with index:", index, "and value:", e);
-    let storage = JSON.parse(localStorage.getItem("CreateForm"));
+  const handleChange = async (index, value, imageIndex = null) => {
+    let storage = JSON.parse(localStorage.getItem("CreateForm")) || {};
     let currentData = storage.types;
-    console.log("Current localStorage data:", currentData);
-    if (!currentData) {
-      console.log("No data found in localStorage, initializing currentData.");
-      currentData = {};
+
+    if (!currentData || !currentData[index]) return;
+
+    if (currentData[index].type === "gallery" && imageIndex !== null) {
+      // Stelle sicher, dass value ein Array ist
+      if (!Array.isArray(currentData[index].value)) {
+        currentData[index].value = [];
+      }
+      currentData[index].value[imageIndex] = value;
     } else {
-      currentData[index].value = e;
+      currentData[index].value = value;
     }
 
     storage.types = currentData;
-
     localStorage.setItem("CreateForm", JSON.stringify(storage));
     window.dispatchEvent(new Event("createform-updated"));
-    console.log("Updated localStorage with data:", storage);
   };
 
   const handleCheckboxChange = (tag) => {
@@ -128,7 +131,7 @@ export default function CreateForm({
     <div className="">
       <div className="">
         <div
-          className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+          className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
             openIndex === 0 ? "collapse-open" : ""
           }`}
         >
@@ -164,7 +167,7 @@ export default function CreateForm({
                   </div>
                   <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 max-h-52">
                     {JSON.parse(VereinTags).map((tag, index) => (
-                      <li key={`tag_${index}`}>
+                      <li key={`tag_${index}_${index}`}>
                         <label className="cursor-pointer flex items-center gap-2">
                           <input
                             type="checkbox"
@@ -200,7 +203,7 @@ export default function CreateForm({
               <div className="lableTextSmall flex -ml-1">
                 {author.map((aut, index) => (
                   <div
-                    key={aut + "_" + "index"}
+                    key={aut + "_" + "index_" + index}
                     className="border px-2 rounded mx-1 "
                   >
                     {aut}
@@ -213,7 +216,7 @@ export default function CreateForm({
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="fixed p-3 pr-4 top-0 right-0 z-30">
+        <div className="fixed p-3 pr-4 top-0 right-0 z-50">
           <button
             type="submit"
             className="btn btn-primary hover:bg-primary/70 transition-transform duration-300 hover:scale-105 font-semibold py-2 px-4 rounded-lg shadow-md"
@@ -229,7 +232,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -256,7 +259,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -297,7 +300,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -322,7 +325,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -347,7 +350,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -373,7 +376,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -398,7 +401,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
@@ -422,16 +425,60 @@ export default function CreateForm({
                 );
               } else if (typ.type === "gallery") {
                 return (
-                  <div key={index}>
-                    {dict.lables[typ.lable]}
-                    <div className="grid grid-cols-3 gap-4">
-                      <FileUpload
-                        BASEURL="https://example.com/upload"
-                        folderID="TODO"
-                        bucket="styles"
-                        url={typ.value || ""}
-                        onChange={(newValue) => handleChange(index, newValue)}
-                      />
+                  <div
+                    key={index}
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
+                      openIndexes.includes(index) ? "collapse-open" : ""
+                    }`}
+                  >
+                    <div
+                      className="collapse-title font-semibold cursor-pointer hover:bg-white/10"
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {dict.lables[typ.lable]}
+                    </div>
+                    <div className="collapse-content text-sm">
+                      <div className="w-full ">
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          fieldID={"gallery_01"}
+                          bucket="content"
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 0)
+                          }
+                        />
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          bucket="content"
+                          fieldID={"gallery_02"}
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 1)
+                          }
+                        />
+                        <FileUpload
+                          BASEURL={baseUrl}
+                          folderID={vereinID}
+                          bucket="content"
+                          fieldID={"gallery_03"}
+                          url={
+                            typ.value ||
+                            "https://ggtdzwxtjpskgkilundm.supabase.co/storage/v1/object/public/basic/illustration/FileUpload.jpg"
+                          }
+                          onChange={(newValue) =>
+                            handleChange(index, newValue, 2)
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
                 );
@@ -439,7 +486,7 @@ export default function CreateForm({
                 return (
                   <div
                     key={index}
-                    className={`collapse collapse-arrow bg-base-100 border border-base-300 ${
+                    className={`collapse collapse-arrow z-0 bg-base-100 border border-base-300 ${
                       openIndexes.includes(index) ? "collapse-open" : ""
                     }`}
                   >
