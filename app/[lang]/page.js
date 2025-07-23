@@ -1,6 +1,24 @@
 import Link from "next/link";
 import { getDictionary } from "@/lib/getDictionary";
 
+/**
+ * Home-Seite der Anwendung (Startseite)
+ *
+ * Diese Seite ist öffentlich zugänglich (Public Page) und wird geladen,
+ * wenn ein Benutzer die Anwendung besucht.
+ *
+ * Funktionen und Inhalte:
+ * - Begrüßungstext und Einführung in die Anwendung.
+ * - Navigation zu Login- und Join-Seiten.
+ * - Link zur "About"-Seite für weitere Informationen.
+ * - Texte werden basierend auf dem Sprachparameter `lang` aus der URL geladen
+ *   und über `getDictionary` bereitgestellt.
+ *
+ * @param {Object} props
+ * @param {Object} props.params - URL-Parameter, inkl. `lang` für die Sprache.
+ *
+ * @returns {JSX.Element} Die gerenderte Startseite mit lokalisierter UI.
+ */
 export default async function Home({ params }) {
   const param = await params;
   const lang = param.lang || "de";
@@ -52,9 +70,7 @@ export default async function Home({ params }) {
           </div>
         </div>
 
-        <div className="flex-1 flex justify-center">
-          {/* Optionales Bild oder Illustration */}
-        </div>
+        <div className="flex-1 flex justify-center"></div>
       </section>
     </div>
   );

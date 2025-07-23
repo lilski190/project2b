@@ -6,8 +6,6 @@ import CreatePreview from "./CreatePreview";
 import { getSpecificContentAction } from "@/app/actions/contentAction";
 import { cookies } from "next/headers";
 
-//Alle Descriptoren der Templates Importieren
-
 import text_with_image from "./descriptors/text_with_image.json";
 import text_with_image_and_graphic from "./descriptors/text_with_image_and_graphic.json";
 import text_with_graphic from "./descriptors/text_with_graphic.json";
@@ -15,16 +13,38 @@ import image_gallery from "./descriptors/image_gallery.json";
 import test from "./descriptors/test.json";
 
 /**
- * Styleguide Seite der Anwendung.
- * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf diese Seite weitergeleitet.
- * Sie ist durch die Middleware geschützt.
- * Der Benutzer wird über die Funktion getUserAction geladen.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Das ist die Detailseite für den Content wo er bearbeitet werden kann.
- * Die Seite wird server-seitig gerendert und die Daten zu der Sprache werden über die Funktion getDictionary geladen.
+ * `CreatePage` ist eine serverseitig gerenderte Seite für die Erstellung oder Duplikation von Content über ein dynamisches Template-System.
+ *
+ * Diese Seite ist **privat** und durch Middleware geschützt. Nur angemeldete Benutzer mit gültigen Session-Cookies können darauf zugreifen.
+ *
+ * Die Seite verwendet zwei Hauptkomponenten:
+ * - `CreateForm`: Das Eingabeformular zur Content-Erstellung
+ * - `CreatePreview`: Eine Vorschau des aktuell gewählten Templates mit Live-Daten aus dem LocalStorage
+ *
+ * Die Auswahl des Templates erfolgt über den URL-Parameter `template`. Ist kein Template angegeben, wird `"test"` als Fallback verwendet.
+ * Wenn ein `content`-Parameter vorhanden ist, wird der bestehende Inhalt über `getSpecificContentAction` geladen.
+ * Andernfalls wird ein neues Formular basierend auf der gewählten Template-Definition (`dataMap`) initialisiert.
+ *
+ * Die wichtigsten Daten (Vereinsname, Tags, Autorenname) werden aus den Cookies gelesen:
+ * - `verein_id`
+ * - `verein_name`
+ * - `verein_tags`
+ * - `member_name`
+ *
+ * Sprachabhängige Labels werden serverseitig über `getDictionary(lang)` geladen, basierend auf dem `lang`-URL-Parameter (Standard: `"de"`).
+ *
+ * @async
+ * @function CreatePage
+ * @param {Object} props - Serverseitige Parameter für die Seite
+ * @param {Object} props.params - URL-Parameter-Objekt
+ * @param {string} props.params.lang - Sprachcode wie `"de"` oder `"en"` (optional, default: `"de"`)
+ * @param {Object} props.searchParams - Query-Parameter aus der URL
+ * @param {string} [props.searchParams.template] - Gewählter Template-Key für die Content-Erstellung
+ * @param {string|number} [props.searchParams.content] - Content-ID; `"0"` oder nicht vorhanden für neuen Content
+ * @param {boolean|string} [props.searchParams.duplicate] - Flag, ob ein bestehender Inhalt dupliziert werden soll
+ *
+ * @returns {Promise<JSX.Element>} Die vollständige Seite zur Content-Erstellung mit Formular und Vorschau
  */
-
 const dataMap = {
   text_with_image,
   text_with_image_and_graphic,
@@ -51,7 +71,6 @@ export default async function CreatePage({ params, searchParams }) {
   const duplicate = sourceKeyAwait.duplicate || false;
 
   const selectedData = dataMap[sourceKey];
-  console.log("seelcted data", selectedData, sourceKey);
 
   let contentData;
   let authors;
@@ -59,7 +78,6 @@ export default async function CreatePage({ params, searchParams }) {
   let title;
   if (contentID != 0) {
     let loadedData = await getSpecificContentAction(contentID);
-    console.log("loadedData XY: ", loadedData);
     contentData = loadedData.data[0].content;
     authors = loadedData.data[0].author;
     if (!authors.includes(author)) {
@@ -67,12 +85,7 @@ export default async function CreatePage({ params, searchParams }) {
     }
     selectedTags = loadedData.data[0].tags;
     title = loadedData.data[0].title;
-    console.log("loaded Content: ", contentData);
     if (duplicate) {
-      console.log("DUPLICATE CONTENT");
-
-      //load old contetn
-      //set new ids, so that on save it will be saved as new
       title = `${title} (Kopie)`;
       if (!authors.includes(author)) {
         authors.push(author);
@@ -83,7 +96,6 @@ export default async function CreatePage({ params, searchParams }) {
     authors = [author];
     selectedTags = [];
     title = "";
-    console.log("loaded new ", contentData);
   }
 
   if (!user) {
@@ -99,7 +111,6 @@ export default async function CreatePage({ params, searchParams }) {
           template={sourceKey}
         />
       </div>
-
       <div className="grid grid-cols-2 max-md:grid-cols-1">
         <div className="w-full aspect-square"></div>
         <div className="max-md:pt-24">

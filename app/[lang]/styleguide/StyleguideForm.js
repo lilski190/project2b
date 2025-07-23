@@ -13,12 +13,37 @@ import Grafics from "@/components/styleguideForms/Grafics";
 import Link from "next/link";
 
 /**
- * Styleguide FORM Komponent
+ * StyleguideForm Komponente
+ *
+ * Dieses Formular ermöglicht es dem Benutzer, den Vereins-Styleguide anzupassen.
+ * Der Styleguide umfasst folgende Bereiche:
+ * - Farben
+ * - Hintergründe (als Bild)
+ * - Logos (als Bild)
+ * - Schriftarten
+ * - Slogan
+ * - Grafiken
+ *
+ * Jeder Bereich ist in einer eigenen Unterkomponente gekapselt, die eine Überschrift
+ * und einen Infotext (Tooltip) enthält, um den Benutzer bei der Eingabe zu unterstützen.
+ *
+ * Beim Absenden des Formulars werden die eingegebenen Daten an die `saveStyleguideAction`
+ * übergeben, welche die Daten speichert.
+ *
+ * Während der Speicherung wird ein Ladezustand angezeigt, und der Benutzer erhält über
+ * `react-hot-toast` eine Erfolg- oder Fehlermeldung.
+ *
+ * @param {Object} props - Eigenschaften des Components
+ * @param {Object} props.dict - Sprachabhängige Texte und Labels (Dictionary)
+ * @param {string} props.data - JSON-stringifizierte Daten des Styleguides
+ * @param {string} props.folderID - Identifier für den Vereinsordner, wird an einige Unterkomponenten weitergegeben
+ * @param {string} props.lang - Aktuelle Sprache (z. B. "de", "en")
+ *
+ * @returns {JSX.Element} Das gerenderte Formular zur Styleguide-Bearbeitung
  */
 export default function StyleguideForm({ dict, data, folderID, lang }) {
   const [loading, setLoading] = useState(false);
   let parsedDataObj = JSON.parse(data);
-  console.log("data", parsedDataObj[0]);
   let parsedData = parsedDataObj[0];
 
   const handleSubmit = async (e) => {
@@ -28,7 +53,6 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
 
     try {
       const result = await saveStyleguideAction(formData);
-      console.log("Submit result:", result);
       localStorage.setItem("Styleguide", JSON.stringify(result));
 
       if (result.data) {
@@ -44,7 +68,6 @@ export default function StyleguideForm({ dict, data, folderID, lang }) {
     }
   };
 
-  //action={saveStyleguideAction}>
   return (
     <form onSubmit={handleSubmit} className="pb-6">
       <div className="fixed p-3 pr-4 top-0 right-0 z-30">

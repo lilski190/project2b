@@ -290,6 +290,7 @@
   },
   "generall": {
     "projectName": "Verein*t",
-    "projectSlogan": "  Eine Plattform, mit der Vereinscontent erstellt und verwaltet werden kann."
+    "projectSlogan": "  Eine Plattform, mit der Vereinscontent erstellt und verwaltet werden kann.",
+    "notImplemented": "Diese Funktion ist noch nicht implementiert."
   }
 }

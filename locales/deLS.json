@@ -283,6 +283,7 @@
   },
   "generall": {
     "projectName": "Projektname",
-    "projectSlogan": "Ein Tool, mit dem dein Verein sichtbar wird."
+    "projectSlogan": "Ein Tool, mit dem dein Verein sichtbar wird.",
+    "notImplemented": "Hier ist etwas noch nicht fertig."
   }
 }

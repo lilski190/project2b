@@ -1,3 +1,20 @@
+/**
+ * @fileoverview LayerComponent ist ein flexibles UI-Komponentenmodul,
+ * das verschiedene visuelle Layer-Optionen zur Konfiguration von Farbe, Deckkraft,
+ * Größe, Position, Textausrichtung und SVG-Formen darstellt.
+ * Es eignet sich zur Gestaltung von Elementen mit variabler visueller Darstellung.
+ *
+ * Unterstützte Optionen:
+ * - "bg" (Hintergrundfarbe)
+ * - "opacity" (Deckkraft)
+ * - "size" (Höhe)
+ * - "sizeW" (Breite)
+ * - "posLayer" (Positionierung)
+ * - "textAlign" (Textausrichtung)
+ * - "svg" (Anzeige einer SVG-Form mit Stilmanipulation)
+ *
+ * @module LayerComponent
+ */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -12,18 +29,28 @@ const fallbackStyleguide = [
   },
 ];
 
+/**
+ * LayerComponent
+ *
+ * @param {Object} props - Komponenten-Props
+ * @param {string} props.fieldID - Eindeutige ID für alle generierten `name`-Attribute in Form-Inputs
+ * @param {Array} props.Textvalue - Initiale Werte für die Layer-Konfiguration (z. B. Farbe, Deckkraft, Größe usw.)
+ * @param {Function} props.onChange - Callback, der aufgerufen wird, wenn sich ein Layer-Wert ändert. Erwartet ein synthetisches Event-Objekt.
+ * @param {Array<string>} props.options - Array von Options-Typen, die die UI-Elemente bestimmen (z. B. ["bg", "opacity", "svg"])
+ *
+ * @returns {JSX.Element} - React-Komponente zur Layerkonfiguration
+ */
 const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
   const [styleguide, setStyleguide] = useState(fallbackStyleguide);
   const [svgContent, setSvgContent] = useState(null);
 
   useEffect(() => {
-    // Nur im Client verfügbar
     const styleRaw = localStorage?.getItem("Styleguide");
     if (styleRaw) {
       try {
         const parsed = JSON.parse(styleRaw);
-        setStyleguide(parsed); // oder ganze Liste, falls du sie brauchst
+        setStyleguide(parsed);
       } catch (err) {
         console.error("Fehler beim Parsen des Styleguides:", err);
       }
@@ -33,7 +60,7 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   useEffect(() => {
     const fetchSvg = async () => {
       try {
-        const res = await fetch(layer?.find((l) => l?.includes?.(".svg"))); // oder statisch: fetch('https://...svg')
+        const res = await fetch(layer?.find((l) => l?.includes?.(".svg")));
         const text = await res.text();
         const styledSvg = text
           .replace(
@@ -57,7 +84,6 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     black: "#000000",
     white: "#FFFFFF",
   };
-  console.log("extended colors", extendedColors);
 
   const opacities = [100, 80, 60, 40, 20, 0];
   const sizes = [
@@ -86,13 +112,17 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
 
   const textAligns = ["start", "end", "center", "justify"];
 
+  /**
+   * Handler für Änderungen in der UI (z. B. Farbe, Größe, Deckkraft)
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Event-Objekt des geänderten Elements
+   * @param {number} index - Index im Layer-Array
+   * @param {string} id - Optionstyp (z. B. "bg", "size", "posLayer")
+   */
   const handleChange = (e, index, id) => {
-    console.log("handle Cange", id);
     let lay = [...layer];
     if (id == "posLayer") {
-      console.log("positions", e.target.value);
       const [justify, align] = e.target.value.split(",");
-      console.log("jusifys", justify, align);
       lay[index] = [justify, align];
     } else {
       lay[index] = e.target.value;
@@ -108,8 +138,12 @@ const LayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     }
   };
 
-  console.log("optons", options);
-
+  /**
+   * Konvertiert Prozentwert (0–100) in hexadezimale Alpha-Komponente
+   *
+   * @param {number} percent - Prozentwert zwischen 0 und 100
+   * @returns {string} - Zwei Zeichen lange hexadezimale Repräsentation
+   */
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();

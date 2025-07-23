@@ -282,6 +282,7 @@
   },
   "generall": {
     "projectName": "Projektname",
-    "projectSlogan": "A platform where clubs can present themselves."
+    "projectSlogan": "A platform where clubs can present themselves.",
+    "notImplemented": "This Funktion is not jet implemented."
   }
 }

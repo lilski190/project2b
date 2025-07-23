@@ -5,14 +5,20 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 
+/**
+ * @component ImageGallery
+ * @description Erstellt eine dynamische Galerie mit Text, Layern, Logo und Exportfunktionen (PDF, HTML, PNG).
+ * @param {Object} previewData - Alle Vorschau-Inhalte, strukturiert nach Typen (z. B. image, gallery, headline, layer etc.)
+ * @param {Object} options - Optionen für verschiedene Ausgabeformate/Tabs (z. B. web, instagram, DINA6)
+ */
 export default function ImageGallery({ previewData, options }) {
-  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
+  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]);
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
   const [localGalleryUrl, setLocalGalleryUrl] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
+  const [headfont, setHeadfont] = useState("font-orbitron");
 
   let imgURL;
   let text;
@@ -48,6 +54,12 @@ export default function ImageGallery({ previewData, options }) {
     logoStyle = previewData?.types?.find((item) => item.type === "logo")?.value;
   }
 
+  /**
+   * Wandelt eine Bild-URL in einen Base64-String um.
+   * @async
+   * @param {string} url - Bild-URL
+   * @returns {Promise<string|null>} Base64-String oder `null` bei Fehler
+   */
   async function getImageAsBase64(url) {
     try {
       const response = await fetch(url);
@@ -63,16 +75,17 @@ export default function ImageGallery({ previewData, options }) {
     }
   }
 
+  /**
+   * Lädt Bildquellen (Galerie, Logo, Hauptbild) als Base64 und setzt ggf. Fonts aus localStorage.
+   * Wird ausgeführt, wenn Bild- oder Logourl sich ändern.
+   */
   useEffect(() => {
-    console.log("Use effect");
-
     if (logoUrl) {
       getImageAsBase64(logoUrl).then((dataUrl) => {
         if (dataUrl) setLocalImgUrl(dataUrl);
       });
     }
     if (galleryURLS) {
-      console.log("Called gallery thing");
       const fetchImagesSequentially = async () => {
         const results = [];
 
@@ -82,7 +95,7 @@ export default function ImageGallery({ previewData, options }) {
             results.push(base64);
           } catch (err) {
             console.error("Fehler bei Bild:", galleryURLS[i], err);
-            results.push(null); // oder Platzhalter
+            results.push(null);
           }
         }
 
@@ -106,7 +119,6 @@ export default function ImageGallery({ previewData, options }) {
         try {
           const style = JSON.parse(styleRaw);
           const fonts = style[0]?.fonts;
-          console.log("fonts", fonts);
           if (fonts?.heading) {
             setHeadfont(fonts.heading);
           }
@@ -117,6 +129,11 @@ export default function ImageGallery({ previewData, options }) {
     }
   }, [imgURL, logoUrl, galleryURLS]);
 
+  /**
+   * Konvertiert einen Prozentwert (0–100) in einen HEX-Wert für Transparenz.
+   * @param {number} percent - Transparenz in Prozent
+   * @returns {string} 2-stelliger HEX-Alpha-Wert (z. B. "80")
+   */
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
@@ -136,25 +153,19 @@ export default function ImageGallery({ previewData, options }) {
     };
     logoPosition = {
       position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
+      inset: 0,
       display: "flex",
       alignItems: logoStyle[3][1],
       justifyContent: logoStyle[3][0],
       opacity: parseInt(logoStyle[1], 10) / 100,
     };
     logolayer = {
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      //height: logoStyle[2], // h-30 ≈ 30 * 0.25rem
-      width: logoStyle[2], // w-30
+      width: logoStyle[2],
       aspectRatio: "1 /1",
-      // backgroundColor: "#909090",
       position: "absolute",
       display: "flex",
     };
   }
-
-  //layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]} bg-primary`;
 
   logoUrl = BASEURL + "styles/" + logoStyle[0];
 
@@ -164,8 +175,12 @@ export default function ImageGallery({ previewData, options }) {
     });
   }
 
+  /**
+   * Exportiert die aktuell gerenderte Galerie je nach aktivem Tab in PDF, PNG oder HTML.
+   * Unterstützt: "web", "instagram", "Presentation", "DINA6".
+   * Nutzt html2canvas + jsPDF.
+   */
   const handleExport = async () => {
-    console.log("export tirggeded for: ", activeTab);
     const element = document.getElementById("export");
     const width = options[activeTab].width;
     const height = options[activeTab].height;
@@ -181,8 +196,6 @@ export default function ImageGallery({ previewData, options }) {
     const imgData = canvas.toDataURL("image/png");
 
     if (activeTab === "web") {
-      // HTML Export: evtl. statisch per Download
-
       const htmlContent = element.outerHTML;
       const blob = new Blob([htmlContent], { type: "text/html" });
       const link = document.createElement("a");
@@ -192,8 +205,7 @@ export default function ImageGallery({ previewData, options }) {
     } else if (activeTab === "instagram") {
       const link = document.createElement("a");
       link.href = imgData;
-      console.log("IMG", link.href);
-      link.download = "instagram-post.png"; // JPG wäre kleiner, PNG hat bessere Qualität
+      link.download = "instagram-post.png";
       link.click();
     } else if (activeTab === "Presentation" || activeTab === "DINA6") {
       const pdf = new jsPDF({
@@ -207,8 +219,11 @@ export default function ImageGallery({ previewData, options }) {
     }
   };
 
+  /**
+   * Ersetzt OKLCH-Farben in DOM-Elementen durch RGB-Werte zur Kompatibilität mit Exporttools.
+   * @param {HTMLElement} root - Root-Element zum Durchsuchen (default: document.body)
+   */
   function replaceOklchColors(root = document.body) {
-    console.log("called replace colors");
     const elements = root.querySelectorAll("*");
 
     elements.forEach((el) => {
@@ -220,7 +235,6 @@ export default function ImageGallery({ previewData, options }) {
 
         if (value.includes("oklch")) {
           console.warn(`Replacing ${prop} from`, value);
-          // Beispiel: Ersetze mit neutralem RGB-Wert
           el.style[prop] = "rgb(0, 0, 0)";
         }
       });
@@ -233,7 +247,6 @@ export default function ImageGallery({ previewData, options }) {
         isCollapsed ? "collapse-open" : ""
       }`}
     >
-      {/* Toggle Button nur auf kleinen Screens sichtbar */}
       <div
         className="collapse-title font-semibold cursor-pointer hover:bg-white/10 h-16"
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -246,7 +259,6 @@ export default function ImageGallery({ previewData, options }) {
         </button>
       </div>
 
-      {/* Tabs nur zeigen, wenn nicht collapsed ODER auf großen Screens */}
       <div className={`${isCollapsed ? "hidden" : ""} md:block `}>
         <div role="tablist" className="tabs tabs-lift w-full flex">
           {Object.entries(options || {}).map(([key, value]) => {
@@ -274,8 +286,8 @@ export default function ImageGallery({ previewData, options }) {
             <div
               id="export"
               style={{
-                all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
-                fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
+                all: "unset",
+                fontFamily: "inherit",
                 width: `${options[activeTab].width}px`,
                 height: `${options[activeTab].height}px`,
                 overflow: "hidden",
@@ -318,14 +330,14 @@ export default function ImageGallery({ previewData, options }) {
                 >
                   <div
                     style={{
-                      fontFamily: headfont.font_family, // Das bleibt dynamisch
+                      fontFamily: headfont.font_family,
                       width: "100%",
-                      height: "33.3333%", // 2/6 = 33.3333%
+                      height: "33.3333%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "1.5rem", // text-2xl
-                      fontWeight: "700", // font-bold
+                      fontSize: "1.5rem",
+                      fontWeight: "700",
                     }}
                   >
                     <div style={textPosition}>{text && <div>{text}</div>}</div>
@@ -334,8 +346,8 @@ export default function ImageGallery({ previewData, options }) {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))", // grid-cols-3
-                    gap: "0.25rem", // gap-1
+                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                    gap: "0.25rem",
                     width: "100%",
                     height: "100%",
                   }}

@@ -1,3 +1,19 @@
+/**
+ * @fileoverview LogoComponent ist eine anpassbare UI-Komponente,
+ * die das Platzieren, Gestalten und Auswählen von Logos innerhalb eines Layout-Systems ermöglicht.
+ * Nutzer:innen können verschiedene visuelle Eigenschaften eines Logos definieren –
+ * etwa Position, Größe, Deckkraft, Hintergrundfarbe sowie das tatsächliche Logobild selbst.
+ *
+ * Unterstützte Optionen:
+ * - "bg": Hintergrundfarbe des Logos
+ * - "opacity": Transparenz des Logos
+ * - "size": Höhe des Logos
+ * - "posLayer": Position des Logos im Container
+ * - "logo": Auswahl eines Logos aus dem Styleguide oder das Entfernen des Logos
+ *
+ * @module LogoComponent
+ */
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -5,17 +21,27 @@ import Image from "next/image";
 import { BASEURL } from "@/lib/globals";
 import { ICONS } from "@/lib/globals";
 
+/**
+ * LogoComponent
+ *
+ * @param {Object} props - Komponenten-Props
+ * @param {string} props.fieldID - Eindeutige ID für Input-Feldnamen (wichtig bei Formularanbindung)
+ * @param {Array} props.Textvalue - Initialwert für die Konfiguration der Komponente (z. B. ["#000000", 100, "center"])
+ * @param {Function} props.onChange - Callback, der bei Änderungen aufgerufen wird, um den neuen Zustand zurückzugeben
+ * @param {Array<string>} props.options - Liste der aktiven Eingabeoptionen für das Logo (z. B. ["bg", "logo", "size"])
+ *
+ * @returns {JSX.Element} - Ein UI-Baustein zur Auswahl und Darstellung eines Logos
+ */
 const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(Textvalue ? Textvalue : options);
   const [styleguide, setStyleguide] = useState(null);
 
   useEffect(() => {
-    // Nur im Client verfügbar
     const styleRaw = localStorage?.getItem("Styleguide");
     if (styleRaw) {
       try {
         const parsed = JSON.parse(styleRaw);
-        setStyleguide(parsed); // oder ganze Liste, falls du sie brauchst
+        setStyleguide(parsed);
       } catch (err) {
         console.error("Fehler beim Parsen des Styleguides:", err);
       }
@@ -49,13 +75,17 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
     ["flex-end", "flex-end"],
   ];
 
+  /**
+   * Verarbeitet Änderungen durch Benutzer:innen in UI-Feldern
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Das Event-Objekt des geänderten Inputs
+   * @param {number} index - Index der Layer-Ebene im layer-State
+   * @param {string} id - Bezeichner des Eingabetypen ("bg", "opacity", "logo" usw.)
+   */
   const handleChange = (e, index, id) => {
-    console.log("handle Cange", id);
     let lay = [...layer];
     if (id == "posLayer") {
-      console.log("positions", e.target.value);
       const [justify, align] = e.target.value.split(",");
-      console.log("jusifys", justify, align);
       lay[index] = [justify, align];
     } else {
       lay[index] = e.target.value;
@@ -71,8 +101,12 @@ const LogoComponent = ({ fieldID, Textvalue, onChange, options }) => {
     }
   };
 
-  console.log("optons", options);
-
+  /**
+   * Konvertiert einen Prozentwert in einen hexadezimalen Alphawert (0% = FF, 100% = 00)
+   *
+   * @param {number} percent - Ein Prozentwert zwischen 0 und 100
+   * @returns {string} - Der entsprechende Hexadezimalwert als String (z. B. "CC")
+   */
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();

@@ -4,8 +4,25 @@ import LogoUpload from "../input/LogoUpload";
 import { BASEURL } from "@/lib/globals";
 
 /**
- * Colors Komponent
- * Hier kommen versteckte inputfields für die Farben rein
+ * Logos Component
+ *
+ * Zeigt versteckte Upload-Felder für verschiedene Logo-Varianten.
+ * Es gibt Uploads für das große Logo, kleine Logo und ein einfarbiges Logo.
+ *
+ * @param {Object} props - Component Properties
+ * @param {Object} props.dict - Wörterbuch mit Texten und Alternativtexten für die UI.
+ * @param {Object} props.dict.logoUpload - Texte und Konfigurationen für das LogoUpload-Component.
+ * @param {string[]} props.dict.imgAlt - Array mit Alternativtexten für die Logo-Bilder (mind. 1 Eintrag).
+ * @param {string} props.dict.big - Bezeichnung für das große Logo.
+ * @param {string} props.dict.small - Bezeichnung für das kleine Logo.
+ * @param {string} props.dict.oneColor - Bezeichnung für das einfarbige Logo.
+ * @param {string} props.folderID - ID des Ordners, in dem die Logos gespeichert werden.
+ * @param {Object} props.logo - Objekt mit den URLs der Logos.
+ * @param {string} [props.logo.big] - URL des großen Logos.
+ * @param {string} [props.logo.small] - URL des kleinen Logos.
+ * @param {string} [props.logo.one_color] - URL des einfarbigen Logos.
+ *
+ * @returns {JSX.Element} Das gerenderte Logos Component.
  */
 const Logos = ({ dict, folderID, logo }) => {
   return (

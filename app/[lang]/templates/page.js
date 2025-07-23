@@ -4,15 +4,27 @@ import { getDictionary } from "@/lib/getDictionary";
 import BasicCard from "@/components/cards/BasicCard";
 
 /**
- * Styleguide Seite der Anwendung.
- * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf diese Seite weitergeleitet.
- * Sie ist durch die Middleware geschützt.
- * Der Benutzer wird über die Funktion getUserAction geladen.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Hier ist eine Liste der Stylingvoralgen die für verschiedene Formate verwendet werden können.
- * Die Seite wird server-seitig gerendert und die Daten zu der Sprache werden über die Funktion getDictionary geladen.
+ * TemplatesPage - Seite zur Auswahl von Stylingvorlagen (Templates)
+ *
+ * Diese Seite ist eine private Seite, die nur für angemeldete Benutzer sichtbar ist.
+ * Der Zugriff ist durch eine Middleware geschützt, die Nutzer authentifiziert.
+ *
+ * Die Sprache der Seite wird über den URL-Parameter "lang" gesteuert.
+ * Die notwendigen Texte und Beschreibungen werden serverseitig über die Funktion `getDictionary` geladen.
+ *
+ * Inhalt:
+ * - Anzeige einer Liste von Stylingvorlagen, die für verschiedene Komponentenformate verwendet werden können.
+ * - Aktuell sind drei Templates als Array definiert, die per `.map()` in einzelne `BasicCard`-Komponenten gerendert werden.
+ * - Jede Template-Karte zeigt Titel, Beschreibung, ein Bild und eine Aktion (z.B. "Erstellen"-Button) mit entsprechenden Parametern.
+ *
+ * Falls der Benutzer nicht angemeldet ist, wird er auf die Login-Seite weitergeleitet.
+ *
+ * @param {Object} props - Eigenschaften der Seite
+ * @param {Object} props.params - URL-Parameter mit Sprachangabe (z.B. { lang: "de" })
+ *
+ * @returns {JSX.Element} Gerenderte Seite mit Template-Übersicht
  */
+
 export default async function TemplatesPage({ params }) {
   const user = await getUserAction();
   const param = await params;
@@ -21,9 +33,6 @@ export default async function TemplatesPage({ params }) {
   let title = dict.templates.titles;
   let descriptions = dict.templates.descriptions;
 
-  console.log("title", title);
-  console.log("descriptions", descriptions);
-  console.log("action", dict.templates);
   let TempaltesArray = [
     {
       title: title[0] || "Image with text",
@@ -43,7 +52,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: dict.templates.action || "Create",
         url: "/create",
-        parameter: ["template", "image_gallery"], //TODO: image_gallery
+        parameter: ["template", "image_gallery"],
       },
     },
     {
@@ -54,7 +63,7 @@ export default async function TemplatesPage({ params }) {
       action: {
         text: dict.templates.action || "Create",
         url: "/create",
-        parameter: ["template", "text_with_graphic"], //TODO: text_with_graphic
+        parameter: ["template", "text_with_graphic"],
       },
     },
   ];

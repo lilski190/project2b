@@ -2,8 +2,23 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient"; // Stelle sicher, dass du den Supabase-Client importierst
+import { supabase } from "@/lib/supabaseClient";
 
+/**
+ * LogoUpload-Komponente zum Hochladen und Anzeigen eines Logos mit Drag & Drop und Modal.
+ *
+ * @param {Object} props
+ * @param {function(string): void} props.onFileUploaded - Callback mit der URL der hochgeladenen Datei.
+ * @param {Object} [props.dict] - Wörterbuch für UI-Texte (z.B. Button-Text, Modal-Titel).
+ * @param {string} props.fieldID - Eindeutige ID für das Input-Feld.
+ * @param {string} [props.url] - Anfangs-URL des Logos (optional).
+ * @param {string} props.BASEURL - Basis-URL für den Zugriff auf das Storage.
+ * @param {string} props.folderID - Ordner-Pfad für den Upload.
+ * @param {string} props.bucket - Bucket-Name im Supabase Storage.
+ * @param {string} [props.imgAlt] - Alternativer Text für das Bild.
+ *
+ * @returns {JSX.Element} React-Komponente mit Datei-Upload, Drag & Drop und Vorschaubild.
+ */
 export default function LogoUpload({
   onFileUploaded,
   dict,
@@ -18,7 +33,7 @@ export default function LogoUpload({
   const [dragActive, setDragActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [urlPath, setUrlPath] = useState(url ? url : ""); // Setze einen Standardwert für den URL-Pfad
+  const [urlPath, setUrlPath] = useState(url ? url : "");
 
   let baseURL = BASEURL + bucket + "/";
 
@@ -28,7 +43,7 @@ export default function LogoUpload({
     if (fileList && fileList[0]) {
       const file = fileList[0];
       setSelectedFile(file);
-      setModalOpen(true); // Modal öffnen
+      setModalOpen(true);
     }
   };
 
@@ -54,17 +69,14 @@ export default function LogoUpload({
     setUploading(true);
 
     const filePath = `${folderID}/${Date.now()}_${selectedFile.name}`;
-    console.log("Uploading file to:", filePath);
-
     const { data, error } = await supabase.storage
-      .from(bucket) // <-- passe den Bucket-Namen an
+      .from(bucket)
       .upload(filePath, selectedFile, {
         contentType: selectedFile.type || "image/png",
       });
 
-    console.log("Upload result:", data, error);
     if (data.path) {
-      setUrlPath(data.path); // Setze den URL-Pfad für die Vorschau
+      setUrlPath(data.path);
     }
     setUploading(false);
 
@@ -80,8 +92,8 @@ export default function LogoUpload({
         onFileUploaded(urlData.publicUrl);
       }
 
-      setModalOpen(false); // Modal schließen
-      setSelectedFile(null); // Datei zurücksetzen
+      setModalOpen(false);
+      setSelectedFile(null);
     }
   };
 
@@ -116,18 +128,14 @@ export default function LogoUpload({
 
           {!urlPath ? (
             <Image
-              src={
-                BASEURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
-              }
+              src={BASEURL + "basic/illustration/FileUpload.jpg"}
               fill
               alt={"imgAlt" || "File Upload"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
             />
           ) : (
             <Image
-              src={
-                baseURL + urlPath // Verwende den Basis-URL und den Pfad
-              }
+              src={baseURL + urlPath}
               fill
               alt={imgAlt || "Logo"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
@@ -144,7 +152,7 @@ export default function LogoUpload({
           </button>
         </div>
       </div>
-      {/* Modal */}
+
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-lg p-6 w-96 shadow-lg">

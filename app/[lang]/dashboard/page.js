@@ -9,13 +9,31 @@ import { cookies } from "next/headers";
 import VereinTopper from "@/components/structure/VereinTopper";
 
 /**
- * Dashboard Seite der Anwendung.
- * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf diese Seite weitergeleitet.
- * Sie ist durch die Middleware geschützt.
- * Der Benutzer wird über die Funktion getUserAction geladen.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ * `DashboardPage` ist die zentrale Startseite für angemeldete Benutzer nach dem Login.
+ *
+ * Diese Seite ist **privat** und durch Middleware geschützt. Unauthentifizierte Benutzer werden automatisch zur Login-Seite weitergeleitet.
+ * Der aktuell angemeldete Benutzer wird serverseitig über `getUserAction()` identifiziert.
+ *
+ * Die Sprache der Seite wird über den URL-Parameter `lang` bestimmt (Standard: `"de"`).
+ * Sprachabhängige Inhalte wie Überschriften und Beschreibungen werden über `getDictionary(lang)` geladen.
+ *
+ * Die Seite zeigt eine **Übersicht über die Hauptfunktionen der Anwendung**:
+ * - **Styleguide**: Anpassung visueller Komponenten
+ * - **Templates**: Übersicht und Verwaltung der Content-Templates
+ * - **Content**: Anzeige und Verwaltung erstellter Inhalte
+ *
+ * Weitere wichtige Komponenten:
+ * - `VereinTopper`: Zeigt Vereinsname und Mitgliedsnamen an (aus Cookies geladen)
+ * - `StyleguideLoader`: Lädt globale Design-/Styleguide-Daten der Anwendung
+ * - `IconTextCard`: Visuelle Repräsentation der Navigationseinträge
+ *
+ * @async
+ * @function DashboardPage
+ * @param {Object} props - Serverseitige Parameter für die Seite
+ * @param {Object} props.params - URL-Parameter-Objekt
+ * @param {string} props.params.lang - Sprachcode wie `"de"` oder `"en"` (optional, default: `"de"`)
+ *
+ * @returns {Promise<JSX.Element>} Das gerenderte Dashboard für angemeldete Benutzer
  */
 export default async function DashboardPage({ params }) {
   const user = await getUserAction();

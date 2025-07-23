@@ -11,18 +11,23 @@ import { ICONS } from "@/lib/globals";
 
 /**
  * HeaderWithSidebar Komponent
- * Dieser Komponent ist ein Header mit einer Sidebar, die Links zu verschiedenen Seiten enthält.
- * Die Sidebar ist standardmäßig ausgeblendet und kann durch Klicken auf das Hamburger-Menü-Symbol geöffnet werden.
- * Das Styling erfolgt über Tailwind CSS-Klassen und DaisyUI-Klassen.
- * @param {String} lang - Die aktuelle Sprache der Anwendung, die in der URL verwendet wird.
+ *
+ * Ein Header mit Hamburger-Menü und Sidebar, die Navigationslinks basierend auf
+ * dem Login-Status anzeigt. Die Sidebar ist standardmäßig ausgeblendet und wird
+ * durch das Öffnen des Drawers sichtbar.
+ *
+ * Das Styling basiert auf Tailwind CSS und DaisyUI.
+ *
+ * @param {Object} props
+ * @param {string} props.lang - Aktuelle Sprache der Anwendung (für URLs).
+ * @param {Object} props.dict - Übersetzungsobjekt mit Texten für UI-Elemente.
+ * @param {Object|null} props.user - Aktuell eingeloggter Nutzer; falsy, wenn nicht eingeloggt.
+ *
+ * @returns {JSX.Element} JSX-Element für Header und Sidebar.
  */
 export default function HeaderWithSidebar({ lang, dict, user }) {
   const pathname = usePathname();
-
-  // Zerlegt den Pfad in Teile: ["", "de", "style"]
   const segments = pathname.split("/");
-
-  // Letztes Segment holen
   const lastSegment = segments[segments.length - 1];
 
   let actions = pathnames.actions;
@@ -183,10 +188,8 @@ export default function HeaderWithSidebar({ lang, dict, user }) {
             </div>
           )}
         </div>
-        {/* Platz für den Seiteninhalt */}
-        <div className="mt-16  bg-base-100">
-          {/* Hier werden Kinderkomponenten platziert */}
-        </div>
+
+        <div className="mt-16  bg-base-100"></div>
       </div>
 
       {/* Sidebar */}

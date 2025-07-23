@@ -5,31 +5,25 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 /**
- * Login-Action für die Authentifizierung eines Benutzers.
- * Diese Funktion wird aufgerufen, wenn ein Benutzer sich anmelden möchte.
- * Sie verwendet Supabase, um die Anmeldedaten zu überprüfen und ein Authentifizierungstoken zu generieren.
- * Bei erfolgreicher Anmeldung wird ein Cookie mit dem Authentifizierungstoken gesetzt und der Benutzer wird zur Dashboard-Seite weitergeleitet.
- * Bei einem Fehler wird eine Fehlermeldung zurückgegeben.
- * Die funktion kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
- * @param {object} formData - Das FormData-Objekt mit den Eingabewerten, beinhaltet email und password.
+ * Login-Action für die Benutzerauthentifizierung.
+ *
+ * Diese Funktion wird serverseitig aufgerufen, wenn sich ein Benutzer anmeldet.
+ * Sie prüft die Anmeldedaten mittels Supabase und setzt bei Erfolg mehrere
+ * Cookies mit Sitzungs- und Benutzerinformationen.
+ * Anschließend wird der Benutzer zum Dashboard weitergeleitet.
+ *
+ * @param {FormData} formData - Formulardaten mit den Feldern "email", "password" und "verein".
+ * @returns {Promise<object|undefined>} Gibt ein Fehlerobjekt zurück, falls ein Fehler auftritt.
  */
 export async function loginAction(formData) {
   const email = formData.get("email");
-
   const password = formData.get("password");
   const verein = formData.get("verein");
-
-  console.log("Login action triggered for Verein:", verein);
-
-  console.log("Login action triggered with email:", email);
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
-
-  console.log("Supabase response:", data, error);
-
   if (error) {
     return { error: error.message };
   }
@@ -57,7 +51,6 @@ export async function loginAction(formData) {
   });
 
   let LoginData = await getLoginData(verein, email);
-  console.log("LOGIN GELADEN :: LoginData:", LoginData);
   if (LoginData.error) {
     console.error("Fehler beim Abrufen der Login-Daten:", LoginData.error);
     return { error: LoginData.error };
@@ -95,24 +88,25 @@ export async function loginAction(formData) {
       sameSite: "lax",
       secure: true,
     });
-
-    console.log("Login-Daten erfolgreich abgerufen, jetzt redirect:)");
-
     redirect("/dashboard");
   }
 }
 
+/**
+ * Logout-Action für die Benutzerauthentifizierung.
+ *
+ * Diese Funktion meldet den Benutzer bei Supabase ab und löscht
+ * alle relevanten Session-Cookies, um die Sitzung zu beenden.
+ *
+ * @returns {Promise<void>}
+ */
 export async function logoutAction() {
-  console.log("CALLED LOGOUT: ");
-  // Supabase-Session beenden
   await supabase.auth.signOut();
-
   const cookieStore = await cookies();
 
   const projectRef =
     process.env.NEXT_PUBLIC_SUPABASE_URL?.split("https://")[1]?.split(".")[0];
 
-  // Liste der Login-relevanten Cookies
   const cookieNames = [
     `sb-${projectRef}-auth-token`,
     "verein_id",
@@ -122,23 +116,31 @@ export async function logoutAction() {
     "verein_tags",
   ];
 
-  // Alle Cookies löschen
   for (const name of cookieNames) {
     cookieStore.set(name, "", {
       path: "/",
       httpOnly: true,
       secure: true,
       sameSite: "lax",
-      maxAge: 0, // Sofort löschen
+      maxAge: 0,
     });
   }
 }
 
+/**
+ * Hilfsfunktion zum Laden erweiterter Login-Daten.
+ *
+ * Lädt die Member- und Vereinsdaten aus der Datenbank und prüft,
+ * ob die eingegebenen Daten vollständig und korrekt sind.
+ * Stellt sicher, dass der angegebene Vereinsname mit dem Datenbankeintrag übereinstimmt.
+ *
+ * @param {string} vereinName - Der eingegebene Vereinsname aus dem Login-Formular.
+ * @param {string} email - Die E-Mail-Adresse des Benutzers (optional für Erweiterungen).
+ * @returns {Promise<object>} Objekt mit Vereins- und Member-Daten oder einem Fehlerfeld.
+ */
 export async function getLoginData(vereinName) {
   const cookieStore = await cookies();
-  console.log("GET LOGIN DATA!!!");
 
-  // 1. Member des eingeloggten Users abrufen
   const { data: member, error: memberError } = await supabase
     .from("Member")
     .select("*")
@@ -149,15 +151,11 @@ export async function getLoginData(vereinName) {
     return { error: "Mitglied nicht gefunden." };
   }
 
-  console.log("Gefundener Member:", member);
-
-  // 2. Prüfen, ob eine Verein-ID vorhanden ist
   if (!member.verein_id) {
     console.error("Verein-ID fehlt im Member-Datensatz.");
     return { error: "Verein nicht zugeordnet." };
   }
 
-  // 3. Verein abrufen (nur wenn Member erfolgreich geladen wurde)
   const { data: verein, error: vereinError } = await supabase
     .from("Verein")
     .select("id, name, tags")
@@ -169,15 +167,11 @@ export async function getLoginData(vereinName) {
     return { error: "Verein nicht gefunden." };
   }
 
-  // 4. Vereinsnamen prüfen
   if (verein.name !== vereinName) {
     console.warn("Eingegebener Vereinsname stimmt nicht überein.");
     return { error: "Falscher Vereinsname." };
   }
 
-  console.log("Verein und Member erfolgreich abgerufen:", verein, member);
-
-  // 5. Erfolgreich → Rückgabe
   return {
     verein_id: verein.id,
     member_id: member.id,

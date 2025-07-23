@@ -4,6 +4,23 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 
+/**
+ * FileUpload – React-Komponente für das Hochladen und Anzeigen von Dateien mit Drag & Drop-Unterstützung.
+ *
+ * @component
+ *
+ * @param {Object} props - Komponenteneigenschaften.
+ * @param {Function} [props.onFileUploaded] - Callback bei erfolgreichem Upload (gibt die Public URL zurück).
+ * @param {Object} [props.dict] - Übersetzungen (z. B. für Buttontexte oder Alt-Texte).
+ * @param {string} props.fieldID - Formular-Feld-ID zur Identifikation.
+ * @param {string} [props.url] - Optionaler Startwert / Bild-URL.
+ * @param {string} props.BASEURL - Basis-URL für die Darstellung der Datei.
+ * @param {string} props.folderID - Zielordner im Bucket (Pfadname).
+ * @param {string} props.bucket - Supabase Storage Bucket-Name.
+ * @param {Function} [props.onChange] - Callback bei URL-Änderung (z. B. für Formulare).
+ *
+ * @returns {JSX.Element} FileUpload-Komponente mit Vorschau, Dateiauswahl und Modal-Upload.
+ */
 export default function FileUpload({
   onFileUploaded,
   dict,
@@ -31,12 +48,11 @@ export default function FileUpload({
     if (fileList && fileList[0]) {
       const file = fileList[0];
       setSelectedFile(file);
-      setModalOpen(true); // Modal öffnen
+      setModalOpen(true);
     }
   };
 
   const handleDrag = (e) => {
-    console.log("DRAG CTIVE");
     e.preventDefault();
     e.stopPropagation();
     setDragActive(e.type === "dragover");
@@ -58,13 +74,9 @@ export default function FileUpload({
     setUploading(true);
 
     const filePath = `${folderID}/${Date.now()}_${selectedFile.name}`;
-    console.log("Uploading file to:", filePath);
-
     const { data, error } = await supabase.storage
       .from(bucket)
       .upload(filePath, selectedFile);
-
-    console.log("Upload result:", data, error);
     if (data.path) {
       setUrlPath(data.path);
     }
@@ -86,8 +98,8 @@ export default function FileUpload({
       if (onChange) {
         onChange(urlData.publicUrl);
       }
-      setModalOpen(false); // Modal schließen
-      setSelectedFile(null); // Datei zurücksetzen
+      setModalOpen(false);
+      setSelectedFile(null);
     }
   };
 
@@ -121,9 +133,7 @@ export default function FileUpload({
           <div className=" flex justify-center w-full h-full z-0 opacity-80 rounded-md">
             {uploaded ? (
               <Image
-                src={
-                  baseURL + urlPath // Verwende den Basis-URL und den Pfad
-                }
+                src={baseURL + urlPath}
                 fill
                 alt={dict?.imgAlt || "Texture"}
                 className="rounded-md"

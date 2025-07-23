@@ -1,11 +1,20 @@
 import { getDictionary } from "@/lib/getDictionary";
 
 /**
- * About Seite der Anwendung.
- * Diese Seite ist eine Public Seite und kann von jedem Benutzer aufgerufen werden.
- * Sie binhaltet Information über das Projekt
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ * `AboutPage` ist eine serverseitig gerenderte öffentliche Seite, die Hintergrundinformationen über das Projekt anzeigt.
+ *
+ * Die Inhalte werden abhängig von der Sprache aus dem Sprach-Dictionary geladen, das über die `getDictionary`-Funktion bereitgestellt wird.
+ * Die Sprache wird aus dem URL-Parameter `lang` entnommen. Ist kein Parameter vorhanden, wird standardmäßig `"de"` verwendet.
+ *
+ * Die Seite zeigt verschiedene textbasierte Abschnitte über das Projekt an – z. B. Hintergrund, Idee, Features und Haftungsausschluss.
+ *
+ * @async
+ * @function AboutPage
+ * @param {Object} props - Serverseitige Props der Seite
+ * @param {Object} props.params - URL-Parameter-Objekt, erwartet ein `lang`-Feld zur Sprachauswahl
+ * @param {string} props.params.lang - Sprachcode (z. B. `"de"`, `"en"`)
+ *
+ * @returns {Promise<JSX.Element>} Das gerenderte JSX der About-Seite
  */
 export default async function AboutPage({ params }) {
   const param = await params;

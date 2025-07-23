@@ -2,15 +2,32 @@ import { getDictionary } from "@/lib/getDictionary";
 import LoginForm from "@/components/login/loginForm";
 
 /**
- * Login Seite der Anwendung.
- * Diese Seite ist eine Public Seite die nur für nicht angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf die Dashboard Seite weitergeleitet.
- * Sie ist nicht durch die Middleware geschützt.
- * Im Login Formular wird die Funktion loginAction aufgerufen.
- * Diese Funktion ist in der Datei app/actions/userActions.js definiert.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ * `LoginPage` ist die Anmeldeseite der Anwendung.
+ *
+ * Diese Seite ist **öffentlich zugänglich**, aber **nur für nicht angemeldete Benutzer** gedacht.
+ * Angemeldete Benutzer werden automatisch zum Dashboard weitergeleitet (diese Logik liegt in der `LoginForm`-Komponente bzw. der Authentifizierungslogik).
+ *
+ * Die Seite ist **nicht durch Middleware geschützt**.
+ *
+ * ## Funktionen:
+ * - Zeigt einen Begrüßungstext sowie eine Beschreibung des Logins.
+ * - Stellt ein Login-Formular bereit über den importierten `LoginForm`-Component.
+ * - Unterstützt Mehrsprachigkeit durch dynamisches Laden des Sprach-Wörterbuchs via `getDictionary(lang)`.
+ *
+ * ## Technische Details:
+ * - Die Sprache wird über den URL-Parameter `lang` bestimmt, Standard ist `"de"`.
+ * - Die Seite wird **serverseitig gerendert (SSR)**.
+ * - Die Login-Funktionalität wird über eine separate Action in `@/app/actions/userActions.js` gehandhabt.
+ *
+ * @async
+ * @function LoginPage
+ * @param {Object} props - Serverseitige Parameter
+ * @param {Object} props.params - Objekt mit URL-Parametern
+ * @param {string} props.params.lang - Sprachcode, z. B. `"de"` oder `"en"` (optional)
+ *
+ * @returns {Promise<JSX.Element>} Die gerenderte Login-Seite als React-Komponente
  */
+
 export default async function LoginPage({ params }) {
   const param = await params;
   const lang = param.lang || "de";

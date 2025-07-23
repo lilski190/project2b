@@ -1,5 +1,5 @@
 /**
- * Bildergalerie mit Grafiken und Text
+ * Noch nicht implementierte Componente: Bildergalerie mit Grafiken und Text
  */
 export default function ImageGalleryWithGraphicsAndText() {
   return (

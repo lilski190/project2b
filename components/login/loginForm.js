@@ -6,12 +6,18 @@ import { useState } from "react";
 import { VEREINE } from "@/lib/globals";
 
 /**
- * LoginForm Komponent
- * Dieser Komponent ist ein einfaches Login-Formular, das in verschiedenen Themen verwendet werden kann.
- * Er enthält Eingabefelder für E-Mail und Passwort sowie einen Button zum Einloggen.
- * Das Styling erfolgt über Tailwind CSS-Klassen und DaisyUI-Klassen.
- * Die Login-Action wird über die Funktion loginAction aufgerufen, die in der Datei app/actions/authAction.js definiert ist.s
- * @param {Object} dict - Das Wörterbuch-Objekt, das die Übersetzungen für die verschiedenen Sprachen enthält.
+ * LoginForm Komponente
+ *
+ * Ein einfaches Login-Formular mit Verein-Auswahl, Email- und Passwort-Feldern.
+ * Verwendet Tailwind CSS und DaisyUI für das Styling.
+ * Sendet die Formular-Daten via loginAction zur Authentifizierung.
+ *
+ * @param {Object} props
+ * @param {Object} props.dict - Wörterbuch-Objekt für Übersetzungen.
+ * @param {Object} props.dict.login - Übersetzungen für Login.
+ * @param {string} props.dict.login.login - Text für den Login-Button.
+ *
+ * @returns {JSX.Element} Das gerenderte Login-Formular.
  */
 export default function LoginForm({ dict }) {
   const [selectedValue, setSelectedValue] = useState("");
