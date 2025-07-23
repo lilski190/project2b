@@ -6,12 +6,18 @@ import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 
+/**
+ * @component GraohicWithText
+ * @description Zeigt eine gestaltete Grafik mit Text, Logo, Layern und Exportfunktionen in unterschiedlichen Formaten (z. B. PDF, HTML, PNG).
+ * @param {Object} previewData - Strukturierte Eingabedaten mit Typen wie Image, Headline, Text, Logo etc.
+ * @param {Object} options - Darstellungseinstellungen für Tabs wie "web", "instagram", "Presentation" etc.
+ */
 export default function GraohicWithText({ previewData, options }) {
-  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
+  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]);
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
+  const [headfont, setHeadfont] = useState("font-orbitron");
   const [svgContent, setSvgContent] = useState(null);
 
   let imgURL;
@@ -50,6 +56,12 @@ export default function GraohicWithText({ previewData, options }) {
     )?.value;
   }
 
+  /**
+   * Lädt ein Bild von einer URL und wandelt es in einen Base64-Datenstring um.
+   * @async
+   * @param {string} url - Pfad zur Bilddatei
+   * @returns {Promise<string|null>} Base64-Daten-URL oder `null` bei Fehler
+   */
   async function getImageAsBase64(url) {
     try {
       const response = await fetch(url);
@@ -65,6 +77,9 @@ export default function GraohicWithText({ previewData, options }) {
     }
   }
 
+  /**
+   * Lädt Base64-Versionen der Bild- und Logodaten und setzt optional die Schriftart aus dem LocalStorage.
+   */
   useEffect(() => {
     if (imgURL) {
       getImageAsBase64(imgURL).then((dataUrl) => {
@@ -81,7 +96,6 @@ export default function GraohicWithText({ previewData, options }) {
         try {
           const style = JSON.parse(styleRaw);
           const fonts = style[0]?.fonts;
-          console.log("fonts", fonts);
           if (fonts?.heading) {
             setHeadfont(fonts.heading);
           }
@@ -92,6 +106,10 @@ export default function GraohicWithText({ previewData, options }) {
     }
   }, [imgURL, logoUrl]);
 
+  /**
+   * Holt ein SVG-Overlay (Layer) aus einer URL und passt es dynamisch mit Farbe und Transparenz an.
+   * Nur wenn gültige SVG-URL vorhanden ist.
+   */
   useEffect(() => {
     const fetchSvg = async () => {
       try {
@@ -116,8 +134,6 @@ export default function GraohicWithText({ previewData, options }) {
           .replace(/stroke=".*?"/g, 'stroke="transparent"')
           .replace(/width=".*?"/g, `width="100%"`)
           .replace(/height=".*?"/g, `height="100%"`);
-
-        console.log("styled svg", styledSvg);
         setSvgContent(styledSvg);
       } catch (err) {
         console.error("Fehler beim Laden der SVG:", err);
@@ -127,32 +143,25 @@ export default function GraohicWithText({ previewData, options }) {
     fetchSvg();
   }, [layerData]);
 
+  /**
+   * Konvertiert einen Prozentwert (0–100) in einen 2-stelligen HEX-Alpha-Kanal-Wert.
+   * @param {number} percent - Prozentwert der Transparenz
+   * @returns {string} HEX-Wert (z. B. "80" für 50%)
+   */
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
     return hex;
   }
-  //layerData = ["black", "30", "full", "end", "left"];
 
   if (layerData != undefined) {
-    console.log("Layers", layerData[4]);
-    // const [justify, align] = layerData[4].split(",");
-    console.log("align", layerData[4][1], "justify", layerData[4][0]);
-    // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
-    // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
     layer = {
-      // backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      height: layerData[2], // h-30 ≈ 30 * 0.25rem
-      width: layerData[2], // w-30
+      height: layerData[2],
+      width: layerData[2],
       margin: "-20% -30% -20% -30%",
-
-      fontSize: "1.5rem", // text-2xl
+      fontSize: "1.5rem",
       fontWeight: "bold",
-
       display: "flex",
-      //   Child alligment:
       alignItems: textLayer[1][1],
       justifyContent: textLayer[1][0],
       position: "relative",
@@ -160,7 +169,7 @@ export default function GraohicWithText({ previewData, options }) {
 
     layerPosition = {
       position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
+      inset: 0,
       display: "flex",
       alignItems: layerData[3][1],
       justifyContent: layerData[3][0],
@@ -174,19 +183,17 @@ export default function GraohicWithText({ previewData, options }) {
   if (textLayer != undefined && logoStyle != undefined) {
     textPosition = {
       color: textLayer[0],
-      width: "100%", //textLayer[2],
-
+      width: "100%",
       textAlign: textLayer[3],
-      position: "absolute", // wichtig!
+      position: "absolute",
       top: 0,
       left: 2,
       bottom: 0,
       right: 0,
       display: "flex",
-      alignItems: textLayer[1][1], // z.B. center
-      justifyContent: textLayer[1][0], // z.B. center
+      alignItems: textLayer[1][1],
+      justifyContent: textLayer[1][0],
       padding: "1rem",
-      //backgroundColor: "#c62f2f57", // optional: Hintergrundfarbe für den Textbereich
     };
     textSize = {
       margin: "2rem",
@@ -195,26 +202,19 @@ export default function GraohicWithText({ previewData, options }) {
     };
     logoPosition = {
       position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
+      inset: 0,
       display: "flex",
       alignItems: logoStyle[3][1],
       justifyContent: logoStyle[3][0],
       opacity: parseInt(logoStyle[1], 10) / 100,
     };
     logolayer = {
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      //height: logoStyle[2], // h-30 ≈ 30 * 0.25rem
-      width: logoStyle[2], // w-30
+      width: logoStyle[2],
       aspectRatio: "1 /1",
-      // backgroundColor: "#909090",
       position: "absolute",
       display: "flex",
     };
   }
-
-  //layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]} bg-primary`;
-
   logoUrl = BASEURL + "styles/" + logoStyle[0];
 
   if (logoUrl) {
@@ -223,12 +223,15 @@ export default function GraohicWithText({ previewData, options }) {
     });
   }
 
+  /**
+   * Exportiert das aktuell sichtbare Element in PDF, HTML oder PNG je nach aktivem Tab.
+   * Verwendet html2canvas & jsPDF für Screenshot- und PDF-Generierung.
+   * @async
+   */
   const handleExport = async () => {
-    console.log("export tirggeded for: ", activeTab);
     const element = document.getElementById("export");
     const width = options[activeTab].width;
     const height = options[activeTab].height;
-
     if (!element) return;
 
     replaceOklchColors(document.getElementById("export"));
@@ -240,8 +243,6 @@ export default function GraohicWithText({ previewData, options }) {
     const imgData = canvas.toDataURL("image/png");
 
     if (activeTab === "web") {
-      // HTML Export: evtl. statisch per Download
-
       const htmlContent = element.outerHTML;
       const blob = new Blob([htmlContent], { type: "text/html" });
       const link = document.createElement("a");
@@ -251,8 +252,7 @@ export default function GraohicWithText({ previewData, options }) {
     } else if (activeTab === "instagram") {
       const link = document.createElement("a");
       link.href = imgData;
-      console.log("IMG", link.href);
-      link.download = "instagram-post.png"; // JPG wäre kleiner, PNG hat bessere Qualität
+      link.download = "instagram-post.png";
       link.click();
     } else if (activeTab === "Presentation" || activeTab === "DINA6") {
       const pdf = new jsPDF({
@@ -260,14 +260,17 @@ export default function GraohicWithText({ previewData, options }) {
         unit: "px",
         format: [width, height],
       });
-
       pdf.addImage(imgData, "PNG", 0, 0, width, height);
       pdf.save(`${activeTab}.pdf`);
     }
   };
 
+  /**
+   * Ersetzt CSS-Farben im OKLCH-Format in einem DOM-Baum durch RGB-Werte.
+   * Workaround für Inkompatibilitäten bei Export-Tools (z. B. html2canvas).
+   * @param {HTMLElement} [root=document.body] - Ausgangs-DOM-Element für das Scannen
+   */
   function replaceOklchColors(root = document.body) {
-    console.log("called replace colors");
     const elements = root.querySelectorAll("*");
 
     elements.forEach((el) => {
@@ -279,7 +282,6 @@ export default function GraohicWithText({ previewData, options }) {
 
         if (value.includes("oklch")) {
           console.warn(`Replacing ${prop} from`, value);
-          // Beispiel: Ersetze mit neutralem RGB-Wert
           el.style[prop] = "rgb(0, 0, 0)";
         }
       });
@@ -292,7 +294,6 @@ export default function GraohicWithText({ previewData, options }) {
         isCollapsed ? "collapse-open" : ""
       }`}
     >
-      {/* Toggle Button nur auf kleinen Screens sichtbar */}
       <div
         className="collapse-title font-semibold cursor-pointer hover:bg-white/10 h-16"
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -304,7 +305,6 @@ export default function GraohicWithText({ previewData, options }) {
           Export: {activeTab}
         </button>
       </div>
-      {/* Tabs nur zeigen, wenn nicht collapsed ODER auf großen Screens */}
       <div className={`${isCollapsed ? "hidden" : ""} md:block `}>
         <div role="tablist" className="tabs tabs-lift w-full flex">
           {Object.entries(options || {}).map(([key, value]) => {
@@ -332,8 +332,8 @@ export default function GraohicWithText({ previewData, options }) {
             <div
               id="export"
               style={{
-                all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
-                fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
+                all: "unset",
+                fontFamily: "inherit",
                 width: `${options[activeTab].width}px`,
                 height: `${options[activeTab].height}px`,
                 overflow: "hidden",

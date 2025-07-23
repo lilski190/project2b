@@ -3,13 +3,23 @@ import { useState, useEffect } from "react";
 import { FONTS, ICONS } from "@/lib/globals";
 
 const fonts = FONTS;
+
+/**
+ * FontSelector – Dropdown-Komponente zur Auswahl einer Schriftart.
+ *
+ * @param {Object} props
+ * @param {Function} props.onChange - Callback, das mit dem Klassennamen der gewählten Schriftart aufgerufen wird.
+ * @param {string} props.fieldID - Eindeutige ID für das Formularfeld.
+ * @param {string} [props.defaultFont] - Optionaler Standardwert als Klassenname der Schriftart.
+ *
+ * @returns {JSX.Element} Dropdown mit Schriftart-Auswahl und Anzeige der gewählten Schriftart.
+ */
 export default function FontSelector({ onChange, fieldID, defaultFont }) {
   const [selected, setSelected] = useState(
     fonts.find((font) => font.className === defaultFont) || fonts[0]
   );
 
   const handleSelect = (font) => {
-    console.log("Selected font:", font);
     setSelected(font);
     onChange(font.className);
   };

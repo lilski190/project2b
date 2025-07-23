@@ -2,6 +2,17 @@
 
 import React, { useRef, useState } from "react";
 
+/**
+ * @component CustomColorPicker
+ * @description Farbpicker-Komponente mit Farbvorschau, verstecktem Farbfeld und hexadezimalem Eingabefeld.
+ *
+ * @param {Object} props - Komponenteneigenschaften.
+ * @param {string} props.fieldID - ID und Name für das Textinput-Feld.
+ * @param {string} [props.ColorValue] - Initialer Farbwert im HEX-Format (z. B. "#ff0000").
+ * @param {Function} [props.onColorChange] - Callback-Funktion bei Farbänderung, erhält den neuen Wert als String.
+ *
+ * @returns {JSX.Element} Eine interaktive Farbauswahl-Komponente.
+ */
 const CustomColorPicker = ({ fieldID, ColorValue, onColorChange }) => {
   const [color, setColor] = useState(ColorValue ?? "#0080c0");
   const colorInputRef = useRef(null);
@@ -17,14 +28,12 @@ const CustomColorPicker = ({ fieldID, ColorValue, onColorChange }) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      {/* Stylbarer Trigger */}
       <div
         className="w-16 h-16 rounded-full ring-4 ring-neutral/60 cursor-pointer transition-all duration-200 ease-in-out hover:ring-info hover:scale-105 hover:shadow-md"
         style={{ backgroundColor: color }}
         onClick={handleColorClick}
       />
 
-      {/* Unsichtbarer echter Input */}
       <input
         type="color"
         ref={colorInputRef}
@@ -34,7 +43,6 @@ const CustomColorPicker = ({ fieldID, ColorValue, onColorChange }) => {
         id={"colorInput" + fieldID}
       />
 
-      {/* Hex-Textfeld */}
       <input
         type="text"
         value={color}

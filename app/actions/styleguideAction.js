@@ -4,15 +4,14 @@ import { supabase } from "@/lib/supabaseClient";
 import { cookies } from "next/headers";
 
 /**
- * Get-Action für den Styleguide für den Verein.
- * Aktuell mit Dummy-Daten.
-
+ * Holt den Styleguide für den aktuell angemeldeten Verein.
+ * Die Verein-ID wird aus dem Cookie gelesen und verwendet.
+ *
+ * @returns {Promise<{stringify?: string, error?: string}>} JSON-String des Styleguides oder Fehlermeldung.
  */
 export async function getStyleguideAction() {
-  console.log("Daten für den Styleguide laden!");
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
-  console.log("Verein ID aus Cookie:", vereinId);
   if (!vereinId) {
     console.error("Keine Verein-ID im Cookie gefunden.");
     return { error: "Nicht autorisiert" };
@@ -27,17 +26,20 @@ export async function getStyleguideAction() {
     console.error("Fehler beim Laden des Styleguides:", error);
     return { error: "Kein Styleguide gefunden." };
   }
-  console.log("Styleguide geladen:", styleguide);
-
   let stringify = JSON.stringify(styleguide);
   return { stringify };
 }
 
+/**
+ * Speichert bzw. aktualisiert den Styleguide des Vereins.
+ * Die Daten werden aus dem FormData-Objekt ausgelesen.
+ *
+ * @param {FormData} formData - FormData mit den Styleguide-Feldern.
+ * @returns {Promise<{data?: object, error?: string}>} Erfolgs- oder Fehlermeldung.
+ */
 export async function saveStyleguideAction(formData) {
-  console.log("Daten für den Styleguide speichern!", formData);
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
-  console.log("Verein ID aus Cookie:", vereinId);
 
   if (!vereinId) {
     console.error("Keine Verein-ID im Cookie gefunden.");
@@ -87,8 +89,6 @@ export async function saveStyleguideAction(formData) {
     },
   };
 
-  console.log("Parsed data:", data);
-
   const { error } = await supabase
     .from("Styleguide")
     .update({
@@ -105,7 +105,5 @@ export async function saveStyleguideAction(formData) {
     console.error("Fehler beim Speichern des Styleguides:", error);
     return { error: "Fehler beim Speichern" };
   }
-
-  console.log("Styleguide erfolgreich gespeichert!");
   return { data };
 }

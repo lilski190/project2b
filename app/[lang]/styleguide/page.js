@@ -5,14 +5,31 @@ import { getStyleguideAction } from "@/app/actions/styleguideAction";
 import StyleguideForm from "./StyleguideForm";
 import { cookies } from "next/headers";
 /**
- * Styleguide Seite der Anwendung.
- * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf diese Seite weitergeleitet.
- * Sie ist durch die Middleware geschützt.
- * Der Benutzer wird über die Funktion getUserAction geladen.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Hier kann der Verein seinen Styleguide anpassen und verwalten.
- * Die Seite wird server-seitig gerendert und die Daten zu der Sprache werden über die Funktion getDictionary geladen.
+ * `StyleguidePage` ist die Konfigurationsseite für den Styleguide eines Vereins.
+ *
+ * Diese Seite ist **nur für authentifizierte Benutzer zugänglich** und durch Middleware geschützt.
+ * Sie dient dazu, die visuellen Stilmittel (Farben, Schriftarten, Logos etc.) eines Vereins zu verwalten und anzupassen.
+ *
+ * ## Funktionen:
+ * - Lädt den aktuell angemeldeten Benutzer über `getUserAction()`.
+ * - Lädt sprachspezifische Texte und Labels über `getDictionary(lang)`.
+ * - Lädt den aktuellen Styleguide des Vereins über `getStyleguideAction()`.
+ * - Liest Vereinsinformationen (`verein_id` und `verein_name`) aus den Cookies.
+ * - Übergibt alle nötigen Daten an die `StyleguideForm`-Komponente.
+ * - Leitet Benutzer ohne gültige Session zur Login-Seite weiter.
+ *
+ * ## Technische Details:
+ * - SSR (Server Side Rendering)
+ * - Sprache wird dynamisch über den URL-Parameter `lang` bestimmt (Standard: `"de"`).
+ * - Die Vereins-ID wird aus dem Cookie `verein_id` extrahiert und für Dateipfade formatiert.
+ *
+ * @async
+ * @function StyleguidePage
+ * @param {Object} props - Serverseitige Properties
+ * @param {Object} props.params - URL-Parameter
+ * @param {string} props.params.lang - Sprachcode (z. B. `"de"`, `"en"`)
+ *
+ * @returns {Promise<JSX.Element>} Die gerenderte Styleguide-Seite
  */
 export default async function StyleguidePage({ params }) {
   const user = await getUserAction();
@@ -20,16 +37,12 @@ export default async function StyleguidePage({ params }) {
   const lang = param.lang || "de";
   const dict = await getDictionary(lang);
   const styleguideData = await getStyleguideAction();
-  console.log("StyleguideData:", styleguideData.stringify);
 
   const cookieStore = await cookies();
   const rawId = cookieStore.get("verein_id")?.value;
   const vereinId = rawId?.split("-")[0];
   const vereinName = cookieStore.get("verein_name")?.value;
   const vereinString = vereinName?.replace(/\s+/g, "_");
-  console.log("Verein Name:", vereinString);
-  //TODO: VERIEN NAME leerezeichen ersetzen durch _ !!!
-
   if (!user) {
     redirect("/login");
   }

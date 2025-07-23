@@ -14,8 +14,12 @@ import LogoComponent from "@/components/createForms/LogoComponent";
 import InformationTooltipRight from "@/components/tooltips/InformationTooltipRight";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
 /**
- * Styleguide FORM Komponent
+ * Dieser Component ist ein Client Component, der das Formular für die Content-Erstellung anzeigt.
+ * Es wird verwendet, um dem Benutzer die Möglichkeit zu geben, Content zu erstellen oder zu bearbeiten.
+ * DIe Formelemente werden dymacishc für jedes Teplate gerendert und wiedergegeben
+ * Dabei werden sie anhand der types aus dem templatedescriptor ausgewählt mit if
  */
 export default function CreateForm({
   dict,
@@ -52,6 +56,35 @@ export default function CreateForm({
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  /**
+   * `CreateForm` ist ein React Client Component, das ein dynamisches Formular zur Content-Erstellung oder -Bearbeitung rendert.
+   *
+   * Das Formular wird auf Basis eines Templates aufgebaut, das unterschiedliche Eingabefelder (wie Text, Bild, Checkbox, etc.) vorgibt.
+   * Die Eingabefelder werden durch ihren jeweiligen `type` im `template`-Descriptor identifiziert und entsprechend dynamisch gerendert.
+   *
+   * Der Benutzer kann:
+   * - Inhalte erstellen oder aktualisieren (abhängig vom `contentID` und `duplicate`-Status)
+   * - Tags auswählen
+   * - Titel und Autoren angeben
+   * - Formularinhalte über verschiedene Feldtypen bearbeiten
+   *
+   * Änderungen werden lokal im `localStorage` gespeichert, um eine persistente Formularbearbeitung zu ermöglichen.
+   *
+   * @component
+   * @param {Object} props - Die Props für CreateForm
+   * @param {Object} props.dict - Übersetzungsobjekt mit Labels und Beschreibungen
+   * @param {Object} props.data - Das Template-Datenobjekt mit dynamisch renderbaren Typen
+   * @param {string} props.template - Der Template-Identifier
+   * @param {string} props.contentID - Die ID des zu bearbeitenden Inhalts; `"0"` oder `undefined` für Neuerstellung
+   * @param {string} props.vereinID - Die ID des Vereins (für Ordnerstruktur bei Dateiuploads)
+   * @param {string} props.VereinTags - JSON-kodierte Liste aller verfügbaren Tags
+   * @param {Array<string>} props.selectedTags - Vom Benutzer bereits ausgewählte Tags
+   * @param {Array<string>} props.author - Liste der Autoren
+   * @param {string} props.title - Der ursprüngliche Titel des Contents
+   * @param {boolean} props.duplicate - Gibt an, ob es sich um eine Duplikation des Inhalts handelt
+   *
+   * @returns {JSX.Element} Das gerenderte Formular zur Content-Erstellung oder -Bearbeitung
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -60,7 +93,6 @@ export default function CreateForm({
     let result = null;
     try {
       if (contentID === "0" || contentID === undefined || duplicate) {
-        console.log("Creating new content with template:", template);
         result = await createContent(
           storage,
           template,
@@ -78,15 +110,10 @@ export default function CreateForm({
           titleUpdate
         );
       }
-      console.log("Submit result:", result);
       const neueId = result?.data?.[0]?.id;
       if (neueId) {
-        console.log("refresh page");
         router.push(`/create?template=${template}&content=${neueId}`);
       }
-
-      // TODO: result.data[0].id in url papram unter content ersetzen
-      //TODO: setLoaded modal mit der richitgen nachricht ausgeben!
     } catch (error) {
       console.error("Fehler beim Submit:", error);
     } finally {
@@ -104,7 +131,6 @@ export default function CreateForm({
     if (!currentData || !currentData[index]) return;
 
     if (currentData[index].type === "gallery" && imageIndex !== null) {
-      // Stelle sicher, dass value ein Array ist
       if (!Array.isArray(currentData[index].value)) {
         currentData[index].value = [];
       }
@@ -119,11 +145,10 @@ export default function CreateForm({
   };
 
   const handleCheckboxChange = (tag) => {
-    setTags(
-      (prevTags) =>
-        prevTags.includes(tag)
-          ? prevTags.filter((t) => t !== tag) // remove if already selected
-          : [...prevTags, tag] // add if not selected
+    setTags((prevTags) =>
+      prevTags.includes(tag)
+        ? prevTags.filter((t) => t !== tag)
+        : [...prevTags, tag]
     );
   };
 
@@ -288,7 +313,6 @@ export default function CreateForm({
               } else if (typ.type === "grafic") {
                 return (
                   <div key={index}>
-                    This is a type grafic!
                     <Checkbox
                       fieldID="grafic_checkbox"
                       Textvalue={typ.value || ""}
@@ -511,7 +535,7 @@ export default function CreateForm({
               } else {
                 return (
                   <div key={typ.type + "_" + index}>
-                    Type: {JSON.stringify(typ)}
+                    {dict.generell.notImplemented}
                   </div>
                 );
               }

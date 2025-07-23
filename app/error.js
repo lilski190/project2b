@@ -1,12 +1,15 @@
-"use client"; // wichtig! Muss ein Client Component sein
+"use client";
 
 import { useEffect } from "react";
 
 /**
  * Error-Komponente für die Fehlerbehandlung in der Anwendung.
- * Diese Komponente wird angezeigt, wenn ein unerwarteter Fehler auftritt.
- * Sie zeigt eine Fehlermeldung an und bietet die Möglichkeit, die Seite neu zu laden.
- * Die Komponente kommt von einem Default Setup Projekt das ich für Next.js Projektes mit Supabase aufgesetzt habe.
+ * Wird angezeigt, wenn ein unerwarteter Fehler auftritt.
+ * Zeigt eine Fehlermeldung an und bietet einen Button zum Neuladen der Seite.
+ *
+ * @param {object} props
+ * @param {Error} props.error - Das Error-Objekt, das gefangen wurde.
+ * @param {() => void} props.reset - Funktion zum Zurücksetzen des Error-States (z.B. Seite neu laden).
  */
 export default function Error({ error, reset }) {
   useEffect(() => {
@@ -15,9 +18,7 @@ export default function Error({ error, reset }) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
-      <h1 className="text-3xl font-bold">
-        😵 Upps! Ein Fehler ist aufgetreten
-      </h1>
+      <h1 className="text-3xl font-bold">Ein Fehler ist aufgetreten</h1>
       <p className="mt-2 text-gray-600">Etwas ist schiefgelaufen.</p>
 
       <button

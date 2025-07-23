@@ -2,6 +2,22 @@
 import { useEffect, useState } from "react";
 import { BASEURL } from "@/lib/globals";
 
+/**
+ * VereinTopper Komponent
+ *
+ * Zeigt eine stilisierte Kopfzeile (Banner) mit Vereins- und Mitgliedsinformationen an.
+ * Das Design passt sich dynamisch an, basierend auf einem Styleguide-Objekt aus dem lokalen Speicher.
+ * Wird kein Styleguide gefunden, wird ein Standard-Layout mit übergebenen Props verwendet.
+ *
+ * @param {Object} props
+ * @param {string} props.memberName - Name des Mitglieds, das angezeigt wird.
+ * @param {string} props.vereinName - Name des Vereins, der angezeigt wird.
+ * @param {string} props.vereinText - Text vor dem Vereinsnamen (z.B. "Willkommen bei").
+ * @param {string} props.memberText - Text vor dem Mitgliedsnamen (z.B. "Mitglied:").
+ * @param {string} props.bgColor - Hintergrundfarbe für den SVG-Farbverlauf.
+ *
+ * @returns {JSX.Element} JSX-Element mit der stilisierten Kopfzeile.
+ */
 export default function VereinTopper({
   memberName,
   vereinName,
@@ -25,9 +41,7 @@ export default function VereinTopper({
 
   if (!style) {
     return (
-      // Optional: Zeige ein Fallback-UI oder nichts, bis style geladen ist
       <div className="relative bg-primary text-primary-content px-6 py-13  w-full overflow-hidden h-96">
-        {/* Content */}
         <div className="flex justify-between">
           <div className="w-full ">
             <div className={` headline w-3/4`}>
@@ -39,7 +53,6 @@ export default function VereinTopper({
           </div>
           <div className="w-36 aspect-square rounded-full"></div>
         </div>
-        {/* SVG als Welle am unteren Rand */}
         <svg
           className="absolute bottom-0 left-0 w-full h-auto z-0 -mt-24"
           xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +60,8 @@ export default function VereinTopper({
           preserveAspectRatio="none"
         >
           <path
-            fill={bgColor} // oder "currentColor" wenn du willst, dass es gleiche Textfarbe übernimmt
-            fillOpacity="1" // Transparenz hier feinjustieren
+            fill={bgColor}
+            fillOpacity="1"
             d="M0,224L60,197.3C120,171,240,117,360,122.7C480,128,600,192,720,192C840,192,960,128,1080,96C1200,64,1320,64,1380,64L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           ></path>
         </svg>
@@ -66,7 +79,6 @@ export default function VereinTopper({
         color: style[0]?.colors?.text_01 || "white",
       }}
     >
-      {/* Content */}
       <div className="flex justify-between h-96">
         <div className="w-full ">
           <div
@@ -91,8 +103,6 @@ export default function VereinTopper({
           />
         </div>
       </div>
-
-      {/* SVG als Welle am unteren Rand */}
       <svg
         className="absolute bottom-0 left-0 w-full h-auto z-0 -mt-24 "
         xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +110,8 @@ export default function VereinTopper({
         preserveAspectRatio="none"
       >
         <path
-          fill={bgColor} // oder "currentColor" wenn du willst, dass es gleiche Textfarbe übernimmt
-          fillOpacity="1" // Transparenz hier feinjustieren
+          fill={bgColor}
+          fillOpacity="1"
           d="M0,224L60,197.3C120,171,240,117,360,122.7C480,128,600,192,720,192C840,192,960,128,1080,96C1200,64,1320,64,1380,64L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
         ></path>
       </svg>

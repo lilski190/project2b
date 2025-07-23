@@ -1,11 +1,40 @@
+/**
+ * @fileoverview TextLayerComponent ist eine React-Komponente,
+ * die die visuelle Gestaltung eines Textelements ermöglicht.
+ * Sie erlaubt es Nutzer:innen, Farbe, Breite, Deckkraft und Position des Textes
+ * interaktiv über UI-Elemente zu konfigurieren.
+ *
+ * Die Konfiguration wird über einen `layer`-State als Array verwaltet:
+ * - `layer[0]`: Farbe (Hex)
+ * - `layer[1]`: Deckkraft (z. B. "60%")
+ * - `layer[2]`: Breite (z. B. "60%")
+ * - `layer[4]`: Position (Array aus [justifyContent, alignItems])
+ *
+ * @module TextLayerComponent
+ */
 "use client";
 
 import React, { useState } from "react";
 
+/**
+ * TextLayerComponent
+ *
+ * @param {Object} props - Props für die Komponente
+ * @param {string} props.fieldID - Eindeutige ID, die für Input-Namen verwendet wird (wichtig für Formular-Handling)
+ * @param {Array} props.Textvalue - Optionaler Initialwert für das Text-Layer (z. B. ["#000000", "60%", "50%", ["center", "center"]])
+ * @param {Function} props.onChange - Callback, der bei Änderungen aufgerufen wird und die neuen Layer-Werte zurückliefert
+ * @param {Array<string>} props.options - Wird nicht direkt verwendet, aber zur Konsistenz mit anderen Layer-Komponenten übergeben
+ *
+ * @returns {JSX.Element} - Eine UI-Komponente zur Anpassung von Textstil-Attributen
+ */
 const TextLayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
   const [layer, setLayer] = useState(
     Textvalue ? Textvalue : ["black", "60%", ["center", "center"]]
   );
+  /**
+   * Lese Styleguide aus dem localStorage (keine Errorbehandlung bei ungültigem JSON!)
+   * @type {Object}
+   */
   let styleguide = JSON.parse(localStorage.getItem("Styleguide"));
 
   const extendedColors = {
@@ -14,6 +43,10 @@ const TextLayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     white: "#FFFFFF",
   };
 
+  /**
+   * Vordefinierte Breitenwerte
+   * @type {Array<string>}
+   */
   const sizes = [
     "20%",
     "30%",
@@ -38,8 +71,12 @@ const TextLayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     ["flex-end", "flex-end"],
   ];
 
+  /**
+   * Verarbeitet Änderungen an einem der Eingabefelder
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Input-Änderungsereignis
+   */
   const handleChange = (e) => {
-    console.log("handle Cange", e.target.name);
     let lay = [...layer];
     if (e.target.name == "bg") {
       lay[0] = e.target.value;
@@ -50,9 +87,7 @@ const TextLayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
     } else if (e.target.name == "sizeW") {
       lay[3] = e.target.value;
     } else if (e.target.name == "posLayer") {
-      console.log("positions", e.target.value);
       const [justify, align] = e.target.value.split(",");
-      console.log("jusifys", justify, align);
       lay[4] = [justify, align];
     }
     setLayer(lay);
@@ -65,14 +100,6 @@ const TextLayerComponent = ({ fieldID, Textvalue, onChange, options }) => {
       });
     }
   };
-
-  console.log("optons", options);
-
-  function percentToHexAlpha(percent) {
-    const decimal = Math.round((percent / 100) * 255);
-    const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
-    return hex;
-  }
 
   return (
     <div className="p-3 bg-white/20">

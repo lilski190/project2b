@@ -2,6 +2,16 @@
 
 import React, { useState } from "react";
 
+/**
+ * TextArea-Komponente (eigtl. TextInput) mit kontrolliertem Zustand.
+ *
+ * @param {Object} props
+ * @param {string} props.fieldID - ID und Name des Input-Felds.
+ * @param {string} [props.Textvalue] - Initialer Textwert.
+ * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} [props.onChange] - Callback bei Änderung des Textes.
+ *
+ * @returns {JSX.Element} Ein einzeiliges Texteingabefeld.
+ */
 const TextArea = ({ fieldID, Textvalue, onChange }) => {
   const [text, setText] = useState(Textvalue ? Textvalue : "");
 

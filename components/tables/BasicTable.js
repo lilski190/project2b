@@ -3,6 +3,25 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { ICONS } from "@/lib/globals";
 
+/**
+ * BasicTable-Komponente zum Anzeigen und Filtern einer sortierbaren Tabelle.
+ *
+ * @param {Object} props
+ * @param {string[]} props.headlines - Array mit Überschriften der Tabelle.
+ * @param {Object[]} props.content - Array von Objekten, die die Tabellendaten enthalten.
+ *   Jedes Objekt kann folgende Felder enthalten:
+ *   - id: string | number, eindeutige ID der Zeile
+ *   - title: string, Titel der Zeile
+ *   - last_update: string (Datum im ISO-Format)
+ *   - author: string[], Autoren der Zeile
+ *   - tags: string[], Tags der Zeile
+ *   - template: string, Template-Name
+ *   - weitere Schlüssel entsprechend `colKeys`
+ * @param {string[]} [props.filter] - Array aller möglichen Tags zum Filtern.
+ * @param {string[]} props.colKeys - Array mit Schlüsseln der Tabellenspalten, passend zu `headlines`.
+ *
+ * @returns {JSX.Element} Gerenderte Tabelle mit Sortier- und Filterfunktion.
+ */
 const BasicTable = ({ headlines, content, filter, colKeys }) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [activeTags, setActiveTags] = useState([]);
@@ -11,7 +30,6 @@ const BasicTable = ({ headlines, content, filter, colKeys }) => {
   const columnKeys = colKeys;
   const allTags = filter || [];
 
-  // Autoren aus allen Rows extrahieren
   const uniqueAuthors = useMemo(() => {
     const authors = new Set();
     content.forEach((row) => {

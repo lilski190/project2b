@@ -2,8 +2,24 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient"; // Stelle sicher, dass du den Supabase-Client importierst
+import { supabase } from "@/lib/supabaseClient";
 
+/**
+ * TextureUpload-Komponente zum Hochladen und Anzeigen von Texturen.
+ * Unterstützt Drag & Drop, Dateiauswahl und Upload mit Supabase Storage.
+ *
+ * @param {Object} props
+ * @param {(url: string) => void} [props.onFileUploaded] - Callback mit der öffentlichen URL der hochgeladenen Datei.
+ * @param {Object} [props.dict] - Übersetzungsobjekt für UI-Texte (z.B. buttonText, modalTitle).
+ * @param {string} props.fieldID - ID und Name für Input-Elemente.
+ * @param {string|boolean} props.url - Anfangs-URL der Datei oder false wenn keine.
+ * @param {string} props.BASEURL - Basis-URL der Supabase Storage Instanz.
+ * @param {string} props.folderID - Pfad/Ordner in Supabase Storage, in den hochgeladen wird.
+ * @param {string} props.bucket - Bucket-Name im Supabase Storage.
+ * @param {string} [props.imgAlt] - Alt-Text für das Bild.
+ *
+ * @returns {JSX.Element} Die Upload-Komponente mit Vorschau, Drag&Drop und modaler Bestätigung.
+ */
 export default function TextureUpload({
   onFileUploaded,
   dict,
@@ -18,7 +34,7 @@ export default function TextureUpload({
   const [dragActive, setDragActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [urlPath, setUrlPath] = useState(url !== false ? url : false); // Setze einen Standardwert für den URL-Pfad
+  const [urlPath, setUrlPath] = useState(url !== false ? url : false);
 
   let baseURL = BASEURL + bucket + "/";
 
@@ -28,7 +44,7 @@ export default function TextureUpload({
     if (fileList && fileList[0]) {
       const file = fileList[0];
       setSelectedFile(file);
-      setModalOpen(true); // Modal öffnen
+      setModalOpen(true);
     }
   };
 
@@ -54,15 +70,11 @@ export default function TextureUpload({
     setUploading(true);
 
     const filePath = `${folderID}/${Date.now()}_${selectedFile.name}`;
-    console.log("Uploading file to:", filePath);
-
     const { data, error } = await supabase.storage
-      .from(bucket) // <-- passe den Bucket-Namen an
+      .from(bucket)
       .upload(filePath, selectedFile);
-
-    console.log("Upload result:", data, error);
     if (data.path) {
-      setUrlPath(data.path); // Setze den URL-Pfad für die Vorschau
+      setUrlPath(data.path);
     }
     setUploading(false);
 
@@ -78,8 +90,8 @@ export default function TextureUpload({
         onFileUploaded(urlData.publicUrl);
       }
 
-      setModalOpen(false); // Modal schließen
-      setSelectedFile(null); // Datei zurücksetzen
+      setModalOpen(false);
+      setSelectedFile(null);
     }
   };
 
@@ -114,18 +126,14 @@ export default function TextureUpload({
 
           {!urlPath || url == false ? (
             <Image
-              src={
-                BASEURL + "basic/illustration/FileUpload.jpg" // Verwende den Basis-URL und den Pfad
-              }
+              src={BASEURL + "basic/illustration/FileUpload.jpg"}
               fill
               alt={imgAlt || "File Upload"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
             />
           ) : (
             <Image
-              src={
-                baseURL + urlPath // Verwende den Basis-URL und den Pfad
-              }
+              src={baseURL + urlPath}
               fill
               alt={imgAlt || "Texture"}
               className={`rounded-sm ${dragActive ? "opacity-40" : ""}`}
@@ -142,7 +150,7 @@ export default function TextureUpload({
           </button>
         </div>
       </div>
-      {/* Modal */}
+
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-lg p-6 w-96 shadow-lg">

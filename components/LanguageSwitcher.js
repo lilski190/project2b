@@ -3,17 +3,29 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 /**
- * LanguageSwitch Komponent
- * Dieser Komponent ist ein checkbarer Dropdown-Button, der es dem Benutzer ermöglicht, die Sprache der Anwendung zu ändern.
- * Das Styling erfolgt über Tailwind CSS-Klassen und DaisyUI-Klassen.
- * Bei einem Klick auf den Button wird die Sprache geändert und die Seite wird neu geladen mit einer neuen URL.
- * Die Sprachen sind Deutsch (de) und Englisch (en) und .
- * Die aktuelle Sprache wird aus der URL abgeleitet.
+ * LanguageSwitcher-Komponente
+ *
+ * Eine React-Komponente für die clientseitige Sprachumschaltung über ein Dropdown-Menü.
+ * Sie analysiert die aktuelle URL, erkennt die aktuelle Sprache und ermöglicht dem Benutzer,
+ * per Klick auf eine andere Sprache zu wechseln. Die URL wird entsprechend angepasst und
+ * die Navigation erfolgt über Next.js `router.push`.
+ *
+ * Unterstützte Sprachen:
+ * - Deutsch (`de`)
+ * - Englisch (`en`)
+ * - Leichte Sprache (`deLS`)
+ *
+ * Die Komponente ist mit Tailwind CSS und DaisyUI gestylt.
+ *
+ * @returns {JSX.Element} Ein Dropdown-Menü zur Auswahl der Sprache.
+ *
+ * @example
+ * <LanguageSwitcher />
  */
 export default function LanguageSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams(); // ← neu
+  const searchParams = useSearchParams();
 
   const currentLang = pathname.split("/")[1] || "de";
 

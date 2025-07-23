@@ -2,6 +2,17 @@
 
 import React, { useState } from "react";
 
+/**
+ * RadioButton-Komponente zum Rendern einer Gruppe von Radio-Buttons.
+ *
+ * @param {Object} props
+ * @param {string} props.fieldID - Name und ID für die Radio-Gruppe.
+ * @param {string} [props.Textvalue] - Standardmäßig ausgewählter Wert.
+ * @param {function(Event): void} [props.onChange] - Callback bei Änderung der Auswahl.
+ * @param {string[]} props.options - Array von Options-Strings für die Radio-Buttons.
+ *
+ * @returns {JSX.Element} Gruppe von Radio-Buttons mit Labels.
+ */
 const RadioButton = ({ fieldID, Textvalue, onChange, options }) => {
   const [text, setText] = useState(Textvalue ? Textvalue : "");
 
@@ -11,8 +22,6 @@ const RadioButton = ({ fieldID, Textvalue, onChange, options }) => {
       onChange(e);
     }
   };
-
-  console.log("optons", options);
 
   return (
     <div className="">

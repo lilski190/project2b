@@ -4,22 +4,27 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 const SUPPORTED_LANGUAGES = ["de", "en", "deLS"];
 
 /**
- * Middleware für die Anwendung
- * Diese Middleware überprüft die Sprache in der URL und leitet den Benutzer entsprechend weiter.
- * Sie schützt auch private Routen und leitet den Benutzer zu den Anmeldeseiten weiter, wenn er nicht angemeldet ist.
- * Supabase wird verwendet, um den Authentifizierungsstatus des Benutzers zu überprüfen.
- * Es gibt drei Arten von Routen:
- * - Public Routes: Diese Routen sind für alle Benutzer sichtbar und erfordern keine Anmeldung.
- * - Protected Routes: Diese Routen sind nur für angemeldete Benutzer sichtbar.
- *  - Auth Routes: Diese Routen sind für nicht angemeldete Benutzer sichtbar und leiten sie zur Anmeldung weiter.
- * @param {Request} req - Der eingehende Request
+ * Middleware zur Sprachvalidierung und Authentifizierung in der Next.js-Anwendung.
+ *
+ * Diese Middleware überprüft die Sprache im URL-Pfad und sorgt dafür,
+ * dass alle URLs mit einer unterstützten Sprache beginnen (Standard: `de`).
+ * Sie implementiert außerdem eine Zugriffssteuerung:
+ * - Öffentliche Routen sind für alle zugänglich.
+ * - Geschützte Routen erfordern eine gültige Benutzersitzung (Anmeldung).
+ * - Auth-Routen sind nur für nicht angemeldete Benutzer zugänglich (z. B. Login).
+ *
+ * Die Authentifizierung wird über Supabase geprüft.
+ * Bei fehlender Anmeldung erfolgt eine Weiterleitung auf die Login-Seite.
+ * Angemeldete Benutzer werden von der Login-Seite zum Dashboard weitergeleitet.
+ *
+ * @param {Request} req - Der eingehende HTTP-Request, inklusive URL und Headern.
+ * @returns {NextResponse} Antwort der Middleware mit Weiterleitung oder Freigabe.
  */
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
-  const pathSegments = pathname.split("/").filter(Boolean); // z.B. ['de', 'login']
+  const pathSegments = pathname.split("/").filter(Boolean);
   const langInPath = pathSegments[0];
 
-  // Wenn Sprache in der URL fehlt oder ungültig → redirect mit Default (de)
   if (!SUPPORTED_LANGUAGES.includes(langInPath)) {
     const newUrl = new URL(`/de${pathname}`, req.url);
     newUrl.search = req.nextUrl.search;

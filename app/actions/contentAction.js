@@ -3,15 +3,15 @@ import { supabase } from "@/lib/supabaseClient";
 import { cookies } from "next/headers";
 
 /**
- * Get-Action für den Styleguide für den Verein.
- * Aktuell mit Dummy-Daten.
-
+ * Holt spezifischen Content eines Vereins anhand der Content-ID.
+ * Die Verein-ID wird aus dem Cookie gelesen und als Filter genutzt.
+ *
+ * @param {string|number} id - Die ID des Contents, der geladen werden soll.
+ * @returns {Promise<{data?: object[], error?: string}>} Enthält die Content-Daten oder eine Fehlermeldung.
  */
 export async function getSpecificContentAction(id) {
-  console.log("Daten für den einen Content laden!");
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
-  console.log("Verein ID aus Cookie:", vereinId);
   if (!vereinId) {
     console.error("Keine Verein-ID im Cookie gefunden.");
     return { error: "Nicht autorisiert" };
@@ -27,11 +27,21 @@ export async function getSpecificContentAction(id) {
     console.error("Fehler beim Laden des Conetns:", error);
     return { error: "Kein content gefunden." };
   }
-  console.log("Contnetn geladen:", data);
-
   return { data };
 }
 
+/**
+ * Aktualisiert vorhandenen Vereinscontent.
+ * Die Verein-ID wird aus dem Cookie ermittelt und dient als Filter.
+ *
+ * @param {object} formData - Die neuen Content-Daten (z.B. JSON oder Text).
+ * @param {string} template - Das Template, das für den Content verwendet wird.
+ * @param {string|number} contentID - Die ID des zu aktualisierenden Contents.
+ * @param {string} author - Der Autor des Contents.
+ * @param {string[]} tags - Tags zum Content.
+ * @param {string} title - Titel des Contents.
+ * @returns {Promise<{res?: string, error?: string}>} Erfolgsmeldung oder Fehler.
+ */
 export async function updateContent(
   formData,
   template,
@@ -40,10 +50,8 @@ export async function updateContent(
   tags,
   title
 ) {
-  console.log("Daten für den Content updaten!", formData);
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
-  console.log("Verein ID aus Cookie:", vereinId);
 
   if (!vereinId) {
     console.error("Keine Verein-ID im Cookie gefunden.");
@@ -69,15 +77,23 @@ export async function updateContent(
   }
 
   let res = "success";
-  console.log("Content erfolgreich gespeichert!");
   return { res };
 }
 
+/**
+ * Erstellt neuen Vereinscontent und speichert ihn in der Datenbank.
+ * Die Verein-ID wird aus dem Cookie ermittelt und dem Content zugeordnet.
+ *
+ * @param {object} formData - Der Content, der gespeichert werden soll.
+ * @param {string} template - Das Template, das verwendet wird.
+ * @param {string} author - Autor des Contents.
+ * @param {string[]} tags - Tags zum Content.
+ * @param {string} title - Titel des Contents.
+ * @returns {Promise<{data?: object, error?: string}>} Enthält den neuen Datensatz oder Fehler.
+ */
 export async function createContent(formData, template, author, tags, title) {
-  console.log("Neuen Content erstellen!", formData);
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
-  console.log("Verein ID aus Cookie:", vereinId);
 
   if (!vereinId) {
     console.error("Keine Verein-ID im Cookie gefunden.");
@@ -94,7 +110,7 @@ export async function createContent(formData, template, author, tags, title) {
         create_at: new Date().toISOString(),
         last_update: new Date().toISOString(),
         author: author || "[]",
-        tags: tags || "[]", // sicherstellen, dass tags ein Array ist
+        tags: tags || "[]",
         title: title || "",
       },
     ])
@@ -105,10 +121,15 @@ export async function createContent(formData, template, author, tags, title) {
     return { error: "Fehler beim Erstellen" };
   }
 
-  console.log("Content erfolgreich erstellt!", data);
   return { data };
 }
 
+/**
+ * Lädt alle Content-Einträge des Vereins aus der Datenbank.
+ * Die Verein-ID wird aus dem Cookie ermittelt.
+ *
+ * @returns {Promise<{data?: object[], error?: string}>} Alle Content-Datensätze oder Fehler.
+ */
 export async function loadAllContent() {
   const cookieStore = await cookies();
   const vereinId = cookieStore.get("verein_id")?.value;
@@ -120,13 +141,13 @@ export async function loadAllContent() {
 
   const { data, error } = await supabase
     .from("Content")
-    .select("*") // du kannst hier auch gezielt Spalten wählen: "id, template, last_update"
-    .eq("verein_id", vereinId); // optional: nur Content für diesen Verein laden
+    .select("*")
+    .eq("verein_id", vereinId);
 
   if (error) {
     console.error("Fehler beim Laden des Contents:", error);
     return { error: "Fehler beim Laden" };
   }
 
-  return { data }; // data ist ein Array mit allen Datensätzen
+  return { data };
 }

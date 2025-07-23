@@ -1,11 +1,29 @@
 import { getDictionary } from "@/lib/getDictionary";
 
 /**
- * Impressum Seite der Anwendung.
- * Diese Seite ist eine Public Seite und kann von jedem Benutzer aufgerufen werden.
- * Notwendinge Kontaktinformationen und rechtliche Hinweise.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Die Seite wird server-seitig gerendert und die Daten werden über die Funktion getDictionary geladen.
+ * `ImpressumPage` ist eine öffentlich zugängliche Seite, die die gesetzlich vorgeschriebenen
+ * Kontakt- und Haftungshinweise der Anwendung bereitstellt.
+ *
+ * Diese Seite ist **nicht geschützt** und kann von allen Benutzern ohne Login aufgerufen werden.
+ *
+ * Die Inhalte (wie Name, Adresse, E-Mail, rechtliche Hinweise, Ressourcen) werden über
+ * das Sprach-Wörterbuch `dict` bereitgestellt, das serverseitig durch `getDictionary(lang)` geladen wird.
+ *
+ * Die Sprache wird über den URL-Parameter `lang` bestimmt. Falls nicht angegeben, wird `"de"` als Standard verwendet.
+ *
+ * Abschnitte auf der Seite:
+ * - Verantwortliche Person/Institution
+ * - Kontaktinformationen
+ * - Haftungsausschluss
+ * - Hinweise zu verwendeten externen Ressourcen (z. B. Icons, Fonts, UI-Libraries)
+ *
+ * @async
+ * @function ImpressumPage
+ * @param {Object} props - Serverseitige Parameter für die Seite
+ * @param {Object} props.params - URL-Parameter-Objekt
+ * @param {string} props.params.lang - Sprachcode, z. B. `"de"` oder `"en"` (optional)
+ *
+ * @returns {Promise<JSX.Element>} Die gerenderte Impressum-Seite als React-Komponente
  */
 export default async function ImpressumPage({ params }) {
   const param = await params;

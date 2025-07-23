@@ -4,8 +4,24 @@ import { useState } from "react";
 import FontSelector from "../input/fontSelector";
 
 /**
- * FontSelectors Komponent
- * Hier kommen versteckte inputfields für die Farben rein
+ * FontSelectors Component
+ *
+ * Dieses Component bietet zwei FontSelector Inputs für die Auswahl der Schriftfamilien
+ * von Überschriften (headline) und Fließtext (body). Die gewählten Schriftarten werden
+ * im State gehalten und als Live-Vorschau angezeigt.
+ *
+ * @param {Object} props - Die Eigenschaften des Components.
+ * @param {Object} props.dict - Ein Wörterbuch mit Texten für die UI.
+ * @param {string} props.dict.headline - Bezeichnung für die Überschriften-Font-Auswahl.
+ * @param {string} props.dict.body - Bezeichnung für die Fließtext-Font-Auswahl.
+ * @param {string} props.dict.preview - Text für die Vorschau.
+ * @param {Object} props.fonts - Objekt mit den initialen Fonts.
+ * @param {Object} props.fonts.heading - Objekt mit der Schriftart für Überschriften.
+ * @param {string} props.fonts.heading.font_family - Name der Schriftfamilie der Überschrift.
+ * @param {Object} props.fonts.body - Objekt mit der Schriftart für Fließtext.
+ * @param {string} props.fonts.body.font_family - Name der Schriftfamilie des Fließtexts.
+ *
+ * @returns {JSX.Element} Das gerenderte FontSelectors Component.
  */
 const FontSelectors = ({ dict, fonts }) => {
   const [fontClassHeadline, setFontClassHeadline] = useState(

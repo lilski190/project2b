@@ -1,5 +1,5 @@
 /**
- * Überschrift und Text
+ * Noch nicht implementierte Componente: Überschrift und Text
  */
 export default function ImageWithGraphic() {
   return (

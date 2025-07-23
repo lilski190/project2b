@@ -1,5 +1,5 @@
 /**
- * Grafik mit  Bild und Text
+ * Noch nicht implementierte Componente: Grafik mit  Bild und Text
  */
 export default function GraphicWithImageAndText() {
   return (

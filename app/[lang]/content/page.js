@@ -7,14 +7,32 @@ import { loadAllContent } from "@/app/actions/contentAction";
 import { cookies } from "next/headers";
 
 /**
- * Styleguide Seite der Anwendung.
- * Diese Seite ist eine Private Seite die nur für angemeldete Benutzer sichtbar ist.
- * Nach dem Login wird der Benutzer auf diese Seite weitergeleitet.
- * Sie ist durch die Middleware geschützt.
- * Der Benutzer wird über die Funktion getUserAction geladen.
- * Die Sprache wird über den URL-Parameter "lang" bestimmt.
- * Hier ist die Liste von dem erstellten Content der Vereine.
- * Die Seite wird server-seitig gerendert und die Daten zu der Sprache werden über die Funktion getDictionary geladen.
+ * `ContentPage` ist eine serverseitig gerenderte, geschützte Seite zur Anzeige der Inhalte (Content) eines Vereins.
+ *
+ * Diese Seite ist **privat** und nur für angemeldete Benutzer zugänglich – der Zugriff wird durch Middleware und einen
+ * serverseitigen Authentifizierungscheck (`getUserAction`) abgesichert.
+ *
+ * Die Sprache der Seite wird über den URL-Parameter `lang` bestimmt. Standard ist `"de"`.
+ * Die sprachspezifischen Texte werden mittels `getDictionary(lang)` geladen.
+ *
+ * Vereins-Tags werden aus den Cookies geladen (`verein_tags`) und als Filter an die Tabelle weitergegeben.
+ * Die Inhalte selbst werden über den Server-Action `loadAllContent()` geladen und an die `BasicTable`-Komponente übergeben.
+ *
+ * Die `BasicTable` erhält folgende Props:
+ * - `headlines`: Spaltentitel, sprachabhängig
+ * - `content`: Datenarray (Content-Einträge)
+ * - `filter`: Filterbare Vereins-Tags (aus Cookies)
+ * - `colKeys`: Schlüssel für die Tabellenspalten (z. B. `"id"`, `"title"`, `"tags"`, etc.)
+ *
+ * Wenn kein Benutzer authentifiziert ist, erfolgt ein Redirect zur Login-Seite.
+ *
+ * @async
+ * @function ContentPage
+ * @param {Object} props - Serverseitige Props
+ * @param {Object} props.params - URL-Parameter-Objekt
+ * @param {string} props.params.lang - Sprachcode (z. B. `"de"`, `"en"`); `"de"` ist Standardwert
+ *
+ * @returns {Promise<JSX.Element>} Das gerenderte JSX für die geschützte Content-Liste
  */
 export default async function ContentPage({ params }) {
   const user = await getUserAction();
@@ -29,7 +47,6 @@ export default async function ContentPage({ params }) {
   const data = await loadAllContent();
   const contentArray = data?.data;
 
-  console.log("loades Array", contentArray);
   if (!user) {
     redirect("/login");
   }

@@ -1,3 +1,12 @@
+/**
+ * @file ImageWithText.jsx
+ * @description
+ * Eine clientseitige React-Komponente zum Rendern eines exportierbaren visuellen Layouts,
+ * bestehend aus einem Hintergrundbild, einem Text-Overlay und optional einem Logo.
+ * Unterstützt verschiedene Ausgabeformate wie PNG, PDF und HTML für z. B. Instagram, DINA6 oder Web.
+ *
+ * @module ImageWithText
+ */
 "use client";
 import Image from "next/image";
 import { BASEURL } from "@/lib/globals";
@@ -5,12 +14,24 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 
+/**
+ * ImageWithText Komponente
+ *
+ * @param {Object} props - Komponenten-Props
+ * @param {Object} props.previewData - Strukturierte Inhalte mit Bild, Text, Logo und Layer-Infos
+ * @param {Object} props.options - Exportoptionen, z. B. Maße für Web, Instagram oder PDF
+ *
+ * @example
+ * <ImageWithText previewData={previewData} options={{ web: { width: 800, height: 600 } }} />
+ *
+ * @returns {JSX.Element} Die exportierbare Bild-Komponente mit Text- und Logolayern
+ */
 export default function ImageWithText({ previewData, options }) {
-  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]); // Erstes Tab aktiv
+  const [activeTab, setActiveTab] = useState(Object.keys(options || {})[0]);
   const [localImgUrl, setLocalImgUrl] = useState(null);
   const [localLogoUrl, setLocalLogoUrl] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [headfont, setHeadfont] = useState("font-orbitron"); // Neuer State für Font-Daten
+  const [headfont, setHeadfont] = useState("font-orbitron");
 
   let imgURL;
   let text;
@@ -41,6 +62,12 @@ export default function ImageWithText({ previewData, options }) {
     logoStyle = previewData?.types?.find((item) => item.type === "logo")?.value;
   }
 
+  /**
+   * Lädt ein Bild von einer URL und konvertiert es in eine base64-DataURL.
+   *
+   * @param {string} url - Die URL des Bildes
+   * @returns {Promise<string|null>} DataURL oder null bei Fehler
+   */
   async function getImageAsBase64(url) {
     try {
       const response = await fetch(url);
@@ -72,7 +99,6 @@ export default function ImageWithText({ previewData, options }) {
         try {
           const style = JSON.parse(styleRaw);
           const fonts = style[0]?.fonts;
-          console.log("fonts", fonts);
           if (fonts?.heading) {
             setHeadfont(fonts.heading);
           }
@@ -83,37 +109,34 @@ export default function ImageWithText({ previewData, options }) {
     }
   }, [imgURL, logoUrl]);
 
+  /**
+   * Konvertiert einen Prozentwert (0–100) in einen hexadezimalen Alpha-Wert.
+   *
+   * @param {number} percent - Prozentwert (Transparenz)
+   * @returns {string} Alpha-Wert im HEX-Format (z. B. "FF" für 100 %)
+   */
   function percentToHexAlpha(percent) {
     const decimal = Math.round((percent / 100) * 255);
     const hex = decimal.toString(16).padStart(2, "0").toUpperCase();
     return hex;
   }
-  //layerData = ["black", "30", "full", "end", "left"];
 
   if (layerData != undefined) {
-    console.log("Layers", layerData[4]);
-    // const [justify, align] = layerData[4].split(",");
-    console.log("align", layerData[4][1], "justify", layerData[4][0]);
-    // layer = `bg-${layerData[0]}/${Number(layerData[1])} h-30 w-30`;
-    // layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]}`;
     layer = {
       backgroundColor: layerData[0] + percentToHexAlpha(parseInt(layerData[1])),
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      height: layerData[2], // h-30 ≈ 30 * 0.25rem
-      width: layerData[3], // w-30
+      height: layerData[2],
+      width: layerData[3],
 
-      fontSize: "1.5rem", // text-2xl
+      fontSize: "1.5rem",
       fontWeight: "bold",
       position: "absolute",
       display: "flex",
-      //   Child alligment:
       alignItems: textLayer[1][1],
       justifyContent: textLayer[1][0],
     };
     layerPosition = {
       position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
+      inset: 0,
       display: "flex",
       alignItems: layerData[4][1],
       justifyContent: layerData[4][0],
@@ -125,26 +148,19 @@ export default function ImageWithText({ previewData, options }) {
     };
     logoPosition = {
       position: "absolute",
-      inset: 0, // shorthand for top/right/bottom/left = 0
+      inset: 0,
       display: "flex",
       alignItems: logoStyle[3][1],
       justifyContent: logoStyle[3][0],
       opacity: parseInt(logoStyle[1], 10) / 100,
     };
     logolayer = {
-      // ),
-      // Backgroungopacity: Number(layerData[1]) / 100,
-      //height: logoStyle[2], // h-30 ≈ 30 * 0.25rem
-      width: logoStyle[2], // w-30
+      width: logoStyle[2],
       aspectRatio: "1 /1",
-      // backgroundColor: "#909090",
       position: "absolute",
       display: "flex",
     };
   }
-
-  //layerPosition = `inset-0 flex items-${layerData[3]} justify-${layerData[4]} bg-primary`;
-
   logoUrl = BASEURL + "styles/" + logoStyle[0];
 
   if (logoUrl) {
@@ -153,8 +169,13 @@ export default function ImageWithText({ previewData, options }) {
     });
   }
 
+  /**
+   * Exportiert den aktuellen Layout-Bereich (`#export`) je nach gewähltem Tab:
+   * - Web: als HTML-Datei
+   * - Instagram: als PNG
+   * - DINA6/Presentation: als PDF
+   */
   const handleExport = async () => {
-    console.log("export tirggeded for: ", activeTab);
     const element = document.getElementById("export");
     const width = options[activeTab].width;
     const height = options[activeTab].height;
@@ -170,8 +191,6 @@ export default function ImageWithText({ previewData, options }) {
     const imgData = canvas.toDataURL("image/png");
 
     if (activeTab === "web") {
-      // HTML Export: evtl. statisch per Download
-
       const htmlContent = element.outerHTML;
       const blob = new Blob([htmlContent], { type: "text/html" });
       const link = document.createElement("a");
@@ -181,8 +200,7 @@ export default function ImageWithText({ previewData, options }) {
     } else if (activeTab === "instagram") {
       const link = document.createElement("a");
       link.href = imgData;
-      console.log("IMG", link.href);
-      link.download = "instagram-post.png"; // JPG wäre kleiner, PNG hat bessere Qualität
+      link.download = "instagram-post.png";
       link.click();
     } else if (activeTab === "Presentation" || activeTab === "DINA6") {
       const pdf = new jsPDF({
@@ -196,8 +214,12 @@ export default function ImageWithText({ previewData, options }) {
     }
   };
 
+  /**
+   * Ersetzt alle `oklch(...)`-CSS-Farben in einem DOM-Baum mit Fallback-RGB-Werten.
+   *
+   * @param {HTMLElement} [root=document.body] - Wurzel-Element zum Durchsuchen
+   */
   function replaceOklchColors(root = document.body) {
-    console.log("called replace colors");
     const elements = root.querySelectorAll("*");
 
     elements.forEach((el) => {
@@ -209,7 +231,6 @@ export default function ImageWithText({ previewData, options }) {
 
         if (value.includes("oklch")) {
           console.warn(`Replacing ${prop} from`, value);
-          // Beispiel: Ersetze mit neutralem RGB-Wert
           el.style[prop] = "rgb(0, 0, 0)";
         }
       });
@@ -222,7 +243,6 @@ export default function ImageWithText({ previewData, options }) {
         isCollapsed ? "collapse-open" : ""
       }`}
     >
-      {/* Toggle Button nur auf kleinen Screens sichtbar */}
       <div
         className="collapse-title font-semibold cursor-pointer hover:bg-white/10 h-16"
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -234,8 +254,6 @@ export default function ImageWithText({ previewData, options }) {
           Export: {activeTab}
         </button>
       </div>
-
-      {/* Tabs nur zeigen, wenn nicht collapsed ODER auf großen Screens */}
       <div className={`${isCollapsed ? "hidden" : ""} md:block `}>
         <div role="tablist" className="tabs tabs-lift w-full flex">
           {Object.entries(options || {}).map(([key, value]) => {
@@ -263,8 +281,8 @@ export default function ImageWithText({ previewData, options }) {
             <div
               id="export"
               style={{
-                all: "unset", // <- setzt ALLE Styles zurück (verhindert Vererbung)
-                fontFamily: "inherit", // falls du Fonts trotzdem beibehalten willst
+                all: "unset",
+                fontFamily: "inherit",
                 width: `${options[activeTab].width}px`,
                 height: `${options[activeTab].height}px`,
                 overflow: "hidden",
