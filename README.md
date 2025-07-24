@@ -54,7 +54,7 @@ Verwendete Technologien:
 - Charts.js (für Diagramme)
 - Canva2HTML (Exportfunktion)
 - Heroicons, Google Fonts, Freepik
-- Eigene Bilder & Logos (Ella & Verena)
+- Eigene Bilder & Logos
 
 ## Technische Umsetzung
 
